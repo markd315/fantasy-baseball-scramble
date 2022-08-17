@@ -1,0 +1,36 @@
+{
+  "team-name": "New York Bankers",
+  "batting-order": [
+    "Brandon Nimmo",
+    "Shohei Ohtani",
+    "Aaron Judge",
+    "Pete Alonso",
+    "Starling Marte",
+    "Ronald Acuna Jr.",
+    "Austin Riley",
+    "William Contreras",
+    "Francisco Lindor"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Joe Musgrove",
+    "Jacob deGrom",
+    "Sandy Alcantara",
+    "Corey Kluber",
+    "Nestor Cortes"
+  ],
+  "bullpen": [
+    "Logan Gilbert",
+    "Carlos Carrasco",
+    "Adam Ottavino"
+  ],
+  "closer": "Edwin Diaz",
+  "closer-min-lead-away": 0.0,
+  "closer-max-lead-away": 2.0,
+  "closer-min-lead-home": 0.0,
+  "closer-max-lead-home": 1.5,
+  "long-reliever": "Edward Cabrera",
+  "long-reliever-threshold-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
+  "fireman": "Seth Lugo"
+}
