@@ -4,7 +4,7 @@ A fantasy baseball mode with real lineups and bullpen configurations that replay
 ### How to run
 ```commandline
 pip install -r requirements.txt
-python simulate.py
+python simulateLeagueWeek.py
 ```
 
 
