@@ -1,6 +1,13 @@
 # fantasy-baseball-scramble
 A fantasy baseball mode with real lineups and bullpen configurations that replays plate appearances from the week in random order to synthesize results.
 
+### How to run
+```commandline
+pip install -r requirements.txt
+python simulate.py
+```
+
+
 ![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img.png)
 
 Both your batters and pitchers play a full simulated game against your opponent(s).
@@ -45,3 +52,5 @@ Given that you choose high OBP players who can hit doubles or steal bases for th
 Currently fielding errors are tracked but not implemented. Eventually, you will be punished defensively for having hitters who commit fielding errors in real life in your lineup, same with catcher interference, etc.
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 Need to add logic for long reliever
+Force teams to have one of each position in the lineup.
+Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week
