@@ -8,7 +8,9 @@ python simulate.py
 ```
 
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img.png)
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/line_output.png)
+
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/debug_output.png)
 
 Both your batters and pitchers play a full simulated game against your opponent(s).
 
@@ -21,6 +23,8 @@ If your hitter steals a base during the week or is caught stealing, this modifie
 Currently, runs scored OR allowed are expressed as half runs to mimic the scores and scoring margins of real baseball games. In other words, you will need to score a run, AND your opponent will need to allow one in order for the software to display a full run, or any combination of 2 runs being scored or allowed will add up to a full run.
 
 Currently, you have to win the game by a full run, not a half run. I like that this gives twice as many extra-innings contests, but open to feedback on it.
+
+Two way players must play as the DH if in the lineup.
 
 # Pitching rules
 
@@ -52,5 +56,4 @@ Given that you choose high OBP players who can hit doubles or steal bases for th
 Currently fielding errors are tracked but not implemented. Eventually, you will be punished defensively for having hitters who commit fielding errors in real life in your lineup, same with catcher interference, etc.
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 Need to add logic for long reliever
-Force teams to have one of each position in the lineup.
 Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week

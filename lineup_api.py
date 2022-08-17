@@ -12,11 +12,35 @@ def loadLineup(team_name, box_games):
         team['batting-results'] = []
         team['batting-result-curr-idx'] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         team['pitching-results'] = {}
+        positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0] # ignore 0 slot and pitcher slot 1
         for idx, player in enumerate(team['batting-order']):
-            player = statsapi.lookup_player(player)
-            totals = processing.filterPlayerPas(box_games, player[0])
+            player = statsapi.lookup_player(player)[0]
+            if player['fullName'] != team['designated-hitter']:
+                code = player['primaryPosition']['code']
+                if code == 'Y':
+                    raise(BaseException(player['fullName'] + " must be the designated hitter s they are a TWP"))
+                if int(code) > 9:
+                    raise (BaseException(player['fullName'] + " must be the designated hitter s they are primarily a DH"))
+            if player['primaryPosition']['code'] != 'Y' and player['fullName'] != team['designated-hitter']:
+                #print(player)
+                positions_filled[int(player['primaryPosition']['code']) - 1] += 1
+
+            totals = processing.filterPlayerPas(box_games, player)
             pas = processing.randomWalkOfWeeklyTotals(totals)
             team['batting-results'].append(pas)
+        # validate positions
+        for idx, pos in enumerate(positions_filled):
+            err = False
+            if pos == 0:
+                err = True
+                print("position " + str(idx+1) + " not filled in " + team_name)
+            if pos > 1:
+                print("too many of position " + str(idx + 1) + " in " + team_name)
+                err = True
+            if err:
+                print(positions_filled)
+        if err:
+            raise(BaseException("Invalid lineups found in teams playing this week"))
         pitchers = team['starters']
         pitchers.extend(team['bullpen'])
         pitchers.append(team['closer'])
