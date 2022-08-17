@@ -56,6 +56,33 @@ def loadLineup(team_name, box_games):
         return team
 
 
+def scrapePlayerPositions(name=None, teamId=None, pos=None):  #  note: this will take a bit to complete.
+    try:
+        with open("playersTeamsAndPositions.json", "r") as json_file:
+            pass
+    except FileNotFoundError:
+        with open("playersTeamsAndPositions.json", "w") as json_file:
+            players = statsapi.lookup_player(lookup_value="")
+            write_players = []
+            for pl_full in players:
+                pl = {"fullName": pl_full["fullName"],
+                    "currentTeam": pl_full["currentTeam"]["id"],
+                    "primaryPosition": pl_full['primaryPosition']
+                      }
+                write_players.append(pl)
+            json_file.write(json.dumps(write_players))
+            json_file.close()
+    with open("playersTeamsAndPositions.json", "r") as json_file:
+        data = json.load(json_file)
+        if name != None:
+            data = [a for a in data if a['fullName'] == name]
+        if teamId != None:
+            data = [a for a in data if a['currentTeam'] == int(teamId)]
+        if pos != None:
+            data = [a for a in data if a['primaryPosition']['abbreviation'] == str(pos)]
+        return data
+
+
 def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                  duration_days=6):  # To rule out games in progress
     # TODO revert test

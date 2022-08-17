@@ -51,9 +51,22 @@ The first two batters in your order will get the most plate appearences. Try usi
 
 Given that you choose high OBP players who can hit doubles or steal bases for the first two slots, the 3rd and 4th hitters will be most likely to bat with men on base. Try using power hitters here.
 
+For aid in drafting, a file playersTeamsAndPositions.json is included and you can query it in code by importing `lineup_api`. See some examples of using it
+```python
+import lineup_api
+shohei = lineup_api.scrapePlayerPositions(teamId=108, pos='TWP')[0]
+judge = lineup_api.scrapePlayerPositions('Aaron Judge')[0]
+metspitchers = lineup_api.scrapePlayerPositions(teamId=121, pos='P')
+```
+
 # Features to come:
 
 Currently fielding errors are tracked but not implemented. Eventually, you will be punished defensively for having hitters who commit fielding errors in real life in your lineup, same with catcher interference, etc.
+
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
+
 Need to add logic for long reliever
+
 Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week
+
+More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
