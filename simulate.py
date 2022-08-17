@@ -171,7 +171,7 @@ def simOffensiveInning(team, orderSlot, inning):
                 baseState[chk_empty_base - 1] = 0
                 outs += 1
                 print(player_nm + " was picked off and is out")
-                print(baseState)
+                #print(baseState)
             elif baseState[chk_empty_base] == 0:
                 baseState[chk_empty_base] = 1
                 baseState[chk_empty_base - 1] = 0
@@ -437,18 +437,21 @@ def headToHeadGame(home, away, starterIdx):
 
     while away_score + 1.0 >= home_score and home_score + 1.0 >= away_score: # Experimenting with needing to win by "two" runs or a whole run.
         i += 1
+        result = simOffensiveInning(away, orderSlotAway, i)
+        orderSlotAway = result["orderSlot"]
+        away_score += result["runs"]
+
         result = simOffensiveInning(home, orderSlotHome, i)
         orderSlotHome = result["orderSlot"]
         home_score += result["runs"]
 
-        result = simOffensiveInning(away, orderSlotAway, i)
-        orderSlotAway = result["orderSlot"]
-        away_score += result["runs"]
         print("Mid %d, %s: %5.1f, %s: %5.1f\n" % (i, away['team-name'], away_score / 2.0, home['team-name'], home_score / 2.0))
 
         result = simDefensiveInning(home, currHomePitcher, i, home_score, away_score, True)
         currHomePitcher = result["currPitcher"]
         away_score += result["runs"]
+        if home_score > away_score + 0.5:
+            print("Skipping the bottom of the inning: the ballgame is over!")
 
         result = simDefensiveInning(home, currHomePitcher, i, away_score, home_score, True)
         currAwayPitcher = result["currPitcher"]
