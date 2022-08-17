@@ -167,15 +167,16 @@ def simOffensiveInning(team, orderSlot, inning):
             if outcome == 'walk' or outcome == 'hbp':
                 outcome = 1
             chk_empty_base = int(outcome)
-            if baseState[chk_empty_base] == 0:
-                if out_stealing:
-                    baseState[chk_empty_base -1] = 0
-                    outs+=1
-                    print(player_nm + " thrown out stealing")
-                else:
-                    baseState[chk_empty_base] = 1
-                    baseState[chk_empty_base - 1] = 0
-                    print(player_nm + " stole a base")
+            if out_stealing:
+                baseState[chk_empty_base - 1] = 0
+                outs += 1
+                print(player_nm + " was picked off and is out")
+                print(baseState)
+            elif baseState[chk_empty_base] == 0:
+                baseState[chk_empty_base] = 1
+                baseState[chk_empty_base - 1] = 0
+                print(player_nm + " stole a base")
+                print(baseState)
             else:
                 print(player_nm + " had a good jump but the next base was occupied")
         orderSlot += 1
