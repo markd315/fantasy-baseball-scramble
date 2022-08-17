@@ -67,6 +67,8 @@ If your hitter gets on base in the seventh inning or later and your pinch runner
 
 Need to add logic for long reliever
 
-Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week
+Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
+
+Seem to be some bugs with multiple outputs of relief pitcher changes.
 
 More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.

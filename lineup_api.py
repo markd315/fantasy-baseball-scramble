@@ -13,6 +13,7 @@ def loadLineup(team_name, box_games):
         team['batting-result-curr-idx'] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         team['pitching-results'] = {}
         positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0] # ignore 0 slot and pitcher slot 1
+        bench_idx = 0 # TODO
         for idx, player in enumerate(team['batting-order']):
             player = statsapi.lookup_player(player)[0]
             if player['fullName'] != team['designated-hitter']:
@@ -24,9 +25,10 @@ def loadLineup(team_name, box_games):
             if player['primaryPosition']['code'] != 'Y' and player['fullName'] != team['designated-hitter']:
                 #print(player)
                 positions_filled[int(player['primaryPosition']['code']) - 1] += 1
-
             totals = processing.filterPlayerPas(box_games, player)
             pas = processing.randomWalkOfWeeklyTotals(totals)
+            if len(pas) < 5:
+                raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
             team['batting-results'].append(pas)
         # validate positions
         for idx, pos in enumerate(positions_filled):

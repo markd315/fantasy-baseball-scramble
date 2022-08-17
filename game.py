@@ -18,82 +18,48 @@ def headToHeadGame(home, away, starterIdx):
     home['burned-pitchers'] = [currHomePitcher]
     away['burned-pitchers'] = [currAwayPitcher]
     line_score = [["Inning / Total"],
-                  [away['team-name'] + ' Batting'],
-                  [home['team-name'] + ' Batting'],
-                  ['vs. ' + home['team-name'] + ' pitchers'],
-                  ['vs. ' + away['team-name'] + ' pitchers'],
                   [away['team-name']],
                   [home['team-name']]
                   ] # header, aw_off, hm_off, aw_def, aw_def
     for i in range(1, 10):
         line_score[0].append(str(i))
-        result = inning.simOffensiveInning(away, orderSlotAway, i)
+        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
         orderSlotAway, score = result["orderSlot"], result["runs"]
         long_output += result["out"]
         line_score[1].append(score)
         away_score += score
 
-        result = inning.simOffensiveInning(home, orderSlotHome, i)
+        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
         orderSlotHome, score = result["orderSlot"], result["runs"]
         long_output += result["out"]
         line_score[2].append(score)
         home_score += score
-
-        result = inning.simDefensiveInning(home, currHomePitcher, i, home_score, away_score, True)
-        currHomePitcher, score = result["currPitcher"], result["runs"]
-        long_output += result["out"]
-        line_score[3].append(score)
-        away_score += score
-
-        result = inning.simDefensiveInning(away, currAwayPitcher, i, away_score, home_score, True)
-        currAwayPitcher, score = result["currPitcher"], result["runs"]
-        long_output += result["out"]
-        line_score[4].append(score)
-        home_score += score
-        long_output += "End %d, %s: %5.1f, %s: %5.1f\n" % (i, away['team-name'], away_score/2.0, home['team-name'], home_score/2.0) + "\n"
-        line_score[5].append(str(float( line_score[1][i] + line_score[3][i] ) / 2.0))
-        line_score[6].append(str(float( line_score[2][i] + line_score[4][i] ) / 2.0))
+        long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     i=9
-
     while away_score + 1.0 >= home_score and home_score + 1.0 >= away_score: # Experimenting with needing to win by "two" runs or a whole run.
         i += 1
         line_score[0].append(str(i))
-        result = inning.simOffensiveInning(away, orderSlotAway, i)
+        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
         orderSlotAway, score = result["orderSlot"], result["runs"]
         long_output += result["out"]
         line_score[1].append(score)
         away_score += score
 
-        result = inning.simOffensiveInning(home, orderSlotHome, i)
+        if home_score > away_score + 0.5:
+            long_output+= "Skipping the bottom of the inning: the ballgame is over!"
+        else:
+            long_output += "Mid %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score)
+
+        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
         orderSlotHome, score = result["orderSlot"], result["runs"]
         long_output += result["out"]
         line_score[2].append(score)
         home_score += score
 
-        long_output += "Mid %d, %s: %5.1f, %s: %5.1f\n" % (i, away['team-name'], away_score/2.0, home['team-name'], home_score/2.0)
-
-        result = inning.simDefensiveInning(home, currHomePitcher, i, home_score, away_score, True)
-        currHomePitcher, score = result["currPitcher"], result["runs"]
-        long_output += result["out"]
-        line_score[3].append(score)
-        away_score += score
-        if home_score > away_score + 0.5:
-            long_output+= "Skipping the bottom of the inning: the ballgame is over!"
-
-        result = inning.simDefensiveInning(away, currAwayPitcher, i, away_score, home_score, True)
-        currAwayPitcher, score = result["currPitcher"], result["runs"]
-        long_output += result["out"]
-        line_score[4].append(score)
-        home_score += score
-
-        long_output += "End %d, %s: %5.1f, %s: %5.1f\n" % (i, away['team-name'], away_score/2.0, home['team-name'], home_score/2.0) + "\n"
-        line_score[5].append( str(float(line_score[1][i] + line_score[3][i]) / 2.0) )
-        line_score[6].append( str(float(line_score[2][i] + line_score[4][i]) / 2.0) )
+        long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     line_score[0].append("T")
     for idx, arr in enumerate(line_score[1:5]):
         line_score[idx+1].append(sum(arr[1:]))
-    line_score[5].append(str(away_score/2.0))
-    line_score[6].append(str(home_score/2.0))
     winner = home['team-name'] if home_score > away_score else away['team-name']
     return winner, line_score, long_output
 
