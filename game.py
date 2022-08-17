@@ -36,7 +36,7 @@ def headToHeadGame(home, away, starterIdx):
         home_score += score
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     i=9
-    while away_score + 1.0 >= home_score and home_score + 1.0 >= away_score: # Experimenting with needing to win by "two" runs or a whole run.
+    while away_score == home_score:
         i += 1
         line_score[0].append(str(i))
         result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)

@@ -20,10 +20,6 @@ Some assumptions are made about runner advancement, the likelihood of a double p
 
 If your hitter steals a base during the week or is caught stealing, this modifier will be applied to the end of one of their plate appearances from the week in game.
 
-Currently, runs scored OR allowed are expressed as half runs to mimic the scores and scoring margins of real baseball games. In other words, you will need to score a run, AND your opponent will need to allow one in order for the software to display a full run, or any combination of 2 runs being scored or allowed will add up to a full run.
-
-Currently, you have to win the game by a full run, not a half run. I like that this gives twice as many extra-innings contests, but open to feedback on it.
-
 Two way players must play as the DH if in the lineup.
 
 # Pitching rules
@@ -45,7 +41,7 @@ Case 3: The closer will enter the game.
 
 # Tips:
 
-Think about which teams your batters and pitchers are facing this week when constucting your lineup! Just like in any other fantasy sport, they are still playing against THEIR opponents, not YOUR opponent.
+Think about which teams your batters and pitchers are facing this week when constructing your lineup! Just like in any other fantasy sport, they are still playing against THEIR opponents, not YOUR opponent.
 
 The first two batters in your order will get the most plate appearences. Try using high OBP players here.
 
