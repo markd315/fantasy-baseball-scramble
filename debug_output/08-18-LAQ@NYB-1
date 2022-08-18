@@ -1,0 +1,146 @@
+
+(outs: 0) Shohei Ohtani at-bat: k
+(outs: 1) Alejandro Kirk at-bat: in_play_out
+(outs: 2) Dansby Swanson at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Brandon Nimmo at-bat: k
+(outs: 1) Marcus Stroman pitching: in_play_out
+(outs: 2) Marcus Semien at-bat: in_play_out
+New York Bankers scored: 0
+End 1, Liverpool Ale Quaffers: 0, New York Bankers: 0
+
+
+(outs: 0) Whit Merrifield at-bat: in_play_out
+(outs: 1) Adolis Garcia at-bat: 1
+(outs: 1) Kyle Tucker at-bat: walk
+(outs: 1) Brandon Drury at-bat: k
+(outs: 2) Anthony Rizzo at-bat: k
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Pete Alonso at-bat: in_play_out
+(outs: 1) Marcus Stroman pitching: 1
+(outs: 1) Yordan Alvarez at-bat: 1
+runner first to third
+(outs: 1) Austin Riley at-bat: in_play_out
+(outs: 2) Marcus Stroman pitching: 1
+runner first to third
+(outs: 2) Francisco Lindor at-bat: in_play_out
+New York Bankers scored: 1
+End 2, Liverpool Ale Quaffers: 0, New York Bankers: 1
+
+
+(outs: 0) Andrew Benintendi at-bat: 2
+(outs: 0) Shohei Ohtani at-bat: in_play_out
+(outs: 1) Joe Musgrove pitching: in_play_out
+(outs: 2) Dansby Swanson at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Brandon Nimmo at-bat: 2
+(outs: 0) Austin Hays at-bat: k
+(outs: 1) Marcus Stroman pitching: 1
+(outs: 1) Pete Alonso at-bat: k
+(outs: 2) Starling Marte at-bat: 2
+(outs: 2) Yordan Alvarez at-bat: k
+New York Bankers scored: 2
+End 3, Liverpool Ale Quaffers: 0, New York Bankers: 3
+
+
+(outs: 0) Whit Merrifield at-bat: 1
+(outs: 0) Adolis Garcia at-bat: 1
+runner first to third
+(outs: 0) Kyle Tucker at-bat: in_play_out
+(outs: 1) Brandon Drury at-bat: in_play_out
+sacrifice runner scores
+(outs: 2) Anthony Rizzo at-bat: k
+Liverpool Ale Quaffers scored: 1
+
+(outs: 0) Austin Riley at-bat: walk
+(outs: 0) Marcus Stroman pitching: in_play_out
+(outs: 1) Francisco Lindor at-bat: 1
+runner first to third
+(outs: 1) Marcus Stroman pitching: in_play_out
+(outs: 2) Marcus Stroman pitching: k
+New York Bankers scored: 0
+End 4, Liverpool Ale Quaffers: 1, New York Bankers: 3
+
+
+(outs: 0) Joe Musgrove pitching: k
+(outs: 1) Shohei Ohtani at-bat: in_play_out
+(outs: 2) Joe Musgrove pitching: 1
+(outs: 2) Dansby Swanson at-bat: 1
+(outs: 2) Whit Merrifield at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Marcus Semien at-bat: in_play_out
+(outs: 1) Marcus Stroman pitching: in_play_out
+(outs: 2) Starling Marte at-bat: k
+New York Bankers scored: 0
+End 5, Liverpool Ale Quaffers: 1, New York Bankers: 3
+
+
+(outs: 0) Adolis Garcia at-bat: 1
+(outs: 0) Joe Musgrove pitching: in_play_out
+(outs: 1) Brandon Drury at-bat: in_play_out
+(outs: 2) Anthony Rizzo at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Yordan Alvarez at-bat: in_play_out
+(outs: 1) Marcus Stroman pitching: 1
+(outs: 1) William Contreras at-bat: in_play_out
+(outs: 2) Francisco Lindor at-bat: k
+New York Bankers scored: 0
+End 6, Liverpool Ale Quaffers: 1, New York Bankers: 3
+
+
+(outs: 0) Andrew Benintendi at-bat: in_play_out
+(outs: 1) Shohei Ohtani at-bat: 1
+(outs: 1) Alejandro Kirk at-bat: k
+(outs: 2) Joe Musgrove pitching: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Marcus Stroman pitching: k
+(outs: 1) Austin Hays at-bat: walk
+(outs: 1) Marcus Semien at-bat: in_play_out
+sacrifice runner moved to 2nd
+Marcus Stroman is exhausted and being replaced on the mound by Kenley Jansen. Some respectful clapping surfaces from the crowd in recognition of the effort.
+Kenley Jansen is sweating and the manager makes a call to the pen, luckily Corey Knebel was already warming up.
+(outs: 2) Corey Knebel pitching: walk
+(outs: 2) Starling Marte at-bat: k
+New York Bankers scored: 0
+End 7, Liverpool Ale Quaffers: 1, New York Bankers: 3
+
+
+(outs: 0) Whit Merrifield at-bat: 1
+(outs: 0) Adolis Garcia at-bat: k
+(outs: 1) Kyle Tucker at-bat: in_play_out
+(outs: 2) Joe Musgrove pitching: 4
+(outs: 2) Anthony Rizzo at-bat: k
+Liverpool Ale Quaffers scored: 2
+
+(outs: 0) Yordan Alvarez at-bat: 1
+(outs: 0) Austin Riley at-bat: k
+Marcus Stroman is exhausted and being replaced on the mound by Kenley Jansen. Some respectful clapping surfaces from the crowd in recognition of the effort.
+(outs: 1) Kenley Jansen pitching: k
+(outs: 2) Francisco Lindor at-bat: hbp
+(outs: 2) Brandon Nimmo at-bat: k
+New York Bankers scored: 0
+End 8, Liverpool Ale Quaffers: 3, New York Bankers: 3
+
+
+(outs: 0) Andrew Benintendi at-bat: k
+(outs: 1) Shohei Ohtani at-bat: 3
+(outs: 1) Alejandro Kirk at-bat: walk
+(outs: 1) Joe Musgrove pitching: in_play_out
+sacrifice runner scores
+(outs: 2) Joe Musgrove pitching: in_play_out
+Liverpool Ale Quaffers scored: 1
+
+Marcus Stroman is exhausted and being replaced on the mound by Kenley Jansen. Some respectful clapping surfaces from the crowd in recognition of the effort.
+(outs: 0) Kenley Jansen pitching: in_play_out
+(outs: 1) Marcus Semien at-bat: in_play_out
+(outs: 2) Pete Alonso at-bat: walk
+(outs: 2) Starling Marte at-bat: in_play_out
+New York Bankers scored: 0
+End 9, Liverpool Ale Quaffers: 4, New York Bankers: 3
+

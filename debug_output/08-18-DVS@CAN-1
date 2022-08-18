@@ -1,0 +1,130 @@
+
+(outs: 0) Shohei Ohtani at-bat: 4
+(outs: 0) Alejandro Kirk at-bat: k
+(outs: 1) Dansby Swanson at-bat: in_play_out
+(outs: 2) Whit Merrifield at-bat: in_play_out
+Denver Stoners scored: 1
+
+(outs: 0) Brandon Nimmo at-bat: in_play_out
+(outs: 1) Austin Hays at-bat: in_play_out
+(outs: 2) Marcus Stroman pitching: in_play_out
+Canada Hosers scored: 0
+End 1, Denver Stoners: 1, Canada Hosers: 0
+
+
+(outs: 0) Max Scherzer pitching: 1
+(outs: 0) Max Scherzer pitching: 1
+(outs: 0) Brandon Drury at-bat: 4
+(outs: 0) Anthony Rizzo at-bat: in_play_out
+(outs: 1) Andrew Benintendi at-bat: k
+(outs: 2) Shohei Ohtani at-bat: k
+Denver Stoners scored: 3
+
+(outs: 0) Marcus Stroman pitching: 1
+(outs: 0) Starling Marte at-bat: in_play_out
+(outs: 1) Yordan Alvarez at-bat: k
+(outs: 2) Austin Riley at-bat: in_play_out
+Canada Hosers scored: 0
+End 2, Denver Stoners: 4, Canada Hosers: 0
+
+
+(outs: 0) Alejandro Kirk at-bat: in_play_out
+(outs: 1) Max Scherzer pitching: in_play_out
+(outs: 2) Max Scherzer pitching: k
+Denver Stoners scored: 0
+
+(outs: 0) William Contreras at-bat: 1
+(outs: 0) Marcus Stroman pitching: in_play_out
+double play (6-4-3/4-6-3)
+(outs: 2) Brandon Nimmo at-bat: 1
+(outs: 2) Marcus Stroman pitching: k
+Canada Hosers scored: 0
+End 3, Denver Stoners: 4, Canada Hosers: 0
+
+
+(outs: 0) Max Scherzer pitching: k
+(outs: 1) Kyle Tucker at-bat: in_play_out
+(outs: 2) Brandon Drury at-bat: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Marcus Stroman pitching: in_play_out
+(outs: 1) Pete Alonso at-bat: k
+(outs: 2) Starling Marte at-bat: in_play_out
+Canada Hosers scored: 0
+End 4, Denver Stoners: 4, Canada Hosers: 0
+
+
+(outs: 0) Max Scherzer pitching: 1
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Shohei Ohtani at-bat: in_play_out
+(outs: 2) Alejandro Kirk at-bat: walk
+(outs: 2) Max Scherzer pitching: k
+Denver Stoners scored: 0
+
+(outs: 0) Yordan Alvarez at-bat: in_play_out
+(outs: 1) Marcus Stroman pitching: in_play_out
+(outs: 2) William Contreras at-bat: in_play_out
+Canada Hosers scored: 0
+End 5, Denver Stoners: 4, Canada Hosers: 0
+
+
+(outs: 0) Whit Merrifield at-bat: in_play_out
+(outs: 1) Max Scherzer pitching: 1
+(outs: 1) Max Scherzer pitching: 2
+(outs: 1) Brandon Drury at-bat: k
+(outs: 2) Max Scherzer pitching: k
+Denver Stoners scored: 1
+
+(outs: 0) Marcus Stroman pitching: 1
+(outs: 0) Brandon Nimmo at-bat: 1
+(outs: 0) Austin Hays at-bat: in_play_out
+(outs: 1) Marcus Semien at-bat: in_play_out
+double play (6-4-3/4-6-3)
+Canada Hosers scored: 0
+End 6, Denver Stoners: 5, Canada Hosers: 0
+
+
+(outs: 0) Andrew Benintendi at-bat: in_play_out
+(outs: 1) Shohei Ohtani at-bat: 1
+(outs: 1) Alejandro Kirk at-bat: in_play_out
+double play (6-4-3/4-6-3)
+Denver Stoners scored: 0
+
+(outs: 0) Marcus Stroman pitching: in_play_out
+(outs: 1) Marcus Stroman pitching: k
+(outs: 2) Yordan Alvarez at-bat: in_play_out
+Canada Hosers scored: 0
+End 7, Denver Stoners: 5, Canada Hosers: 0
+
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Whit Merrifield at-bat: in_play_out
+(outs: 2) Max Scherzer pitching: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Marcus Stroman pitching: in_play_out
+Marcus Stroman is exhausted and being replaced on the mound by Kenley Jansen. Some respectful clapping surfaces from the crowd in recognition of the effort.
+(outs: 1) Kenley Jansen pitching: in_play_out
+(outs: 2) Francisco Lindor at-bat: k
+Canada Hosers scored: 0
+End 8, Denver Stoners: 5, Canada Hosers: 0
+
+
+(outs: 0) Kyle Tucker at-bat: 4
+(outs: 0) Brandon Drury at-bat: in_play_out
+(outs: 1) Anthony Rizzo at-bat: k
+(outs: 2) Max Scherzer pitching: in_play_out
+Denver Stoners scored: 1
+
+(outs: 0) Brandon Nimmo at-bat: k
+Marcus Stroman is exhausted and being replaced on the mound by Kenley Jansen. Some respectful clapping surfaces from the crowd in recognition of the effort.
+(outs: 1) Kenley Jansen pitching: walk
+(outs: 1) Marcus Semien at-bat: in_play_out
+sacrifice runner moved to 2nd
+(outs: 2) Pete Alonso at-bat: 1
+(outs: 2) Starling Marte at-bat: 1
+runner first to third
+(outs: 2) Yordan Alvarez at-bat: in_play_out
+Canada Hosers scored: 1
+End 9, Denver Stoners: 6, Canada Hosers: 1
+

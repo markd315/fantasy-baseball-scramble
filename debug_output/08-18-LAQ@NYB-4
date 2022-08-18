@@ -1,0 +1,134 @@
+
+(outs: 0) Shohei Ohtani at-bat: k
+(outs: 1) Alejandro Kirk at-bat: in_play_out
+(outs: 2) Corey Kluber pitching: 1
+(outs: 2) Whit Merrifield at-bat: k
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Brandon Nimmo at-bat: walk
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Marcus Semien at-bat: 4
+(outs: 1) Pete Alonso at-bat: k
+(outs: 2) Starling Marte at-bat: 1
+(outs: 2) Yordan Alvarez at-bat: 1
+(outs: 2) Max Scherzer pitching: in_play_out
+New York Bankers scored: 2
+End 1, Liverpool Ale Quaffers: 0, New York Bankers: 2
+
+
+(outs: 0) Adolis Garcia at-bat: in_play_out
+(outs: 1) Kyle Tucker at-bat: 1
+(outs: 1) Brandon Drury at-bat: in_play_out
+(outs: 2) Anthony Rizzo at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Francisco Lindor at-bat: 1
+(outs: 1) Brandon Nimmo at-bat: in_play_out
+(outs: 2) Austin Hays at-bat: in_play_out
+New York Bankers scored: 0
+End 2, Liverpool Ale Quaffers: 0, New York Bankers: 2
+
+
+(outs: 0) Andrew Benintendi at-bat: 1
+(outs: 0) Shohei Ohtani at-bat: in_play_out
+(outs: 1) Alejandro Kirk at-bat: in_play_out
+(outs: 2) Corey Kluber pitching: 1
+runner first to third
+(outs: 2) Whit Merrifield at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Marcus Semien at-bat: 1
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Max Scherzer pitching: k
+(outs: 2) Yordan Alvarez at-bat: in_play_out
+New York Bankers scored: 0
+End 3, Liverpool Ale Quaffers: 0, New York Bankers: 2
+
+
+(outs: 0) Adolis Garcia at-bat: in_play_out
+(outs: 1) Kyle Tucker at-bat: in_play_out
+(outs: 2) Brandon Drury at-bat: 1
+(outs: 2) Anthony Rizzo at-bat: 2
+(outs: 2) Andrew Benintendi at-bat: in_play_out
+Liverpool Ale Quaffers scored: 1
+
+(outs: 0) Austin Riley at-bat: k
+(outs: 1) Max Scherzer pitching: in_play_out
+(outs: 2) Francisco Lindor at-bat: k
+New York Bankers scored: 0
+End 4, Liverpool Ale Quaffers: 1, New York Bankers: 2
+
+
+(outs: 0) Shohei Ohtani at-bat: walk
+(outs: 0) Alejandro Kirk at-bat: in_play_out
+double play (6-4-3/4-6-3)
+(outs: 2) Dansby Swanson at-bat: k
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Brandon Nimmo at-bat: in_play_out
+(outs: 1) Max Scherzer pitching: 2
+(outs: 1) Marcus Semien at-bat: 1
+(outs: 1) Max Scherzer pitching: 1
+(outs: 1) Starling Marte at-bat: k
+(outs: 2) Max Scherzer pitching: in_play_out
+New York Bankers scored: 1
+End 5, Liverpool Ale Quaffers: 1, New York Bankers: 3
+
+
+(outs: 0) Whit Merrifield at-bat: 1
+(outs: 0) Adolis Garcia at-bat: k
+(outs: 1) Kyle Tucker at-bat: 2
+(outs: 1) Brandon Drury at-bat: walk
+(outs: 1) Anthony Rizzo at-bat: k
+(outs: 2) Andrew Benintendi at-bat: 1
+(outs: 2) Shohei Ohtani at-bat: 4
+(outs: 2) Alejandro Kirk at-bat: in_play_out
+Liverpool Ale Quaffers scored: 5
+
+(outs: 0) Austin Riley at-bat: in_play_out
+(outs: 1) William Contreras at-bat: in_play_out
+(outs: 2) Francisco Lindor at-bat: in_play_out
+New York Bankers scored: 0
+End 6, Liverpool Ale Quaffers: 6, New York Bankers: 3
+
+
+(outs: 0) Dansby Swanson at-bat: k
+(outs: 1) Whit Merrifield at-bat: in_play_out
+(outs: 2) Adolis Garcia at-bat: 2
+(outs: 2) Kyle Tucker at-bat: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Austin Hays at-bat: 1
+(outs: 1) Marcus Semien at-bat: k
+(outs: 2) Pete Alonso at-bat: in_play_out
+New York Bankers scored: 0
+End 7, Liverpool Ale Quaffers: 6, New York Bankers: 3
+
+
+(outs: 0) Brandon Drury at-bat: k
+(outs: 1) Corey Kluber pitching: in_play_out
+(outs: 2) Corey Kluber pitching: k
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) Starling Marte at-bat: in_play_out
+(outs: 1) Yordan Alvarez at-bat: in_play_out
+(outs: 2) Austin Riley at-bat: in_play_out
+New York Bankers scored: 0
+End 8, Liverpool Ale Quaffers: 6, New York Bankers: 3
+
+
+(outs: 0) Shohei Ohtani at-bat: in_play_out
+(outs: 1) Alejandro Kirk at-bat: in_play_out
+(outs: 2) Dansby Swanson at-bat: 2
+(outs: 2) Corey Kluber pitching: in_play_out
+Liverpool Ale Quaffers scored: 0
+
+(outs: 0) William Contreras at-bat: in_play_out
+(outs: 1) Francisco Lindor at-bat: in_play_out
+(outs: 2) Brandon Nimmo at-bat: 1
+(outs: 2) Austin Hays at-bat: in_play_out
+New York Bankers scored: 0
+End 9, Liverpool Ale Quaffers: 6, New York Bankers: 3
+

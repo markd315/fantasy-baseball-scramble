@@ -6,16 +6,30 @@ import json
 import processing
 
 
+def validateOnRoster(player, roster):
+    if player['fullName'] not in roster:
+        raise(BaseException(player['fullName'] + " is in the lineup but not on their roster."))
+
+
 def loadLineup(team_name, box_games):
     with open("team-lineups/" + team_name + ".json", "r") as json_file:
         team = json.load(json_file)
+        roster = []
+        with open("team-lineups/" + team['abbv'] + ".roster", "r") as roster_file:
+            roster = roster_file.readlines()
+            for idx, line in enumerate(roster):
+                roster[idx] = line.strip()
         team['batting-results'] = []
         team['batting-result-curr-idx'] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         team['pitching-results'] = {}
         positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0] # ignore 0 slot and pitcher slot 1
-        bench_idx = 0 # TODO
-        for idx, player in enumerate(team['batting-order']):
+        bench_idx = 0  # TODO
+        offense = team['batting-order']
+        offense.extend(team['pinch-hitter'])
+        offense.extend(team['pinch-runner'])
+        for idx, player in enumerate(offense):
             player = statsapi.lookup_player(player)[0]
+            validateOnRoster(player, roster)
             if player['fullName'] != team['designated-hitter']:
                 code = player['primaryPosition']['code']
                 if code == 'Y':
@@ -50,10 +64,11 @@ def loadLineup(team_name, box_games):
         pitchers.append(team['fireman'])
         for player in pitchers:
             # print(player)
-            player = statsapi.lookup_player(player)
-            totals = processing.filterPlayerPasDefensive(box_games, player[0])
+            player = statsapi.lookup_player(player)[0]
+            validateOnRoster(player, roster)
+            totals = processing.filterPlayerPasDefensive(box_games, player)
             pas = processing.randomWalkOfWeeklyPitchingTotals(totals)
-            name = player[0]["fullName"]
+            name = player["fullName"]
             team['pitching-results'][name] = pas
         return team
 
