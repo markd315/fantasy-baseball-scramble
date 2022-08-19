@@ -70,6 +70,12 @@ def loadLineup(team_name, box_games):
             pas = processing.randomWalkOfWeeklyPitchingTotals(totals)
             name = player["fullName"]
             team['pitching-results'][name] = pas
+        team['bullpen'].extend('Position Player')
+        seq = ['walk', 'walk', 'hbp', 'in_play_out', "in_play_out", 'in_play_out', 'in_play_out', '4', '2', '1', '1', '1', 'k']
+        team['pitching-results']['Position Player'] = []
+        for i in range(1, 32): #  5*32 outs, almost 6 whole games of outs
+            team['pitching-results']['Position Player'].extend(seq)
+        team['pitching-results']['Position Player'].shuffle()
         return team
 
 

@@ -27,14 +27,14 @@
     "Andrew Chafin",
     "Garrett Whitlock",
     "Cristian Javier",
-    "Drew Rasmussen"
+    "Drew Rasmussen",
+    "Mike Clevinger"
   ],
   "closer": "Josh Hader",
   "closer-min-lead-away": 0.0,
   "closer-max-lead-away": 2.0,
   "closer-min-lead-home": 0.0,
   "closer-max-lead-home": 1.5,
-  "long-reliever": "Mike Clevinger",
-  "long-reliever-threshold-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
+  "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
   "fireman": "Corey Knebel"
 }

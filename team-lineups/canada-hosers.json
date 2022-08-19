@@ -27,14 +27,14 @@
     "Carlos Carrasco",
     "Adam Ottavino",
     "Emmanuel Clase",
-    "Paul Sewald"
+    "Paul Sewald",
+    "Edward Cabrera"
   ],
   "closer": "Edwin Diaz",
   "closer-min-lead-away": 0.0,
   "closer-max-lead-away": 2.0,
   "closer-min-lead-home": 0.0,
   "closer-max-lead-home": 1.5,
-  "long-reliever": "Edward Cabrera",
-  "long-reliever-threshold-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
+  "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
   "fireman": "Seth Lugo"
 }
