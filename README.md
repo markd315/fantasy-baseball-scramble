@@ -49,11 +49,13 @@ The first two batters in your order will get the most plate appearences. Try usi
 Given that you choose high OBP players who can hit doubles or steal bases for the first two slots, the 3rd and 4th hitters will be most likely to bat with men on base. Try using power hitters here.
 
 For aid in drafting, a file playersTeamsAndPositions.json is included and you can query it in code by importing `lineup_api`. See some examples of using it
+
 ```python
 import lineup_api
-shohei = lineup_api.scrapePlayerPositions(teamId=108, pos='TWP')[0]
-judge = lineup_api.scrapePlayerPositions('Aaron Judge')[0]
-metspitchers = lineup_api.scrapePlayerPositions(teamId=121, pos='P')
+
+shohei = lineup_api.playerQuery(teamId=108, pos='TWP')[0]
+judge = lineup_api.playerQuery('Aaron Judge')[0]
+metspitchers = lineup_api.playerQuery(teamId=121, pos='P')
 ```
 
 # Features to come:
@@ -69,3 +71,47 @@ Ok so maybe implement PR straight up since they are specialists. For PH, look at
 Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
 
 More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
+
+### some math on handedness
+
+Handedness advantage with pitchers and batters. We want to keep the principle of rolling to determine the outcome in place while favoring R/L and L/R batters.
+Needs a factor proportional to number of teams for this too. 30 teams would nullify the handedness advantage since avg pitcher and batter would be same as league avg,
+but less (8 for example) means the best 25% of lineups are competing day to day. Instead of .708 league avg OPS, we can look at how the top .25 of that pool would do.
+
+There are more righty PA's (3500) than lefty PA's in any given year, so it makes sense that we need to punish LHB vs LHP more than RHB vs RHP to arrive at the right numbers (see data this intuition was right)
+https://www.fangraphs.com/leaders/splits-leaderboards?splitArr=1,3&splitArrPitch=&position=B&autoPt=false&splitTeams=false&statType=mlb&statgroup=2&startDate=2022-3-1&endDate=2022-11-1&players=&filter=&groupBy=season&wxTemperature=&wxPressure=&wxAirDensity=&wxElevation=&wxWindSpeed=&sort=10,1&pg=0
+
+example. in a 8 team league, having "your" outcome selected instead of the typical pitchers outcome confers a 15% advantage. Double that for the advantage against a "fantasy pitcher"s outcome (30%)
+We can manipulate the odds of the coin flip based on handedness, and arrive at the right OPS for the matchup through some algebra.
+
+solve the equations
+x+y=1, .815x+.601y=.739 for example (8 team, LHP vs RHB)
+
+Luckily, all of the 4 platoon splits seem to be almost within the bounds of what we can construct by manipulating these coin tosses a little bit. Even the 16 team league gives us a range of .772 to .644 which we can just use .644 for.
+
+Full league
+            HL          HR
+   PL      .643        .739
+   PR      .709        .703
+   OVR(batter - pitcher)     .708
+
+in the table the solved results are (batter coin %) rest is pitcher coin %
+
+16 team league
+            HL               HR
+   PL     .737(0.0)          .849(.742)
+   PR     .796(.508)          .776(.461)
+   OVR(+18%) .772-.644
+
+
+8 team league
+             HL           HR
+   PL       .788(.196)         .928(.644)
+   PR       .861(.505)          .818(.476)
+   OVR(+30%) .815-.601
+
+4 team league
+             HL           HR
+   PL       .837(.274)         .982(.607)
+   PR       .918(.503)         .851(.483)
+   OVR(+40%) .852-.564

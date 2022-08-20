@@ -10,3 +10,4 @@ sacrificeBuntRatio = .07
 productiveOutToThirdRatio = .10
 sacrificeFlyToHomeRatio = .25
 firstToThirdSingleRatio = .45
+teamsInLeague = 4

@@ -14,6 +14,36 @@ def offensiveOutcome(team, orderSlot):
     return res
 
 
+def parseHandednessData(arr, batter, pitcher):
+    #fmt: [LL, LHPvsR, RHPvsL, RR]
+    if 'LHP' in pitcher:
+        if 'RHB' in batter:
+            return arr[1]
+        else:
+            return arr[0]
+    else:  # RHP
+        if 'LHB' in batter:
+            return arr[2]
+        else:
+            return arr[3]
+
+
+def getCoinForMatchup(teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot):
+    batter = battingTeam['batting-order'][orderSlot - 1]
+    batter_hands = battingTeam['handedness'][batter]
+    pitcher_hands = pitchingTeam['handedness'][currPitcher]
+    if teamsInLeague > 11:  # calibrated for 16 teams
+        batterCoinPercent = parseHandednessData([0.0, .742, .508, .461], batter_hands, pitcher_hands)
+    elif teamsInLeague > 6:  # calibrated for 8 teams
+        batterCoinPercent = parseHandednessData([.196, .644, .505, .476], batter_hands, pitcher_hands)
+    else:  # calibrated for 4 teams
+        batterCoinPercent = parseHandednessData([.274, .607, .503, .483], batter_hands, pitcher_hands)
+    rng = random.uniform(0, 1)
+    if rng < batterCoinPercent:
+        return 'batter'
+    return 'pitcher'
+
+
 def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                      pitcherScore, batterScore, pitcherHome):
     if inning > 9:
@@ -24,16 +54,15 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
     outs = 0
     logs = "\n"
     while outs < 3:
-        coin = random.randint(0, 2)
-        if coin == 0:
+        coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
+        if coin == 'pitcher':
             team = pitchingTeam
             score_d = pitcherScore - batterScore - runs
-            currPitcher, logs = decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherHome, logs)
+            currPitcher, team, logs = decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherHome, logs)
             outcome = team['pitching-results'][currPitcher].pop(0)
             # Discard a second outcome to compensate for "batter" at-bats
             team['pitching-results'][currPitcher].pop(0)
-            logs += "(outs: " + str(
-                outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
+            logs += "(outs: " + str(outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
             if (outcome == "in_play_out"):
@@ -219,10 +248,8 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
 
 def executePitchingChange(team, logs, currPitcher, newPitcher):
     logs += currPitcher + " takes a seat. " + newPitcher + " has been warming up and enters the game.\n"
-    currPitcher = team['closer']
-    team['burned-pitchers'].append(currPitcher)
-    pitcher_changed = True
-    return newPitcher, logs, pitcher_changed
+    team['burned-pitchers'].append(newPitcher)
+    return newPitcher, logs
 
 
 def scoreIsClose(team, score_d, pitcherHome):
@@ -230,34 +257,35 @@ def scoreIsClose(team, score_d, pitcherHome):
 
 
 def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherHome, logs):
-    chg = False
     results = team['pitching-results']
-    used = team['burned-pitchers']
     if inning >= 7:
         closer, fireman = team['closer'], team['fireman']
         cl_pitches, fm_pitches = len(results[closer]) > 1, len(results[fireman]) > 1
         score_close = scoreIsClose(team, score_d, pitcherHome)
-        if inning >= 9 and closer not in used and score_close and cl_pitches:
-            currPitcher, logs, chg = executePitchingChange(team, logs, currPitcher, team['closer'])
-        elif fireman not in used and baseState[1] + baseState[2] > 0 and score_close:
-            currPitcher, logs, chg = executePitchingChange(team, logs, currPitcher, team['closer'])
-    while len(results[currPitcher]) < 2: # We still need to substitute SOMEONE who can pitch
-        score_blowout = team['blowout-deficit-by-inning'][inning - 1]
-        is_blowout = score_d * -1 > score_blowout
-        double_blowout = score_d * -1 > score_blowout * 2
-        if is_blowout: # reverse bullpen order
-            if double_blowout:
-                currPitcher, logs, chg = executePitchingChange(team, logs, currPitcher, 'Position Player')
-            else:
-                for pitcher in team['bullpen'][:-1:-1]: # reverse and ignore position player
-                    if len(results[pitcher]) > 1:
-                        currPitcher, logs, chg = executePitchingChange(team, logs, currPitcher, pitcher)
+        if inning >= 9 and closer not in team['burned-pitchers'] and score_close and cl_pitches:
+            currPitcher, logs = executePitchingChange(team, logs, currPitcher, closer)
+        elif fireman not in team['burned-pitchers'] and baseState[1] + baseState[2] > 0 and score_close:
+            currPitcher, logs = executePitchingChange(team, logs, currPitcher, fireman)
+    inning = inning if inning <= 9 else 9
+    score_blowout = team['blowout-deficit-by-inning'][inning - 1]
+    is_blowout = score_d * -1 > score_blowout
+    double_blowout = score_d * -1 > score_blowout * 2
+    if double_blowout:
+        currPitcher, logs = executePitchingChange(team, logs, currPitcher, 'Position Player')
+    while len(results[currPitcher]) < 2:  #We still need to substitute SOMEONE who can pitch
+        if is_blowout:  # reverse bullpen order
+            for pitcher in team['bullpen'][:-1:-1]:  # reverse order and ignore position player
+                if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
+                    currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
+                    break
         else:
             for pitcher in team['bullpen']:
-                if len(results[pitcher]) > 1:
-                    currPitcher, logs, chg = executePitchingChange(team, logs, currPitcher, pitcher)
-
-    return currPitcher, logs
+                if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
+                    currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
+                    break
+    if currPitcher not in team['burned-pitchers']:  # shouldnt happen
+        team['burned-pitchers'].append(currPitcher)
+    return currPitcher, team, logs
 
 
 def ops(dataset):
@@ -280,6 +308,7 @@ def ops(dataset):
     obp = float(ob) / pa
     slgp = float(slg) / ab
     return obp + slgp
+
 
 def simOffensiveInning(team, orderSlot, inning):
     if inning > 9:
@@ -403,7 +432,7 @@ def simDefensiveInning(team, currPitcher, inning, our_score, their_score,
         score_d = our_score - their_score - runs
         while len(team['pitching-results'][currPitcher]) < 1:
             old = currPitcher
-            currPitcher = decidePitchingChange(baseState, team, inning,
+            currPitcher, team, logs = decidePitchingChange(baseState, team, inning,
                                                bullpenIdx, score_d)
             logs += old + " is exhausted and being replaced on the mound by " + currPitcher + ". Some respectful clapping surfaces from the crowd in recognition of the effort.\n"
             team['burned-pitchers'].append(currPitcher)

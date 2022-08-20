@@ -24,37 +24,37 @@ def headToHeadGame(home, away, starterIdx):
     for i in range(1, 10):
         line_score[0].append(str(i))
         result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
-        orderSlotAway, score = result["orderSlot"], result["runs"]
+        orderSlotAway, currHomePitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
-        line_score[1].append(score)
-        away_score += score
+        line_score[1].append(result["runs"])
+        away_score += result["runs"]
 
         result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
-        orderSlotHome, score = result["orderSlot"], result["runs"]
+        orderSlotHome, currAwayPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
-        line_score[2].append(score)
-        home_score += score
+        line_score[2].append(result["runs"])
+        home_score += result["runs"]
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     i=9
     while away_score == home_score:
         i += 1
         line_score[0].append(str(i))
         result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
-        orderSlotAway, score = result["orderSlot"], result["runs"]
+        orderSlotAway, currPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
-        line_score[1].append(score)
-        away_score += score
+        line_score[1].append(result["runs"])
+        away_score += result["runs"]
 
-        if home_score > away_score + 0.5:
-            long_output+= "Skipping the bottom of the inning: the ballgame is over!"
+        if home_score > away_score:
+            long_output += "Skipping the bottom of the inning: the ballgame is over!"
         else:
             long_output += "Mid %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score)
 
         result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
-        orderSlotHome, score = result["orderSlot"], result["runs"]
+        orderSlotHome, currPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
-        line_score[2].append(score)
-        home_score += score
+        line_score[2].append(result["runs"])
+        home_score += result["runs"]
 
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     line_score[0].append("T")

@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 from datetime import timedelta
 import statsapi
@@ -11,6 +12,21 @@ def validateOnRoster(player, roster):
         raise(BaseException(player['fullName'] + " is in the lineup but not on their roster."))
 
 
+def handedness(player):
+    person_data = statsapi.player_stat_data(player['id'], group='hitting')
+    handedness = []
+    if person_data['bat_side'] == 'Left' or person_data['bat_side'] == 'Switch':
+        handedness.append("LHB")
+    if person_data['bat_side'] == 'Right' or person_data['bat_side'] == 'Switch':
+        handedness.append("RHB")
+    if person_data['pitch_hand'] == 'Left':
+        handedness.append("LHP")
+    if person_data['pitch_hand'] == 'Right':
+        handedness.append("RHP")
+    return handedness
+
+
+
 def loadLineup(team_name, box_games):
     with open("team-lineups/" + team_name + ".json", "r") as json_file:
         team = json.load(json_file)
@@ -22,13 +38,14 @@ def loadLineup(team_name, box_games):
         team['batting-results'] = []
         team['batting-result-curr-idx'] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         team['pitching-results'] = {}
+        team['handedness'] = {}
         positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0] # ignore 0 slot and pitcher slot 1
-        bench_idx = 0  # TODO
         offense = team['batting-order']
         offense.extend(team['pinch-hitter'])
         offense.extend(team['pinch-runner'])
         for idx, player in enumerate(offense):
-            player = statsapi.lookup_player(player)[0]
+            player = playerQuery(player)[0]
+            team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
             if player['fullName'] != team['designated-hitter']:
                 code = player['primaryPosition']['code']
@@ -60,51 +77,53 @@ def loadLineup(team_name, box_games):
         pitchers = team['starters']
         pitchers.extend(team['bullpen'])
         pitchers.append(team['closer'])
-        pitchers.append(team['long-reliever'])
         pitchers.append(team['fireman'])
         for player in pitchers:
-            # print(player)
-            player = statsapi.lookup_player(player)[0]
+            player = playerQuery(player)[0]
+            team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
             totals = processing.filterPlayerPasDefensive(box_games, player)
             pas = processing.randomWalkOfWeeklyPitchingTotals(totals)
             name = player["fullName"]
             team['pitching-results'][name] = pas
-        team['bullpen'].extend('Position Player')
+        team['bullpen'].append('Position Player')
         seq = ['walk', 'walk', 'hbp', 'in_play_out', "in_play_out", 'in_play_out', 'in_play_out', '4', '2', '1', '1', '1', 'k']
         team['pitching-results']['Position Player'] = []
-        for i in range(1, 32): #  5*32 outs, almost 6 whole games of outs
+        team['handedness']['Position Player'] = ['RHP', "RHB"]
+        for i in range(1, 32):  #5*32 outs, almost 6 whole games of outs is plenty
             team['pitching-results']['Position Player'].extend(seq)
-        team['pitching-results']['Position Player'].shuffle()
+        random.shuffle(team['pitching-results']['Position Player'])
         return team
 
 
-def scrapePlayerPositions(name=None, teamId=None, pos=None):  #  note: this will take a bit to complete.
+def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bit to complete.
     try:
-        with open("playersTeamsAndPositions.json", "r") as json_file:
-            pass
+        with open("playersTeamsAndPositions.json", "r", encoding='utf8') as json_file:
+            data = json.load(json_file)
+            if name != None:
+                data = [a for a in data if a['fullName'] == name]
+            if teamId != None:
+                data = [a for a in data if a['currentTeam'] == int(teamId)]
+            if pos != None:
+                data = [a for a in data if
+                        a['primaryPosition']['abbreviation'] == str(pos)]
+            return data
     except FileNotFoundError:
         with open("playersTeamsAndPositions.json", "w") as json_file:
             players = statsapi.lookup_player(lookup_value="")
             write_players = []
             for pl_full in players:
-                pl = {"fullName": pl_full["fullName"],
+                pl = {
+                    "fullName": pl_full["fullName"],
+                    "boxscoreName": pl_full['boxscoreName'],
                     "currentTeam": pl_full["currentTeam"]["id"],
-                    "primaryPosition": pl_full['primaryPosition']
-                      }
+                    "primaryPosition": pl_full['primaryPosition'],
+                    "handedness": handedness(pl_full)
+                }
                 write_players.append(pl)
             json_file.write(json.dumps(write_players))
             json_file.close()
-    with open("playersTeamsAndPositions.json", "r") as json_file:
-        data = json.load(json_file)
-        if name != None:
-            data = [a for a in data if a['fullName'] == name]
-        if teamId != None:
-            data = [a for a in data if a['currentTeam'] == int(teamId)]
-        if pos != None:
-            data = [a for a in data if a['primaryPosition']['abbreviation'] == str(pos)]
-        return data
-
+        return playerQuery(name, teamId, pos)
 
 def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                  duration_days=6):  # To rule out games in progress
@@ -153,13 +172,11 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                         # by [player]
                         fn = desc[0]
                         ln = desc[1]
-                        player = statsapi.lookup_player(
-                            fn + " " + ln.strip(".,"))
+                        player = playerQuery(fn + " " + ln.strip(".,"))
                         box['cs'].append(player[0]['fullName'])
                         fn = desc[catcher_index + 1]
                         ln = desc[catcher_index + 2]
-                        player = statsapi.lookup_player(
-                            fn + " " + ln.strip(".,"))
+                        player = playerQuery(fn + " " + ln.strip(".,"))
                         box['cs_catcher'].append(player[0]['fullName'])
                     except Exception as e:
                         print("unhandled caught stealing")
@@ -172,8 +189,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                         # by [player]
                         fn = desc[byIndex + 1]
                         ln = desc[byIndex + 2]
-                        player = statsapi.lookup_player(
-                            fn + " " + ln.strip(".,"))
+                        player = playerQuery(fn + " " + ln.strip(".,"))
                         box['errors-blame'].append(player[0]['fullName'])
                     except Exception as e:
                         print("unhandled fielding error")
@@ -191,8 +207,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                         else:
                             fn = desc[byIndex + 2]
                             ln = desc[byIndex + 3]
-                        player = statsapi.lookup_player(
-                            fn + " " + ln.strip(".,"))
+                        player = playerQuery(fn + " " + ln.strip(".,"))
                         box['errors-blame'].append(player[0]['fullName'])
                     except Exception as e:
                         print("unhandled fielding error")

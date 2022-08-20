@@ -49,15 +49,14 @@ def randomWalkOfWeeklyPitchingTotals(weekly_totals):
 
 
 def filterPlayerPas(box_games, player):
-    arr = []
     box_nm = player['boxscoreName']
     game_lines = []
     for box in box_games:
-        if box['away']['team']['id'] == player['currentTeam']['id']:
+        if box['away']['team']['id'] == player['currentTeam']:
             for batter in box['awayBatters']:
                 if box_nm in batter['namefield']:
                     game_lines.append(batter)
-        if box['home']['team']['id'] == player['currentTeam']['id']:
+        if box['home']['team']['id'] == player['currentTeam']:
             for batter in box['homeBatters']:
                 if box_nm in batter['namefield']:
                     game_lines.append(batter)
@@ -89,15 +88,14 @@ def filterPlayerPas(box_games, player):
 
 
 def filterPlayerPasDefensive(box_games, player):
-    arr = []
     box_nm = player['boxscoreName']
     game_lines = []
     for box in box_games:
-        if box['away']['team']['id'] == player['currentTeam']['id']:
+        if box['away']['team']['id'] == player['currentTeam']:
             for pitcher in box['awayPitchers']:
                 if box_nm in pitcher['namefield']:
                     game_lines.append(pitcher)
-        if box['home']['team']['id'] == player['currentTeam']['id']:
+        if box['home']['team']['id'] == player['currentTeam']:
             for pitcher in box['homePitchers']:
                 if box_nm in pitcher['namefield']:
                     game_lines.append(pitcher)
