@@ -1,3 +1,4 @@
+import random
 from datetime import datetime
 import game
 import lineup_api
@@ -19,6 +20,9 @@ def multiGameSeries(home, away, games):
     h = home['team-name']
     a = away['team-name']
     count = {h: 0, a: 0}
+    for team in [home, away]:
+        for error in team['errors']:
+            team['errors'][error]['game'] = random.randint(0, games-1)
     for starter in range(0, games):
         winner = game.simulateAndLogGame(home, away, starter)
         count[winner] += 1

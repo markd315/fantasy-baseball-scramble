@@ -23,13 +23,13 @@ def headToHeadGame(home, away, starterIdx):
                   ] # header, aw_off, hm_off, aw_def, aw_def
     for i in range(1, 10):
         line_score[0].append(str(i))
-        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
+        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, True, starterIdx)
         orderSlotAway, currHomePitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
         line_score[1].append(result["runs"])
         away_score += result["runs"]
 
-        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
+        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False, starterIdx)
         orderSlotHome, currAwayPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
         line_score[2].append(result["runs"])
@@ -39,7 +39,7 @@ def headToHeadGame(home, away, starterIdx):
     while away_score == home_score:
         i += 1
         line_score[0].append(str(i))
-        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, False)
+        result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, True, starterIdx)
         orderSlotAway, currPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
         line_score[1].append(result["runs"])
@@ -50,7 +50,7 @@ def headToHeadGame(home, away, starterIdx):
         else:
             long_output += "Mid %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score)
 
-        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False)
+        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False, starterIdx)
         orderSlotHome, currPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
         line_score[2].append(result["runs"])

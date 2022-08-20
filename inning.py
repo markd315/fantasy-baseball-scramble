@@ -44,8 +44,16 @@ def getCoinForMatchup(teamsInLeague, pitchingTeam, battingTeam, currPitcher, ord
     return 'pitcher'
 
 
+def notError(pitchingTeam, inning, outs, gameNumber, outcome='in_play_out'):
+    code = str(inning) + '.' + str(outs+1)
+    if code in pitchingTeam['errors'] and outcome == 'in_play_out':
+        err = pitchingTeam['errors'][code]
+        if err['game'] == gameNumber:
+            return err['name']
+    return True
+
 def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
-                     pitcherScore, batterScore, pitcherHome):
+                     pitcherScore, batterScore, pitcherHome, gameNumber):
     if inning > 9:
         baseState = [0, 1, 0]
     else:
@@ -65,7 +73,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
             logs += "(outs: " + str(outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
-            if (outcome == "in_play_out"):
+            if (outcome == "in_play_out" and notError(pitchingTeam, inning, outs, gameNumber)):
                 outs += 1
                 rng = random.uniform(0, 1)
                 if (baseState[2] == 1 and outs < 3):
@@ -140,6 +148,13 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     baseState[int(outcome) - 1] = 0
                     outs += 1
                     logs += "Runner picked off by " + currPitcher + "\n"
+            errorPlayer = notError(pitchingTeam, inning, outs, gameNumber, outcome)
+            if errorPlayer != True:
+                logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
+                runs += baseState[2]
+                baseState[2] = baseState[1]
+                baseState[1] = baseState[0]
+                baseState[0] = 1
         else:
             team = battingTeam
             player_nm = team['batting-order'][orderSlot - 1]
@@ -148,7 +163,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 outs) + ") " + player_nm + " at-bat: " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
-            if (outcome == "in_play_out"):
+            if (outcome == "in_play_out" and notError(pitchingTeam, inning, outs, gameNumber)):
                 outs += 1
                 rng = random.uniform(0, 1)
                 if (baseState[2] == 1 and outs < 3):
@@ -237,6 +252,13 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     # logs += str(baseState)
                 else:
                     logs += player_nm + " had a good jump but the next base was occupied\n"
+            errorPlayer = notError(pitchingTeam, inning, outs, gameNumber, outcome)
+            if errorPlayer != True:
+                logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
+                runs += baseState[2]
+                baseState[2] = baseState[1]
+                baseState[1] = baseState[0]
+                baseState[0] = 1
         # Advance order slot even if a pitching outcome was chosen
         orderSlot += 1
         if (orderSlot > 9):
@@ -274,7 +296,7 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
         currPitcher, logs = executePitchingChange(team, logs, currPitcher, 'Position Player')
     while len(results[currPitcher]) < 2:  #We still need to substitute SOMEONE who can pitch
         if is_blowout:  # reverse bullpen order
-            for pitcher in team['bullpen'][:-1:-1]:  # reverse order and ignore position player
+            for pitcher in team['bullpen'][-2::-1]:  # reverse order and ignore position player
                 if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
                     currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
                     break

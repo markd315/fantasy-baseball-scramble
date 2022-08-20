@@ -26,6 +26,16 @@ def handedness(player):
     return handedness
 
 
+def fillErrors(player, box_games):
+    errs = []
+    for game in box_games:
+        for err in game['errors-blame']:
+            if err in player['fullName']:
+                inn = str(random.randint(1, 9)) + "."
+                inn += str(random.randint(1, 3))
+                errs.append({'inning': inn, 'name': player['fullName']})
+    return errs
+
 
 def loadLineup(team_name, box_games):
     with open("team-lineups/" + team_name + ".json", "r") as json_file:
@@ -39,7 +49,8 @@ def loadLineup(team_name, box_games):
         team['batting-result-curr-idx'] = [0, 0, 0, 0, 0, 0, 0, 0, 0]
         team['pitching-results'] = {}
         team['handedness'] = {}
-        positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0] # ignore 0 slot and pitcher slot 1
+        team['errors'] = {}
+        positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0]  # ignore 0 slot and pitcher slot 1
         offense = team['batting-order']
         offense.extend(team['pinch-hitter'])
         offense.extend(team['pinch-runner'])
@@ -61,6 +72,9 @@ def loadLineup(team_name, box_games):
             if len(pas) < 5:
                 raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
             team['batting-results'].append(pas)
+            errs = fillErrors(player, box_games)
+            for err in errs:
+                team['errors'][err['inning']] = {'game': 0, 'name': err['name']}
         # validate positions
         for idx, pos in enumerate(positions_filled):
             err = False
@@ -124,6 +138,7 @@ def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bi
             json_file.write(json.dumps(write_players))
             json_file.close()
         return playerQuery(name, teamId, pos)
+
 
 def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                  duration_days=6):  # To rule out games in progress
