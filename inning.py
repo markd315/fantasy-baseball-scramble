@@ -54,6 +54,17 @@ def isError(pitchingTeam, inning, outs, gameNumber, outcome='in_play_out', proce
             return err['name']
     return False
 
+
+def score(runs, logs, scored):
+    if scored == 0:
+        return runs, logs
+    elif scored == 1:
+        logs += "[ 1 run scored! ]\n"
+    else:
+        logs += "[ " + str(scored) + " runs scored!!! ]\n"
+    return runs+scored, logs
+
+
 def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                      pitcherScore, batterScore, pitcherHome, gameNumber):
     if inning > 9:
@@ -65,6 +76,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
     while outs < 3:
         prevOuts = outs
         coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
+        batter = battingTeam['batting-order'][orderSlot - 1]
         if coin == 'pitcher':
             team = pitchingTeam
             score_d = pitcherScore - batterScore - runs
@@ -72,7 +84,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
             outcome = team['pitching-results'][currPitcher].pop(0)
             # Discard a second outcome to compensate for "batter" at-bats
             team['pitching-results'][currPitcher].pop(0)
-            logs += "(outs: " + str(outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
+            logs += str(outs) + " out) " + currPitcher + " pitching (v " + batter.split(' ')[1] + "): " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
             if (outcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
@@ -81,7 +93,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 if (baseState[2] == 1 and outs < 3):
                     if (rng > 1.0 - config.sacrificeFlyToHomeRatio):
                         logs += "sacrifice runner scores\n"
-                        runs += 1
+                        runs, logs = score(runs, logs, 1)
                         baseState[2] = 0
                 # don't reroll, if we can't score the run home we won't advance to third
                 if (baseState[1] == 1 and baseState[2] == 0 and outs < 3):
@@ -110,21 +122,21 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 out_stealing = True
                 outcome = outcome[0:-3]
                 logs += "Runner picked off by " + currPitcher + "\n"
-            if (outcome == "4"):
+            if (outcome == 'home run'):
                 hits+=1
-                runs += 1 + baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, 1 + baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 0]
-            if (outcome == "3"):
+            if (outcome == 'triple'):
                 hits += 1
-                runs += baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 1]
-            if (outcome == "2"):
+            if (outcome == 'double'):
                 hits += 1
-                runs += baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 1, 0]
-            if (outcome == "1"):
+            if (outcome == 'single'):
                 hits += 1
-                runs += baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[1] + baseState[2])
                 baseState[2] = 0
                 baseState[1] = 0
                 if (baseState[0] == 1):
@@ -137,7 +149,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 baseState[0] = 1
             if (outcome == "walk" or outcome == "hbp"):
                 if (baseState[0] + baseState[1] + baseState[2] == 3):  # ld
-                    runs += 1
+                    runs, logs = score(runs, logs, 1)
                 elif (baseState[0] == 1 and baseState[2] == 1):  # 13 loads it
                     baseState[1] = 1
                 elif (baseState[0] == 1 and baseState[1] == 1):  # 12 loads it
@@ -159,13 +171,13 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 errors += 1
                 #logs += str(baseState) + "\n"
                 logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
-                runs += baseState[2]
+                runs, logs = score(runs, logs, baseState[2])
                 secondToHomeOnErrorChance = config.secondToHomeOnErrorChance
                 if prevOuts == 2:
                     secondToHomeOnErrorChance = config.secondToHomeOnErrorChanceTwoOuts
                 rng = random.uniform(0, 1)
                 if rng < secondToHomeOnErrorChance:
-                    runs += baseState[1]
+                    runs, logs = score(runs, logs, baseState[1])
                     if baseState[1] == 1:
                         logs += "The run scores from second on the error\n"
                     if rng < config.firstToThirdOnErrorChanceTwoOuts and prevOuts == 2:
@@ -185,10 +197,8 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
 
         else:
             team = battingTeam
-            player_nm = team['batting-order'][orderSlot - 1]
             outcome = offensiveOutcome(team, orderSlot)
-            logs += "(outs: " + str(
-                outs) + ") " + player_nm + " at-bat: " + outcome + "\n"
+            logs += str(outs) + " out) " + batter + " hitting (v " + currPitcher.split(' ')[1] + "): " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
             if (outcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
@@ -197,7 +207,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 if (baseState[2] == 1 and outs < 3):
                     if (rng > 1.0 - config.sacrificeFlyToHomeRatio):
                         logs += "sacrifice runner scores\n"
-                        runs += 1
+                        runs, logs = score(runs, logs, 1)
                         baseState[2] = 0
                 # don't reroll, if we can't score the run home we won't advance to third
                 if (baseState[1] == 1 and baseState[2] == 0 and outs < 3):
@@ -230,21 +240,21 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 stolen = True
                 out_stealing = True
                 outcome = outcome[0:-3]
-            if (outcome == "4"):
+            if (outcome == 'home run'):
                 hits += 1
-                runs += 1 + baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, 1 + baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 0]
-            if (outcome == "3"):
+            if (outcome == 'triple'):
                 hits += 1
-                runs += baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 1]
-            if (outcome == "2"):
+            if (outcome == 'double'):
                 hits += 1
-                runs += baseState[0] + baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 1, 0]
-            if (outcome == "1"):
+            if (outcome == 'single'):
                 hits += 1
-                runs += baseState[1] + baseState[2]
+                runs, logs = score(runs, logs, baseState[1] + baseState[2])
                 baseState[2] = 0
                 baseState[1] = 0
                 if (baseState[0] == 1):
@@ -257,7 +267,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 baseState[0] = 1
             if (outcome == "walk" or outcome == "hbp"):
                 if (baseState[0] + baseState[1] + baseState[2] == 3):  # ld
-                    runs += 1
+                    runs, logs = score(runs, logs, 1)
                 elif (baseState[0] == 1 and baseState[2] == 1):  # 13 loads it
                     baseState[1] = 1
                 elif (baseState[0] == 1 and baseState[1] == 1):  # 12 loads it
@@ -269,33 +279,36 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 else:  # first empty
                     baseState[0] = 1
             if stolen or out_stealing:
-                if outcome == 'walk' or outcome == 'hbp':
-                    outcome = 1
-                chk_empty_base = int(outcome)
+                if outcome == 'walk' or outcome == 'hbp' or outcome == "single":
+                    chk_empty_base = 1
+                elif outcome == "double":
+                    chk_empty_base = 2
+                else:
+                    chk_empty_base = 3
                 if out_stealing:
                     baseState[chk_empty_base - 1] = 0
                     outs += 1
-                    logs += player_nm + " was picked off and is out\n"
+                    logs += batter + " was picked off and is out\n"
                     # logs += baseState)
                 elif baseState[chk_empty_base] == 0:
                     baseState[chk_empty_base] = 1
                     baseState[chk_empty_base - 1] = 0
-                    logs += player_nm + " stole a base\n"
+                    logs += batter + " stole a base\n"
                     # logs += str(baseState)
                 else:
-                    logs += player_nm + " had a good jump but the next base was occupied\n"
+                    logs += batter + " had a good jump but the next base was occupied\n"
             errorPlayer = isError(pitchingTeam, inning, prevOuts, gameNumber, outcome, True)
             if errorPlayer != False:
                 errors += 1
                 #logs += str(baseState) + "\n"
                 logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
-                runs += baseState[2]
+                runs, logs = score(runs, logs, baseState[2])
                 secondToHomeOnErrorChance = config.secondToHomeOnErrorChance
                 if prevOuts == 2:
                     secondToHomeOnErrorChance = config.secondToHomeOnErrorChanceTwoOuts
                 rng = random.uniform(0, 1)
                 if rng < secondToHomeOnErrorChance:
-                    runs += baseState[1]
+                    runs, logs = score(runs, logs, baseState[1])
                     if baseState[1] == 1:
                         logs += "The run scores from second on the error\n"
                     if rng < config.firstToThirdOnErrorChanceTwoOuts and prevOuts == 2:
@@ -370,7 +383,7 @@ def ops(dataset):
     ob = 1
     # todo remove +cs +sb
     for app in dataset:
-        if app in ["1", "2", "3", "4"]:
+        if app in ['single', 'double', 'triple', 'home run']:
             slg += int(app)
             ab += 1
             ob += 1
@@ -383,241 +396,3 @@ def ops(dataset):
     obp = float(ob) / pa
     slgp = float(slg) / ab
     return obp + slgp
-
-
-def simOffensiveInning(team, orderSlot, inning):
-    if inning > 9:
-        baseState = [0, 1, 0]
-    else:
-        baseState = [0, 0, 0]
-    runs = 0
-    outs = 0
-    logs = "\n"
-    while outs < 3:
-        player_nm = team['batting-order'][orderSlot - 1]
-        outcome = offensiveOutcome(team, orderSlot)
-        logs += "(outs: " + str(
-            outs) + ") " + player_nm + " at-bat: " + outcome + "\n"
-        if (outcome == "k"):
-            outs += 1
-        if (outcome == "in_play_out"):
-            outs += 1
-            rng = random.uniform(0, 1)
-            if (baseState[2] == 1 and outs < 3):
-                if (rng > 1.0 - config.sacrificeFlyToHomeRatio):
-                    logs += "sacrifice runner scores\n"
-                    runs += 1
-                    baseState[2] = 0
-            # don't reroll, if we can't score the run home we won't advance to third
-            if (baseState[1] == 1 and baseState[2] == 0 and outs < 3):
-                if (rng > 1.0 - config.productiveOutToThirdRatio):
-                    logs += "sacrifice runner moved to 3rd\n"
-                    baseState[2] = 1
-                    baseState[1] = 0
-            if (baseState[0] == 1 and outs < 3):
-                if (rng < config.doublePlayRatioOnOutsWhenRunnerOnFirst):
-                    logs += "double play (6-4-3/4-6-3)\n"
-                    outs += 1
-                    baseState[0] = 0
-                elif (baseState[
-                          1] == 0 and rng > 1.0 - config.sacrificeBuntRatio):
-                    logs += "sacrifice runner moved to 2nd\n"
-                    baseState[1] = 1
-                    baseState[0] = 0
-                elif (baseState[
-                          2] == 0 and rng > 1.0 - config.sacrificeBuntRatio):
-                    logs += "sacrifice both runners advance\n"
-                    baseState[2] = 1
-                    baseState[1] = 1
-                    baseState[0] = 0
-        stolen = False
-        out_stealing = False
-        if outcome.endswith("+sb"):
-            stolen = True
-            outcome = outcome[0:-3]
-        if outcome.endswith("+cs"):
-            stolen = True
-            out_stealing = True
-            outcome = outcome[0:-3]
-        if (outcome == "4"):
-            runs += 1 + baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 0, 0]
-        if (outcome == "3"):
-            runs += baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 0, 1]
-        if (outcome == "2"):
-            runs += baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 1, 0]
-        if (outcome == "1"):
-            runs += baseState[1] + baseState[2]
-            baseState[2] = 0
-            baseState[1] = 0
-            if (baseState[0] == 1):
-                rng = random.uniform(0, 1)
-                if (rng > 1.0 - config.firstToThirdSingleRatio):
-                    logs += "runner first to third\n"
-                    baseState[2] = 1
-                else:
-                    baseState[1] = 1
-            baseState[0] = 1
-        if (outcome == "walk" or outcome == "hbp"):
-            if (baseState[0] + baseState[1] + baseState[2] == 3):  # ld
-                runs += 1
-            elif (baseState[0] == 1 and baseState[2] == 1):  # 13 loads it
-                baseState[1] = 1
-            elif (baseState[0] == 1 and baseState[1] == 1):  # 12 loads it
-                baseState[2] = 1
-            elif (baseState[1] == 1 and baseState[2] == 1):  # 23 loads it
-                baseState[0] = 1
-            elif (baseState[0] == 1):  # 1 pushed to second
-                baseState[1] = 1
-            else:  # first empty
-                baseState[0] = 1
-        if stolen or out_stealing:
-            if outcome == 'walk' or outcome == 'hbp':
-                outcome = 1
-            chk_empty_base = int(outcome)
-            if out_stealing:
-                baseState[chk_empty_base - 1] = 0
-                outs += 1
-                logs += player_nm + " was picked off and is out\n"
-                # logs += baseState)
-            elif baseState[chk_empty_base] == 0:
-                baseState[chk_empty_base] = 1
-                baseState[chk_empty_base - 1] = 0
-                logs += player_nm + " stole a base\n"
-                # logs += str(baseState)
-            else:
-                logs += player_nm + " had a good jump but the next base was occupied\n"
-                orderSlot += 1
-        if (orderSlot > 9):
-            orderSlot -= 9
-    logs += team["team-name"] + " scored: " + str(runs / 2.0)
-    return {"orderSlot": orderSlot, "runs": runs, "out": logs}
-
-
-def simDefensiveInning(team, currPitcher, inning, our_score, their_score,
-                       isHome):
-    baseState = [0, 0, 0]
-    runs = 0
-    outs = 0
-    logs = ""
-    while outs < 3:
-        bullpenIdx = 0
-        score_d = our_score - their_score - runs
-        while len(team['pitching-results'][currPitcher]) < 1:
-            old = currPitcher
-            currPitcher, team, logs = decidePitchingChange(baseState, team, inning,
-                                               bullpenIdx, score_d)
-            logs += old + " is exhausted and being replaced on the mound by " + currPitcher + ". Some respectful clapping surfaces from the crowd in recognition of the effort.\n"
-            team['burned-pitchers'].append(currPitcher)
-            bullpenIdx += 1
-            if inning >= 7:
-                if inning >= 9 and team['closer'] not in team[
-                    'burned-pitchers']:
-                    if (isHome and score_d <= team[
-                        "closer-max-lead-home"] and score_d >= team[
-                            "closer-min-lead-home"]) or (
-                            not isHome and score_d >= -1 * team[
-                        "closer-max-lead-away"] and score_d <= -1 * team[
-                                "closer-min-lead-away"]):
-                        logs += currPitcher + " takes a seat. Crunch time means " + \
-                                team['closer'] + " time.\n"
-                        currPitcher = team['closer']
-                        team['burned-pitchers'].append(currPitcher)
-
-                elif team['fireman'] not in team['burned-pitchers'] and \
-                        baseState[1] + baseState[2] > 0:
-                    if (isHome and score_d <= team[
-                        "closer-max-lead-home"] and score_d >= team[
-                            "closer-min-lead-home"]) or (
-                            not isHome and score_d >= -1 * team[
-                        "closer-max-lead-away"] and score_d <= -1 * team[
-                                "closer-min-lead-away"]):
-                        logs += currPitcher + " is sweating and the manager makes a call to the pen, luckily " + \
-                                team['fireman'] + " was already warming up.\n"
-                        currPitcher = team['fireman']
-                        team['burned-pitchers'].append(currPitcher)
-
-        outcome = team['pitching-results'][currPitcher].pop(0)
-        logs += "(outs: " + str(
-            outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
-        if (outcome == "k"):
-            outs += 1
-        if (outcome == "in_play_out"):
-            outs += 1
-            rng = random.uniform(0, 1)
-            if (baseState[2] == 1 and outs < 3):
-                if (rng > 1.0 - config.sacrificeFlyToHomeRatio):
-                    logs += "sacrifice runner scores\n"
-                    runs += 1
-                    baseState[2] = 0
-            # don't reroll, if we can't score the run home we won't advance to third
-            if (baseState[1] == 1 and baseState[2] == 0 and outs < 3):
-                if (rng > 1.0 - config.productiveOutToThirdRatio):
-                    logs += "sacrifice runner moved to 3rd\n"
-                    baseState[2] = 1
-                    baseState[1] = 0
-            if (baseState[0] == 1 and outs < 3):
-                if (rng < config.doublePlayRatioOnOutsWhenRunnerOnFirst):
-                    logs += "double play (6-4-3/4-6-3)\n"
-                    outs += 1
-                    baseState[0] = 0
-                elif (baseState[
-                          1] == 0 and rng > 1.0 - config.sacrificeBuntRatio):
-                    logs += "sacrifice runner moved to 2nd\n"
-                    baseState[1] = 1
-                    baseState[0] = 0
-                elif (baseState[
-                          2] == 0 and rng > 1.0 - config.sacrificeBuntRatio):
-                    logs += "sacrifice both runners advance\n"
-                    baseState[2] = 1
-                    baseState[1] = 1
-                    baseState[0] = 0
-        out_stealing = False
-        if outcome.endswith("+cs"):
-            out_stealing = True
-            outcome = outcome[0:-3]
-            logs += "Runner picked off by " + currPitcher + "\n"
-        if (outcome == "4"):
-            runs += 1 + baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 0, 0]
-        if (outcome == "3"):
-            runs += baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 0, 1]
-        if (outcome == "2"):
-            runs += baseState[0] + baseState[1] + baseState[2]
-            baseState = [0, 1, 0]
-        if (outcome == "1"):
-            runs += baseState[1] + baseState[2]
-            baseState[2] = 0
-            baseState[1] = 0
-            if (baseState[0] == 1):
-                rng = random.uniform(0, 1)
-                if (rng > 1.0 - config.firstToThirdSingleRatio):
-                    logs += "runner first to third\n"
-                    baseState[2] = 1
-                else:
-                    baseState[1] = 1
-            baseState[0] = 1
-        if (outcome == "walk" or outcome == "hbp"):
-            if (baseState[0] + baseState[1] + baseState[2] == 3):  # ld
-                runs += 1
-            elif (baseState[0] == 1 and baseState[2] == 1):  # 13 loads it
-                baseState[1] = 1
-            elif (baseState[0] == 1 and baseState[1] == 1):  # 12 loads it
-                baseState[2] = 1
-            elif (baseState[1] == 1 and baseState[2] == 1):  # 23 loads it
-                baseState[0] = 1
-            elif (baseState[0] == 1):  # 1 pushed to second
-                baseState[1] = 1
-            else:  # first empty
-                baseState[0] = 1
-        if out_stealing:
-            if outcome == 'walk' or outcome == 'hbp':
-                outcome = 1
-                baseState[int(outcome) - 1] = 0
-                outs += 1
-                logs += "Runner picked off by " + currPitcher + "\n"
-    logs += team["team-name"] + " conceded " + str(runs / 2.0) + " runs\n"
-    return {"currPitcher": currPitcher, "runs": runs, "out": logs}

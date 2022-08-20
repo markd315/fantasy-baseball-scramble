@@ -32,13 +32,16 @@ def headToHeadGame(home, away, starterIdx):
         away_hits += result['hits']
         home_errors += result['errors']
 
-        result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False, starterIdx)
-        orderSlotHome, currAwayPitcher = result["orderSlot"], result['currPitcher']
-        long_output += result["out"]
-        line_score[2].append(result["runs"])
-        home_score += result["runs"]
-        home_hits += result['hits']
-        away_errors += result['errors']
+        if i < 9 or home_score <= away_score:
+            result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False, starterIdx)
+            orderSlotHome, currAwayPitcher = result["orderSlot"], result['currPitcher']
+            long_output += result["out"]
+            line_score[2].append(result["runs"])
+            home_score += result["runs"]
+            home_hits += result['hits']
+            away_errors += result['errors']
+        else:
+            line_score[2].append("-")
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     i=9
     while away_score == home_score:
@@ -66,11 +69,17 @@ def headToHeadGame(home, away, starterIdx):
         away_errors += result['errors']
 
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
-    line_score[0].extend(["R", "H", "E"])
+    line_score[0].extend(["~R~", "H", "E"])
     hits = [away_hits, home_hits]
     errs = [away_errors, home_errors]
     for idx, arr in enumerate(line_score[1:]):
-        line_score[idx+1].append(sum(arr[1:]))
+        sum=0
+        for num in arr[1:]:
+            try:
+                sum += int(num)
+            except BaseException:
+                pass
+        line_score[idx + 1].append(str(sum))
         line_score[idx+1].append(str(hits[idx]))
         line_score[idx + 1].append(str(errs[idx]))
     winner = home['team-name'] if home_score > away_score else away['team-name']
@@ -106,7 +115,7 @@ def simulateAndLogGame(home, away, starter_idx):
     runtime = runtime.strftime("%m-%d")
     winner, line_score, long_output = headToHeadGame(home, away, starter_idx)
     shortname = runtime + "-" + away['abbv'] + "@" + home['abbv'] + "-" + str(starter_idx + 1)
-    with open("line_output/" + shortname, "w") as f:
+    with open("debug_output/" + shortname + ".line", "w") as f:
         f.write(tabulate(line_score))
         f.close()
     with open("debug_output/" + shortname, "w") as f:

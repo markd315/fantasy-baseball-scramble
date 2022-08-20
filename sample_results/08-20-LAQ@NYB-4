@@ -1,144 +1,135 @@
 
-(outs: 0) Shohei Ohtani at-bat: in_play_out
-(outs: 1) Corey Kluber pitching: in_play_out
-(outs: 2) Corey Kluber pitching: in_play_out
+0 out) Corey Kluber pitching (v Ohtani): double
+0 out) Alejandro Kirk hitting (v Kluber): in_play_out
+1 out) Corey Kluber pitching (v Swanson): in_play_out
+2 out) Corey Kluber pitching (v Merrifield): in_play_out
 Liverpool Ale Quaffers scored: 0
 
-(outs: 0) Max Scherzer pitching: in_play_out
-(outs: 1) Max Scherzer pitching: in_play_out
-(outs: 2) Marcus Semien at-bat: in_play_out
+0 out) Brandon Nimmo hitting (v Scherzer): in_play_out
+1 out) Austin Hays hitting (v Scherzer): in_play_out
+2 out) Max Scherzer pitching (v Semien): in_play_out
 New York Bankers scored: 0
 End 1, Liverpool Ale Quaffers: 0, New York Bankers: 0
 
 
-(outs: 0) Whit Merrifield at-bat: in_play_out
-(outs: 1) Corey Kluber pitching: k
-(outs: 2) Kyle Tucker at-bat: in_play_out
+0 out) Corey Kluber pitching (v Garcia): in_play_out
+1 out) Corey Kluber pitching (v Tucker): in_play_out
+2 out) Brandon Drury hitting (v Kluber): k
 Liverpool Ale Quaffers scored: 0
 
-(outs: 0) Pete Alonso at-bat: in_play_out
-(outs: 1) Max Scherzer pitching: in_play_out
-(outs: 2) Max Scherzer pitching: in_play_out
+0 out) Max Scherzer pitching (v Alonso): single
+0 out) Max Scherzer pitching (v Marte): in_play_out
+double play (6-4-3/4-6-3)
+2 out) Yordan Alvarez hitting (v Scherzer): in_play_out
 New York Bankers scored: 0
 End 2, Liverpool Ale Quaffers: 0, New York Bankers: 0
 
 
-(outs: 0) Corey Kluber pitching: k
-(outs: 1) Corey Kluber pitching: k
-(outs: 2) Andrew Benintendi at-bat: in_play_out
+0 out) Corey Kluber pitching (v Guerrero): in_play_out
+1 out) Corey Kluber pitching (v Benintendi): walk
+1 out) Shohei Ohtani hitting (v Kluber): walk
+1 out) Alejandro Kirk hitting (v Kluber): k
+2 out) Dansby Swanson hitting (v Kluber): in_play_out
 Liverpool Ale Quaffers scored: 0
 
-(outs: 0) Austin Riley at-bat: in_play_out
-(outs: 1) Max Scherzer pitching: 1
-(outs: 1) Francisco Lindor at-bat: in_play_out
-(outs: 2) Brandon Nimmo at-bat: walk
-(outs: 2) Austin Hays at-bat: in_play_out
+0 out) Austin Riley hitting (v Scherzer): in_play_out
+1 out) Max Scherzer pitching (v Contreras): in_play_out
+2 out) Francisco Lindor hitting (v Scherzer): k
 New York Bankers scored: 0
 End 3, Liverpool Ale Quaffers: 0, New York Bankers: 0
 
 
-(outs: 0) Corey Kluber pitching: in_play_out
-(outs: 1) Alejandro Kirk at-bat: in_play_out
-(outs: 2) Dansby Swanson at-bat: walk
-(outs: 2) Whit Merrifield at-bat: in_play_out
-Liverpool Ale Quaffers scored: 0
-
-(outs: 0) Max Scherzer pitching: in_play_out
-(outs: 1) Pete Alonso at-bat: 1
-(outs: 1) Max Scherzer pitching: in_play_out
-(outs: 2) Yordan Alvarez at-bat: 1
-(outs: 2) Max Scherzer pitching: k
-New York Bankers scored: 0
-End 4, Liverpool Ale Quaffers: 0, New York Bankers: 0
-
-
-(outs: 0) Adolis Garcia at-bat: 2+sb
-Adolis Garcia stole a base
-(outs: 0) Corey Kluber pitching: in_play_out
-(outs: 1) Corey Kluber pitching: 2
-(outs: 1) Corey Kluber pitching: 1
-(outs: 1) Andrew Benintendi at-bat: k
-(outs: 2) Shohei Ohtani at-bat: in_play_out
+0 out) Corey Kluber pitching (v Merrifield): in_play_out
+1 out) Corey Kluber pitching (v Garcia): double
+1 out) Corey Kluber pitching (v Tucker): double
+[ 1 run scored! ]
+1 out) Corey Kluber pitching (v Drury): double
+[ 1 run scored! ]
+1 out) Vladimir Guerrero hitting (v Kluber): in_play_out
+2 out) Andrew Benintendi hitting (v Kluber): k
 Liverpool Ale Quaffers scored: 2
 
-(outs: 0) William Contreras at-bat: in_play_out
-(outs: 1) Max Scherzer pitching: in_play_out
-(outs: 2) Brandon Nimmo at-bat: k
+0 out) Max Scherzer pitching (v Nimmo): in_play_out
+1 out) Austin Hays hitting (v Scherzer): single
+1 out) Marcus Semien hitting (v Scherzer): in_play_out
+sacrifice runner moved to 2nd
+2 out) Max Scherzer pitching (v Alonso): k
+New York Bankers scored: 0
+End 4, Liverpool Ale Quaffers: 2, New York Bankers: 0
+
+
+0 out) Shohei Ohtani hitting (v Kluber): single
+0 out) Alejandro Kirk hitting (v Kluber): in_play_out
+1 out) Dansby Swanson hitting (v Kluber): in_play_out
+double play (6-4-3/4-6-3)
+Liverpool Ale Quaffers scored: 0
+
+0 out) Max Scherzer pitching (v Marte): in_play_out
+1 out) Yordan Alvarez hitting (v Scherzer): single
+1 out) Austin Riley hitting (v Scherzer): in_play_out
+2 out) Max Scherzer pitching (v Contreras): in_play_out
 New York Bankers scored: 0
 End 5, Liverpool Ale Quaffers: 2, New York Bankers: 0
 
 
-(outs: 0) Alejandro Kirk at-bat: k
-(outs: 1) Corey Kluber pitching: 1
-(outs: 1) Corey Kluber pitching: 1
-(outs: 1) Corey Kluber pitching: in_play_out
-sacrifice runner moved to 3rd
-(outs: 2) Corey Kluber pitching: 1
-runner first to third
-(outs: 2) Corey Kluber pitching: in_play_out
-Liverpool Ale Quaffers scored: 1
-
-(outs: 0) Max Scherzer pitching: 1
-(outs: 0) Marcus Semien at-bat: in_play_out
-(outs: 1) Max Scherzer pitching: 1
-(outs: 1) Max Scherzer pitching: in_play_out
-An error is committed by Vladimir Guerrero! Everyone is safe and all runners advance.
-(outs: 1) Max Scherzer pitching: 2
-(outs: 1) Max Scherzer pitching: hbp
-(outs: 1) Max Scherzer pitching: 1
-Max Scherzer takes a seat. Cristian Javier has been warming up and enters the game.
-(outs: 1) Cristian Javier pitching: k
-(outs: 2) Brandon Nimmo at-bat: walk
-(outs: 2) Austin Hays at-bat: in_play_out
-New York Bankers scored: 4
-End 6, Liverpool Ale Quaffers: 3, New York Bankers: 4
-
-
-Corey Kluber takes a seat. Paul Sewald has been warming up and enters the game.
-(outs: 0) Paul Sewald pitching: k
-Paul Sewald takes a seat. Edward Cabrera has been warming up and enters the game.
-(outs: 1) Edward Cabrera pitching: k
-(outs: 2) Edward Cabrera pitching: in_play_out
+0 out) Corey Kluber pitching (v Merrifield): in_play_out
+1 out) Adolis Garcia hitting (v Kluber): in_play_out
+2 out) Kyle Tucker hitting (v Kluber): single
+2 out) Corey Kluber pitching (v Drury): single
+2 out) Corey Kluber pitching (v Guerrero): in_play_out
 Liverpool Ale Quaffers scored: 0
 
-(outs: 0) Cristian Javier pitching: k
-(outs: 1) Pete Alonso at-bat: in_play_out
-(outs: 2) Cristian Javier pitching: in_play_out
+0 out) Max Scherzer pitching (v Lindor): single
+0 out) Brandon Nimmo hitting (v Scherzer): walk
+0 out) Austin Hays hitting (v Scherzer): in_play_out
+1 out) Max Scherzer pitching (v Semien): single
+[ 1 run scored! ]
+runner first to third
+1 out) Max Scherzer pitching (v Alonso): in_play_out
+2 out) Max Scherzer pitching (v Marte): in_play_out
+New York Bankers scored: 1
+End 6, Liverpool Ale Quaffers: 2, New York Bankers: 1
+
+
+0 out) Andrew Benintendi hitting (v Kluber): k
+Corey Kluber takes a seat. Logan Gilbert has been warming up and enters the game.
+1 out) Logan Gilbert pitching (v Ohtani): in_play_out
+2 out) Alejandro Kirk hitting (v Gilbert): in_play_out
+Liverpool Ale Quaffers scored: 0
+
+0 out) Yordan Alvarez hitting (v Scherzer): single
+0 out) Austin Riley hitting (v Scherzer): walk
+0 out) Max Scherzer pitching (v Contreras): hbp
+0 out) Francisco Lindor hitting (v Scherzer): single
+[ 2 runs scored!!! ]
+runner first to third
+Max Scherzer takes a seat. Corey Knebel has been warming up and enters the game.
+0 out) Corey Knebel pitching (v Nimmo): k
+1 out) Corey Knebel pitching (v Hays): k
+2 out) Corey Knebel pitching (v Semien): in_play_out
+New York Bankers scored: 2
+End 7, Liverpool Ale Quaffers: 2, New York Bankers: 3
+
+
+Logan Gilbert takes a seat. Carlos Carrasco has been warming up and enters the game.
+0 out) Carlos Carrasco pitching (v Swanson): k
+1 out) Whit Merrifield hitting (v Carrasco): in_play_out
+2 out) Carlos Carrasco pitching (v Garcia): walk
+2 out) Kyle Tucker hitting (v Carrasco): in_play_out
+Liverpool Ale Quaffers scored: 0
+
+0 out) Pete Alonso hitting (v Knebel): k
+1 out) Starling Marte hitting (v Knebel): walk
+1 out) Yordan Alvarez hitting (v Knebel): k
+Corey Knebel takes a seat. Garrett Whitlock has been warming up and enters the game.
+2 out) Garrett Whitlock pitching (v Riley): k
 New York Bankers scored: 0
-End 7, Liverpool Ale Quaffers: 3, New York Bankers: 4
+End 8, Liverpool Ale Quaffers: 2, New York Bankers: 3
 
 
-(outs: 0) Alejandro Kirk at-bat: walk
-(outs: 0) Dansby Swanson at-bat: walk
-(outs: 0) Edward Cabrera pitching: in_play_out
-(outs: 1) Adolis Garcia at-bat: in_play_out
-(outs: 2) Kyle Tucker at-bat: 2
-(outs: 2) Edward Cabrera pitching: in_play_out
-Liverpool Ale Quaffers scored: 2
-
-(outs: 0) Cristian Javier pitching: walk
-(outs: 0) Austin Riley at-bat: in_play_out
-(outs: 1) William Contreras at-bat: in_play_out
-(outs: 2) Cristian Javier pitching: in_play_out
-New York Bankers scored: 0
-End 8, Liverpool Ale Quaffers: 5, New York Bankers: 4
-
-
-Edward Cabrera takes a seat. Edwin Diaz has been warming up and enters the game.
-(outs: 0) Edwin Diaz pitching: in_play_out
-(outs: 1) Edwin Diaz pitching: walk
-(outs: 1) Shohei Ohtani at-bat: 4
-(outs: 1) Edwin Diaz pitching: k
-Edwin Diaz takes a seat. Position Player has been warming up and enters the game.
-(outs: 2) Position Player pitching: in_play_out
-Liverpool Ale Quaffers scored: 2
-
-(outs: 0) Brandon Nimmo at-bat: 1
-(outs: 0) Cristian Javier pitching: k
-Cristian Javier takes a seat. Drew Rasmussen has been warming up and enters the game.
-(outs: 1) Drew Rasmussen pitching: in_play_out
-sacrifice runner moved to 2nd
-(outs: 2) Pete Alonso at-bat: in_play_out
-New York Bankers scored: 0
-End 9, Liverpool Ale Quaffers: 7, New York Bankers: 4
+0 out) Brandon Drury hitting (v Carrasco): k
+1 out) Carlos Carrasco pitching (v Guerrero): in_play_out
+2 out) Carlos Carrasco pitching (v Benintendi): in_play_out
+Liverpool Ale Quaffers scored: 0
+End 9, Liverpool Ale Quaffers: 2, New York Bankers: 3
 
