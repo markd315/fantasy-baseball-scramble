@@ -1,0 +1,169 @@
+
+(outs: 0) Shohei Ohtani at-bat: walk
+(outs: 0) Max Scherzer pitching: in_play_out
+sacrifice runner moved to 2nd
+(outs: 1) Max Scherzer pitching: in_play_out
+(outs: 2) Max Scherzer pitching: 1
+(outs: 2) Adolis Garcia at-bat: 1
+(outs: 2) Kyle Tucker at-bat: k
+Denver Stoners scored: 1
+
+(outs: 0) Shohei Ohtani pitching: in_play_out
+(outs: 1) Austin Hays at-bat: walk
+(outs: 1) Shohei Ohtani pitching: k
+(outs: 2) Pete Alonso at-bat: in_play_out
+Canada Hosers scored: 0
+End 1, Denver Stoners: 1, Canada Hosers: 0
+
+
+(outs: 0) Max Scherzer pitching: k
+(outs: 1) Max Scherzer pitching: 1
+(outs: 1) Andrew Benintendi at-bat: 2
+(outs: 1) Max Scherzer pitching: in_play_out
+(outs: 2) Max Scherzer pitching: in_play_out
+Denver Stoners scored: 1
+
+(outs: 0) Starling Marte at-bat: in_play_out
+(outs: 1) Yordan Alvarez at-bat: in_play_out
+(outs: 2) Austin Riley at-bat: 1
+(outs: 2) Shohei Ohtani pitching: 4
+(outs: 2) Shohei Ohtani pitching: in_play_out
+Canada Hosers scored: 2
+End 2, Denver Stoners: 2, Canada Hosers: 2
+
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Whit Merrifield at-bat: 1
+(outs: 1) Adolis Garcia at-bat: k
+(outs: 2) Max Scherzer pitching: 1
+(outs: 2) Max Scherzer pitching: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Brandon Nimmo at-bat: k
+(outs: 1) Shohei Ohtani pitching: 1
+(outs: 1) Shohei Ohtani pitching: k
+(outs: 2) Pete Alonso at-bat: k
+Canada Hosers scored: 0
+End 3, Denver Stoners: 2, Canada Hosers: 2
+
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Andrew Benintendi at-bat: in_play_out
+(outs: 2) Max Scherzer pitching: k
+Denver Stoners scored: 0
+
+(outs: 0) Starling Marte at-bat: walk
+(outs: 0) Shohei Ohtani pitching: in_play_out
+(outs: 1) Austin Riley at-bat: in_play_out
+(outs: 2) Shohei Ohtani pitching: 1
+(outs: 2) Jose Barrero at-bat: in_play_out
+Canada Hosers scored: 0
+End 4, Denver Stoners: 2, Canada Hosers: 2
+
+
+(outs: 0) Max Scherzer pitching: in_play_out
+(outs: 1) Max Scherzer pitching: 1
+(outs: 1) Max Scherzer pitching: in_play_out
+Max Scherzer takes a seat. Logan Gilbert has been warming up and enters the game.
+(outs: 2) Logan Gilbert pitching: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Shohei Ohtani pitching: k
+(outs: 1) Austin Hays at-bat: k
+(outs: 2) Marcus Semien at-bat: in_play_out
+Canada Hosers scored: 0
+End 5, Denver Stoners: 2, Canada Hosers: 2
+
+
+(outs: 0) Kyle Tucker at-bat: 1+sb
+Kyle Tucker stole a base
+(outs: 0) Logan Gilbert pitching: in_play_out
+(outs: 1) Anthony Rizzo at-bat: k
+(outs: 2) Andrew Benintendi at-bat: walk
+(outs: 2) Shohei Ohtani at-bat: 1
+(outs: 2) Logan Gilbert pitching: k
+Denver Stoners scored: 1
+
+(outs: 0) Shohei Ohtani pitching: 1
+(outs: 0) Starling Marte at-bat: in_play_out
+(outs: 1) Yordan Alvarez at-bat: in_play_out
+(outs: 2) Austin Riley at-bat: in_play_out
+Canada Hosers scored: 0
+End 6, Denver Stoners: 3, Canada Hosers: 2
+
+
+(outs: 0) Dansby Swanson at-bat: k
+(outs: 1) Whit Merrifield at-bat: in_play_out
+(outs: 2) Adolis Garcia at-bat: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Shohei Ohtani pitching: k
+(outs: 1) Shohei Ohtani pitching: 1
+(outs: 1) Brandon Nimmo at-bat: in_play_out
+double play (6-4-3/4-6-3)
+Canada Hosers scored: 0
+End 7, Denver Stoners: 3, Canada Hosers: 2
+
+
+(outs: 0) Kyle Tucker at-bat: in_play_out
+(outs: 1) Brandon Drury at-bat: in_play_out
+(outs: 2) Logan Gilbert pitching: walk
+(outs: 2) Andrew Benintendi at-bat: k
+Denver Stoners scored: 0
+
+(outs: 0) Austin Hays at-bat: 2
+(outs: 0) Shohei Ohtani pitching: k
+(outs: 1) Pete Alonso at-bat: 1
+Shohei Ohtani takes a seat. Kenley Jansen has been warming up and enters the game.
+(outs: 1) Kenley Jansen pitching: in_play_out
+double play (6-4-3/4-6-3)
+Canada Hosers scored: 1
+End 8, Denver Stoners: 3, Canada Hosers: 3
+
+
+Logan Gilbert takes a seat. Edwin Diaz has been warming up and enters the game.
+(outs: 0) Edwin Diaz pitching: k
+(outs: 1) Edwin Diaz pitching: k
+(outs: 2) Edwin Diaz pitching: in_play_out
+Denver Stoners scored: 0
+
+(outs: 0) Kenley Jansen pitching: walk
+(outs: 0) Austin Riley at-bat: in_play_out
+(outs: 1) William Contreras at-bat: in_play_out
+sacrifice runner moved to 2nd
+Kenley Jansen takes a seat. Corey Knebel has been warming up and enters the game.
+(outs: 2) Corey Knebel pitching: in_play_out
+Canada Hosers scored: 0
+End 9, Denver Stoners: 3, Canada Hosers: 3
+
+
+(outs: 0) Whit Merrifield at-bat: in_play_out
+sacrifice runner moved to 3rd
+(outs: 1) Adolis Garcia at-bat: in_play_out
+(outs: 2) Kyle Tucker at-bat: k
+Denver Stoners scored: 0
+Mid 10, Denver Stoners: 3, Canada Hosers: 3
+
+(outs: 0) Brandon Nimmo at-bat: in_play_out
+(outs: 1) Austin Hays at-bat: k
+(outs: 2) Marcus Semien at-bat: in_play_out
+Canada Hosers scored: 0
+End 10, Denver Stoners: 3, Canada Hosers: 3
+
+
+Edwin Diaz takes a seat. Seth Lugo has been warming up and enters the game.
+(outs: 0) Seth Lugo pitching: in_play_out
+(outs: 1) Seth Lugo pitching: in_play_out
+(outs: 2) Seth Lugo pitching: 1
+(outs: 2) Seth Lugo pitching: k
+Denver Stoners scored: 1
+Mid 11, Denver Stoners: 4, Canada Hosers: 3
+
+(outs: 0) Corey Knebel pitching: walk
+(outs: 0) Corey Knebel pitching: in_play_out
+Corey Knebel takes a seat. Andrew Chafin has been warming up and enters the game.
+(outs: 1) Andrew Chafin pitching: k
+(outs: 2) Andrew Chafin pitching: in_play_out
+Canada Hosers scored: 0
+End 11, Denver Stoners: 4, Canada Hosers: 3
+

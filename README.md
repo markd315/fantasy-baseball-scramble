@@ -59,9 +59,6 @@ metspitchers = lineup_api.playerQuery(teamId=121, pos='P')
 ```
 
 # Features to come:
-
-Currently fielding errors are tracked but not implemented. Eventually, you will be punished defensively for having hitters who commit fielding errors in real life in your lineup, same with catcher interference, etc.
-
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 
 Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thing OP. If it's just a second chance to steal/bat when the hitter does not succeed with no consequence, maybe that's too strong?

@@ -21,6 +21,7 @@ def headToHeadGame(home, away, starterIdx):
                   [away['team-name']],
                   [home['team-name']]
                   ] # header, aw_off, hm_off, aw_def, aw_def
+    away_hits, home_hits, away_errors, home_errors = 0, 0, 0, 0
     for i in range(1, 10):
         line_score[0].append(str(i))
         result = inning.simBlendedInning(away, home, orderSlotAway, currHomePitcher, i, away_score, home_score, True, starterIdx)
@@ -28,12 +29,16 @@ def headToHeadGame(home, away, starterIdx):
         long_output += result["out"]
         line_score[1].append(result["runs"])
         away_score += result["runs"]
+        away_hits += result['hits']
+        home_errors += result['errors']
 
         result = inning.simBlendedInning(home, away, orderSlotHome, currAwayPitcher, i, away_score, home_score, False, starterIdx)
         orderSlotHome, currAwayPitcher = result["orderSlot"], result['currPitcher']
         long_output += result["out"]
         line_score[2].append(result["runs"])
         home_score += result["runs"]
+        home_hits += result['hits']
+        away_errors += result['errors']
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
     i=9
     while away_score == home_score:
@@ -44,6 +49,8 @@ def headToHeadGame(home, away, starterIdx):
         long_output += result["out"]
         line_score[1].append(result["runs"])
         away_score += result["runs"]
+        away_hits += result['hits']
+        home_errors += result['errors']
 
         if home_score > away_score:
             long_output += "Skipping the bottom of the inning: the ballgame is over!"
@@ -55,11 +62,17 @@ def headToHeadGame(home, away, starterIdx):
         long_output += result["out"]
         line_score[2].append(result["runs"])
         home_score += result["runs"]
+        home_hits += result['hits']
+        away_errors += result['errors']
 
         long_output += "End %d, %s: %d, %s: %d\n" % (i, away['team-name'], away_score, home['team-name'], home_score) + "\n"
-    line_score[0].append("T")
-    for idx, arr in enumerate(line_score[1:5]):
+    line_score[0].extend(["R", "H", "E"])
+    hits = [away_hits, home_hits]
+    errs = [away_errors, home_errors]
+    for idx, arr in enumerate(line_score[1:]):
         line_score[idx+1].append(sum(arr[1:]))
+        line_score[idx+1].append(str(hits[idx]))
+        line_score[idx + 1].append(str(errs[idx]))
     winner = home['team-name'] if home_score > away_score else away['team-name']
     return winner, line_score, long_output
 

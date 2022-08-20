@@ -44,13 +44,15 @@ def getCoinForMatchup(teamsInLeague, pitchingTeam, battingTeam, currPitcher, ord
     return 'pitcher'
 
 
-def notError(pitchingTeam, inning, outs, gameNumber, outcome='in_play_out'):
+def isError(pitchingTeam, inning, outs, gameNumber, outcome='in_play_out', processError=False):
     code = str(inning) + '.' + str(outs+1)
     if code in pitchingTeam['errors'] and outcome == 'in_play_out':
         err = pitchingTeam['errors'][code]
         if err['game'] == gameNumber:
+            if processError:
+                return pitchingTeam['errors'].pop(code, None)['name']
             return err['name']
-    return True
+    return False
 
 def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                      pitcherScore, batterScore, pitcherHome, gameNumber):
@@ -58,10 +60,10 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
         baseState = [0, 1, 0]
     else:
         baseState = [0, 0, 0]
-    runs = 0
-    outs = 0
+    runs, outs, hits, errors = 0, 0, 0, 0
     logs = "\n"
     while outs < 3:
+        prevOuts = outs
         coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
         if coin == 'pitcher':
             team = pitchingTeam
@@ -73,7 +75,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
             logs += "(outs: " + str(outs) + ") " + currPitcher + " pitching: " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
-            if (outcome == "in_play_out" and notError(pitchingTeam, inning, outs, gameNumber)):
+            if (outcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
                 outs += 1
                 rng = random.uniform(0, 1)
                 if (baseState[2] == 1 and outs < 3):
@@ -109,15 +111,19 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 outcome = outcome[0:-3]
                 logs += "Runner picked off by " + currPitcher + "\n"
             if (outcome == "4"):
+                hits+=1
                 runs += 1 + baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 0, 0]
             if (outcome == "3"):
+                hits += 1
                 runs += baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 0, 1]
             if (outcome == "2"):
+                hits += 1
                 runs += baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 1, 0]
             if (outcome == "1"):
+                hits += 1
                 runs += baseState[1] + baseState[2]
                 baseState[2] = 0
                 baseState[1] = 0
@@ -148,13 +154,35 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     baseState[int(outcome) - 1] = 0
                     outs += 1
                     logs += "Runner picked off by " + currPitcher + "\n"
-            errorPlayer = notError(pitchingTeam, inning, outs, gameNumber, outcome)
-            if errorPlayer != True:
+            errorPlayer = isError(pitchingTeam, inning, prevOuts, gameNumber, outcome, True)
+            if errorPlayer != False:
+                errors += 1
+                #logs += str(baseState) + "\n"
                 logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
                 runs += baseState[2]
-                baseState[2] = baseState[1]
-                baseState[1] = baseState[0]
-                baseState[0] = 1
+                secondToHomeOnErrorChance = config.secondToHomeOnErrorChance
+                if prevOuts == 2:
+                    secondToHomeOnErrorChance = config.secondToHomeOnErrorChanceTwoOuts
+                rng = random.uniform(0, 1)
+                if rng < secondToHomeOnErrorChance:
+                    runs += baseState[1]
+                    if baseState[1] == 1:
+                        logs += "The run scores from second on the error\n"
+                    if rng < config.firstToThirdOnErrorChanceTwoOuts and prevOuts == 2:
+                        if baseState[0] == 1:
+                            logs += "Runner first to third on the costly two-out error\n"
+                        baseState[2] = baseState[0]
+                        baseState[1] = 0
+                        baseState[0] = 1
+                    else:
+                        baseState[1] = baseState[0]
+                        baseState[0] = 1
+                else:
+                    baseState[2] = baseState[1]
+                    baseState[1] = baseState[0]
+                    baseState[0] = 1
+                #logs += str(baseState) + "\n"
+
         else:
             team = battingTeam
             player_nm = team['batting-order'][orderSlot - 1]
@@ -163,7 +191,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 outs) + ") " + player_nm + " at-bat: " + outcome + "\n"
             if (outcome == "k"):
                 outs += 1
-            if (outcome == "in_play_out" and notError(pitchingTeam, inning, outs, gameNumber)):
+            if (outcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
                 outs += 1
                 rng = random.uniform(0, 1)
                 if (baseState[2] == 1 and outs < 3):
@@ -203,15 +231,19 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 out_stealing = True
                 outcome = outcome[0:-3]
             if (outcome == "4"):
+                hits += 1
                 runs += 1 + baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 0, 0]
             if (outcome == "3"):
+                hits += 1
                 runs += baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 0, 1]
             if (outcome == "2"):
+                hits += 1
                 runs += baseState[0] + baseState[1] + baseState[2]
                 baseState = [0, 1, 0]
             if (outcome == "1"):
+                hits += 1
                 runs += baseState[1] + baseState[2]
                 baseState[2] = 0
                 baseState[1] = 0
@@ -252,20 +284,41 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     # logs += str(baseState)
                 else:
                     logs += player_nm + " had a good jump but the next base was occupied\n"
-            errorPlayer = notError(pitchingTeam, inning, outs, gameNumber, outcome)
-            if errorPlayer != True:
+            errorPlayer = isError(pitchingTeam, inning, prevOuts, gameNumber, outcome, True)
+            if errorPlayer != False:
+                errors += 1
+                #logs += str(baseState) + "\n"
                 logs += "An error is committed by " + errorPlayer + "! Everyone is safe and all runners advance.\n"
                 runs += baseState[2]
-                baseState[2] = baseState[1]
-                baseState[1] = baseState[0]
-                baseState[0] = 1
+                secondToHomeOnErrorChance = config.secondToHomeOnErrorChance
+                if prevOuts == 2:
+                    secondToHomeOnErrorChance = config.secondToHomeOnErrorChanceTwoOuts
+                rng = random.uniform(0, 1)
+                if rng < secondToHomeOnErrorChance:
+                    runs += baseState[1]
+                    if baseState[1] == 1:
+                        logs += "The run scores from second on the error\n"
+                    if rng < config.firstToThirdOnErrorChanceTwoOuts and prevOuts == 2:
+                        if baseState[0] == 1:
+                            logs += "Runner first to third on the costly two-out error\n"
+                        baseState[2] = baseState[0]
+                        baseState[1] = 0
+                        baseState[0] = 1
+                    else:
+                        baseState[1] = baseState[0]
+                        baseState[0] = 1
+                else:
+                    baseState[2] = baseState[1]
+                    baseState[1] = baseState[0]
+                    baseState[0] = 1
+                #logs += str(baseState) + "\n"
         # Advance order slot even if a pitching outcome was chosen
         orderSlot += 1
         if (orderSlot > 9):
             orderSlot -= 9
     logs += battingTeam["team-name"] + " scored: " + str(runs) + "\n"
     return {"out": logs, "runs": runs, "orderSlot": orderSlot,
-            "currPitcher": currPitcher}
+            "currPitcher": currPitcher, "hits": hits, "errors": errors}
 
 
 def executePitchingChange(team, logs, currPitcher, newPitcher):
