@@ -1,8 +1,6 @@
 import statistics
 from datetime import datetime
 
-from tabulate import tabulate
-
 import config
 import inning
 
@@ -110,16 +108,12 @@ def offenseCalibrationOutput(team):
     print(histogram)
 
 
-def simulateAndLogGame(home, away, starter_idx):
-    runtime = datetime.now()
-    runtime = runtime.strftime("%m-%d")
+def simulateAndLogGame(home, away, starter_idx, league):
+    runtime = datetime.now().strftime("%m-%d")
     winner, line_score, long_output = headToHeadGame(home, away, starter_idx)
     shortname = runtime + "-" + away['abbv'] + "@" + home['abbv'] + "-" + str(starter_idx + 1)
-    with open("debug_output/" + shortname + ".line", "w") as f:
-        f.write(tabulate(line_score))
-        f.close()
-    with open("debug_output/" + shortname, "w") as f:
+    with open("leagues/" + league + "/debug_output/" + shortname, "w") as f:
         f.write(long_output)
         f.close()
     print(winner + " win!")
-    return winner
+    return winner, line_score

@@ -37,11 +37,11 @@ def fillErrors(player, box_games):
     return errs
 
 
-def loadLineup(team_name, box_games):
-    with open("team-lineups/" + team_name + ".json", "r") as json_file:
+def loadLineup(league, team_name, box_games, weekNumber):
+    with open("leagues/" + league + "/team-lineups/" + team_name + ".json", "r") as json_file:
         team = json.load(json_file)
         roster = []
-        with open("team-lineups/" + team['abbv'] + ".roster", "r") as roster_file:
+        with open("leagues/" + league + "/team-lineups/" + team['abbv'] + ".roster", "r") as roster_file:
             roster = roster_file.readlines()
             for idx, line in enumerate(roster):
                 roster[idx] = line.strip()
@@ -54,6 +54,7 @@ def loadLineup(team_name, box_games):
         offense = team['batting-order']
         offense.extend(team['pinch-hitter'])
         offense.extend(team['pinch-runner'])
+        batterTotals = {}
         for idx, player in enumerate(offense):
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
@@ -68,6 +69,7 @@ def loadLineup(team_name, box_games):
                 #print(player)
                 positions_filled[int(player['primaryPosition']['code']) - 1] += 1
             totals = processing.filterPlayerPas(box_games, player)
+            batterTotals[player['fullName'] + '_b'] = totals
             pas = processing.randomWalkOfWeeklyTotals(totals)
             if len(pas) < 5:
                 raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
@@ -92,11 +94,13 @@ def loadLineup(team_name, box_games):
         pitchers.extend(team['bullpen'])
         pitchers.append(team['closer'])
         pitchers.append(team['fireman'])
+        pitcherTotals = {}
         for player in pitchers:
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
             totals = processing.filterPlayerPasDefensive(box_games, player)
+            pitcherTotals[player['fullName'] + '_p'] = totals
             pas = processing.randomWalkOfWeeklyPitchingTotals(totals)
             name = player["fullName"]
             team['pitching-results'][name] = pas
@@ -107,6 +111,34 @@ def loadLineup(team_name, box_games):
         for i in range(1, 32):  #5*32 outs, almost 6 whole games of outs is plenty
             team['pitching-results']['Position Player'].extend(seq)
         random.shuffle(team['pitching-results']['Position Player'])
+        playerTotals = {}
+        for pl in batterTotals:
+            for k, v in batterTotals[pl].items():
+                if 'bat_' + k not in playerTotals:
+                    playerTotals['bat_' + k] = 0
+                playerTotals['bat_' + k] += v
+        for pl in pitcherTotals:
+            for k, v in pitcherTotals[pl].items():
+                if 'pit_' + k not in playerTotals:
+                    playerTotals['pit_' + k] = 0
+                if k == 'ip':
+                    ipart = int(v) + int(playerTotals['pit_' + k])
+                    fpart = v - int(v) + playerTotals['pit_' + k] - int(playerTotals['pit_' + k])
+                    fpart = round(fpart, 1)
+                    if fpart > 0.3:
+                        ipart += 1
+                        fpart -= 0.3
+                    playerTotals['pit_' + k] = round(float(ipart+fpart), 1)
+                else:
+                    playerTotals['pit_' + k] += v
+        for pl in batterTotals:
+            playerTotals[pl] = batterTotals[pl]
+        for pl in pitcherTotals:
+            playerTotals[pl] = pitcherTotals[pl]
+        playerTotals['errors'] = team['errors']
+        fileName = team['abbv'] + "_wk" + str(weekNumber) + "_totals.json"
+        with open("leagues/" + league + "/debug_output/" + fileName, "w") as json_file:
+            json_file.write(json.dumps(playerTotals))
         return team
 
 
@@ -147,9 +179,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
     begin = endtime - timedelta(
         days=duration_days)  # 6 day lookback instead of 7 to prevent double starts?
     st_date = begin.strftime("%Y-%m-%d")
-    games = statsapi.schedule(start_date=st_date, end_date=end_date,
-                              team="",
-                              opponent="", sportId=1, game_id=None)
+    games = statsapi.schedule(start_date=st_date, end_date=end_date, team="", opponent="", sportId=1, game_id=None)
     box_games = []
     for game in games:
         try:
