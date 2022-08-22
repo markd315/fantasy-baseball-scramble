@@ -1,0 +1,263 @@
+2022-08-21 19:29:24,309 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: list indices must be integers or slices, not str
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:41
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:57
+
+  MyCRUDApp/ServerModule1.py:20
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:30:28,447 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: list indices must be integers or slices, not str
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:41
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:57
+
+  MyCRUDApp/ServerModule1.py:21
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:30:55,915 [ERROR anvil.app-server.run] Error report from server code:
+AttributeError: 'dict' object has no attribute 'read'
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:293
+
+  MyCRUDApp/ServerModule1.py:17
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:31:57,137 [ERROR anvil.app-server.run] Error report from server code:
+AttributeError: 'dict' object has no attribute 'read'
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:293
+
+  MyCRUDApp/ServerModule1.py:17
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:32:38,221 [ERROR anvil.app-server.run] Error report from server code:
+AttributeError: 'dict' object has no attribute 'read'
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:293
+
+  MyCRUDApp/ServerModule1.py:17
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:34:54,494 [ERROR anvil.app-server.run] Error report from server code:
+AttributeError: 'dict' object has no attribute 'read'
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:293
+
+  MyCRUDApp/ServerModule1.py:19
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:35:10,752 [ERROR anvil.app-server.run] Error report from server code:
+AttributeError: 'dict' object has no attribute 'read'
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:293
+
+  MyCRUDApp/ServerModule1.py:19
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:36:13,869 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: the JSON object must be str, bytes or bytearray, not dict
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:341
+
+  MyCRUDApp/ServerModule1.py:19
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:36:47,724 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: the JSON object must be str, bytes or bytearray, not dict
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/json/__init__.py:341
+
+  MyCRUDApp/ServerModule1.py:19
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:37:32,064 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: list indices must be integers or slices, not str
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:41
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:59
+
+  MyCRUDApp/ServerModule1.py:22
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:38:04,667 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: list indices must be integers or slices, not str
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:41
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:59
+
+  MyCRUDApp/ServerModule1.py:22
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:39:43,784 [ERROR anvil.app-server.run] Error report from server code:
+TypeError: string indices must be integers
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:11
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:61
+
+  MyCRUDApp/ServerModule1.py:22
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:41:04,258 [ERROR anvil.app-server.run] Error report from server code:
+IndexError: list index out of range
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:61
+
+  MyCRUDApp/ServerModule1.py:22
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:47:43,077 [ERROR anvil.app-server.run] Error report from server code:
+FileNotFoundError: [Errno 2] No such file or directory: 'leagues/league4/team-lineups/Liverpool Ale Quaffers.json'
+Traceback:
+  MyCRUDApp/ServerModule1.py:26
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:50:54,972 [ERROR anvil.app-server.run] Error report from server code:
+FileNotFoundError: [Errno 2] No such file or directory: 'leagues/league4/team-lineups/LAQ.json'
+Traceback:
+  MyCRUDApp/ServerModule1.py:18
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:51:15,130 [ERROR anvil.app-server.run] Error report from server code:
+FileNotFoundError: [Errno 2] No such file or directory: 'leagues/league4/team-lineups/liverpool-ale-quaffers.roster'
+Traceback:
+  MyCRUDApp/ServerModule1.py:23
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/anvil/_server.py:1441
+
+2022-08-21 19:52:55,175 [ERROR anvil.app-server.run] Error report from server code:
+ModuleNotFoundError: No module named 'jsbeautifier'
+Traceback:
+  MyCRUDApp/ServerModule1.py:13
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/__init__.py:70
+
+  c:/users/markd/appdata/local/programs/python/python38/lib/site-packages/anvil_downlink_worker/__init__.py:181
+
+2022-08-22 00:13:03,925 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'content_panel'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:49
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:13:49,330 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'tasks_grid'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:33
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:14:10,710 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'tasks_grid'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:42
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:14:52,285 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'card_1'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:43
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:17:17,499 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'tasks_panel'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:33
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:23:16,123 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: Cannot set event handler for for unknown event 'pressed_enter' on TextArea component. Custom event names must start with 'x-'.
+Traceback:
+  app/MyCRUDApp/Form1/__init__.py:16
+
+2022-08-22 00:24:14,872 [ERROR anvil.app-server.run] Error report from client code:
+NoServerFunctionError: No server function matching "add_task" has been registered
+Traceback:
+  app/MyCRUDApp/Form1/__init__.py:28
+
+2022-08-22 00:25:19,441 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: get_lineup_click() got an unexpected keyword argument 'keys'
+Traceback:
+2022-08-22 00:30:25,934 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'set_lineup_panel'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:27
+
+  app/MyCRUDApp/Form1/__init__.py:10
+
+2022-08-22 00:33:21,394 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: string indices must be integers
+Traceback:
+  MyCRUDApp/ServerModule1.py:58
+
+  app/MyCRUDApp/Form1/__init__.py:28
+
+2022-08-22 00:35:04,695 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: string indices must be integers
+Traceback:
+  MyCRUDApp/ServerModule1.py:58
+
+  app/MyCRUDApp/Form1/__init__.py:28
+
+2022-08-22 00:35:22,672 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: 'Button' object is not callable
+Traceback:
+  app/MyCRUDApp/Form1/__init__.py:30
+
+2022-08-22 00:37:04,045 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: 'Button' object is not callable
+Traceback:
+  app/MyCRUDApp/Form1/__init__.py:30
+
+2022-08-22 00:45:07,302 [ERROR anvil.app-server.run] Error report from client code:
+ModuleNotFoundError: No module named 'ItemTemplate1'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:2
+
+  app/MyCRUDApp/Form1/__init__.py:1
+
+2022-08-22 00:47:29,859 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'Form1' object has no attribute 'spacer'
+Traceback:
+  app/MyCRUDApp/Form1/_template.py:34
+
+  app/MyCRUDApp/Form1/__init__.py:9
+
+2022-08-22 00:59:19,772 [ERROR anvil.app-server.run] Error report from client code:
+ModuleNotFoundError: No module named 'Form1'
+Traceback:
+2022-08-22 01:00:11,609 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: "LineupChangeForm" module does not contain a class called "LineupChangeForm"
+Traceback:
+2022-08-22 01:01:03,511 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'card_2'
+Traceback:
+  app/MyCRUDApp/LineupChangeForm/_template.py:36
+
+  app/MyCRUDApp/LineupChangeForm/__init__.py:8
+

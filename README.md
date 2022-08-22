@@ -1,10 +1,15 @@
 # fantasy-baseball-scramble
 A fantasy baseball mode with real lineups and bullpen configurations that replays plate appearances from the week in random order to synthesize results.
 
-### How to run
+### How to run the simulation
 ```commandline
 pip install -r requirements.txt
 python simulateLeagueWeek.py
+```
+
+### How to run the lineup server
+```commandline
+anvil-app-server --app LineupApp
 ```
 
 

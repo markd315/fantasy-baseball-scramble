@@ -2,3 +2,5 @@ requests
 MLB-StatsAPI
 pandas
 tabulate
+anvil-uplink
+jsbeautifier

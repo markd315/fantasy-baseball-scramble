@@ -1,0 +1,50 @@
+{
+  "team-name": "Liverpool Ale Quaffers",
+  "abbv": "LAQ",
+  "batting-order": [
+    "Shohei Ohtani",
+    "Alejandro Kirk",
+    "Dansby Swanson",
+    "Whit Merrifield",
+    "Adolis Garcia",
+    "Kyle Tucker",
+    "Brandon Drury",
+    "Vladimir Guerrero",
+    "Andrew Benintendi"
+  ],
+  "designated-hitter": "Shohei Ohtani",
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Marcus Stroman",
+    "Blake Snell",
+    "Paolo Espino",
+    "Max Scherzer",
+    "Nestor Cortes"
+  ],
+  "bullpen": [
+    "Kenley Jansen",
+    "Andrew Chafin",
+    "Garrett Whitlock",
+    "Cristian Javier",
+    "Drew Rasmussen",
+    "Mike Clevinger"
+  ],
+  "closer": "Josh Hader",
+  "closer-min-lead-away": 0.0,
+  "closer-max-lead-away": 2.0,
+  "closer-min-lead-home": 0.0,
+  "closer-max-lead-home": 1.5,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "fireman": "Corey Knebel"
+}
