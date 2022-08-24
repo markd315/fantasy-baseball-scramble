@@ -8,6 +8,7 @@ allow_embedding: false
 name: Fantasy Lineup Setter
 runtime_options: {version: 2, client_version: '3', server_version: python3-sandbox}
 metadata: {}
+database: "jdbc:postgresql://localhost/my_database?username=alice&password=mypassword"
 startup_form: LineupChangeForm
 db_schema:
 - name: tasks

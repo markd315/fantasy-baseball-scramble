@@ -1,16 +1,14 @@
 import json
 
 import anvil.server
-import anvil.tables as tables
-import anvil.tables.query as q
 from anvil.tables import app_tables
+
 
 # This is a server module. It runs on the server, rather than in the user's browser.
 #
 # To allow anvil.server.call() to call functions here, we mark
 # them with @anvil.server.callable.
 import mlb_api
-import jsbeautifier
 
 
 @anvil.server.http_endpoint('/league/:league/:teamNm/lineup', methods=["POST"], authenticate_users=False)

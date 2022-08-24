@@ -56,11 +56,11 @@ Given that you choose high OBP players who can hit doubles or steal bases for th
 For aid in drafting, a file playersTeamsAndPositions.json is included and you can query it in code by importing `lineup_api`. See some examples of using it
 
 ```python
-import lineup_api
+import mlb_api from scripts
 
-shohei = lineup_api.playerQuery(teamId=108, pos='TWP')[0]
-judge = lineup_api.playerQuery('Aaron Judge')[0]
-metspitchers = lineup_api.playerQuery(teamId=121, pos='P')
+shohei = mlb_api.playerQuery(teamId=108, pos='TWP')[0]
+judge = mlb_api.playerQuery('Aaron Judge')[0]
+metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
 # Features to come:
@@ -117,3 +117,35 @@ in the table the solved results are (batter coin %) rest is pitcher coin %
    PL       .837(.274)         .982(.607)
    PR       .918(.503)         .851(.483)
    OVR(+40%) .852-.564
+
+
+### Cookbook for serving an Anvil app from a public Linux server
+If you have a fresh, internet-accessible Linux server running Ubuntu or Rasbian, and an Anvil app ready to serve, the following sequence of commands will set up and serve your app:
+
+With some custom setup because the embedded postgres was not working on my ubuntu 20.04 instances in GCP
+```
+$ sudo su
+\# apt update
+\# apt install openjdk-8-jdk python3.7 virtualenv
+\# echo 'net.ipv4.ip_unprivileged_port_start=0' > /etc/sysctl.d/50-unprivileged-ports.conf
+\# sysctl --system
+\# exit
+virtualenv -p python3 venv
+. venv/bin/activate
+source env/bin/activate
+git clone this repo
+cd into this repo
+pip install anvil-app-server
+sudo chmod 0700 .anvil-data/db
+sudo apt install postgresql postgresql-contrib
+sudo systemctl start postgresql.service
+sudo -u postgres createdb my_database
+anvil-app-server --app LineupApp --auto-migrate --config-file LineupApp/anvil.yaml
+```
+
+don't think this part is needed anymore
+```commandline
+sudo -u postgres createuser --interactive
+alice
+sudo -u postgres createdb alice
+```

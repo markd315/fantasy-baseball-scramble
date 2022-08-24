@@ -5,11 +5,11 @@ from datetime import datetime
 from tabulate import tabulate
 
 import game
-import lineup_api
+from scripts import mlb_api
 from itertools import permutations
 
 
-box_games = lineup_api.getWeeklyBox(
+box_games = mlb_api.getWeeklyBox(
     datetime(year=2022, month=8, day=16, hour=20, minute=0, second=0)
 )
 
@@ -49,7 +49,7 @@ for league in os.listdir("leagues"):
     for file in os.listdir("leagues/" + league + "/team-lineups"):
         if str(file).endswith(".json"):
             team_nm = str(file)[:-5]
-            teams.append(lineup_api.loadLineup(league, team_nm, box_games, leagueWeek))
+            teams.append(mlb_api.loadLineup(league, team_nm, box_games, leagueWeek))
     if len(teams) % 2 != 0:
         teams.append({'team-name': 'Bye'})
     perms = [n for n in permutations(teams, 2)]
