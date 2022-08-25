@@ -370,3 +370,57 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
 
+2022-08-25 00:59:09,502 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'init_components_lineup'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:112
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:10
+
+2022-08-25 00:59:57,495 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:76
+
+2022-08-25 01:00:02,339 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:46
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:50
+
+2022-08-25 01:02:33,342 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:46
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:62
+
+2022-08-25 01:02:59,264 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:46
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:62
+
+2022-08-25 01:03:20,497 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:68
+
+2022-08-25 01:04:28,239 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'self'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:55
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
+
+2022-08-25 01:04:47,356 [ERROR anvil.app-server.run] Error report from client code:
+ExternalError: HierarchyRequestError: Failed to execute 'appendChild' on 'Node': The new child element contains the parent.
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:46
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:55
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
+

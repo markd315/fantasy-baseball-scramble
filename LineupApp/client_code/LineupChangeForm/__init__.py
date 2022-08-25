@@ -5,7 +5,8 @@ import anvil.server
 class LineupChangeForm(LineupChangeTemplate):
 
   def __init__(self, **properties):
-    self.init_components_lineup(**properties)
+    self.init_components_base(**properties)
+    self.show_lineup_page()
     self.addHandlers()
 
   
