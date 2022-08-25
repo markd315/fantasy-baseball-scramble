@@ -424,3 +424,31 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
 
+2022-08-25 11:30:17,831 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: FlowPanel got unexpected keyword argument(s): 'slot'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:38
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-25 11:35:26,336 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: FlowPanel got unexpected keyword argument(s): 'slot'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:15
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-25 11:40:06,739 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'TextBox' object has no attribute 'show'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:41
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-25 11:42:03,778 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'TextBox' object has no attribute 'show'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:41
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
