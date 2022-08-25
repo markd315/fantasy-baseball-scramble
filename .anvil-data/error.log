@@ -296,3 +296,77 @@ AttributeError: 'LineupChangeForm' object has no attribute 'link_drop'
 Traceback:
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:15
 
+2022-08-25 00:18:56,526 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'get_roster'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:13
+
+2022-08-25 00:20:10,043 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'add_lineup'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:14
+
+2022-08-25 00:21:07,834 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:51
+
+2022-08-25 00:21:46,744 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:63
+
+2022-08-25 00:26:48,452 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'set_lineup'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
+
+2022-08-25 00:28:44,430 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: 'LineupChangeForm' object is not iterable
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:94
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
+
+2022-08-25 00:29:27,043 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'get_lineup'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:96
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:9
+
+2022-08-25 00:30:47,445 [ERROR anvil.app-server.run] Error report from client code:
+SyntaxError: bad input
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:97
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:1
+
+2022-08-25 00:32:27,240 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: not readable
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:103
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+
+2022-08-25 00:33:41,699 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: not readable
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:103
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+
+2022-08-25 00:38:51,466 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: write() argument must be str, not TextBox
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:109
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+
+2022-08-25 00:41:20,670 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: write() argument must be str, not TextBox
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:110
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+

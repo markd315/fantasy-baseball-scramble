@@ -3,8 +3,8 @@
 [TRACE io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] Searching for postgres binaries - location: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] System specific postgres binaries found: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Postgres binaries at .anvil-data\db-bin\PG-3ecc125de4870fe95f7f29f11aba3613
-[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postgres data directory is .anvil-data\db
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postmaster started as Process[pid=2288, exitValue="not exited"] on port 58060.  Waiting up to PT10S for server startup to finish.
+[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] b492aa10-24e3-4ab5-accd-baa7eef548c5 postgres data directory is .anvil-data\db
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] b492aa10-24e3-4ab5-accd-baa7eef548c5 postmaster started as Process[pid=2236, exitValue="not exited"] on port 53077.  Waiting up to PT10S for server startup to finish.
 [TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] While waiting for server startup
 java.sql.SQLException: connect failed
 	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:344)
@@ -35,6 +35,6 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 	at java.base/java.net.Socket.connect(Socket.java:633)
 	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:342)
 	... 18 more
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postmaster startup finished in 00:00:00.261
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 shut down postmaster in 00:00:00.277
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] b492aa10-24e3-4ab5-accd-baa7eef548c5 postmaster startup finished in 00:00:00.274
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] b492aa10-24e3-4ab5-accd-baa7eef548c5 shut down postmaster in 00:00:00.169
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Did not clean up directory C:\Users\markd\PycharmProjects\fantasy-baseball-scramble\.anvil-data\db
