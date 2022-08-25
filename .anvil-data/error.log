@@ -261,3 +261,38 @@ Traceback:
 
   app/MyCRUDApp/LineupChangeForm/__init__.py:8
 
+2022-08-24 23:54:01,776 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: ColumnPanel got unexpected keyword argument(s): 'align'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:15
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:21
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-24 23:55:10,963 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'link_lineup'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:13
+
+2022-08-24 23:59:51,960 [ERROR anvil.app-server.run] Error report from client code:
+ValueError: This component is already added to a container, call remove_from_parent() first
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:23
+
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:28
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-25 00:04:00,018 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'main_content'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:31
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-25 00:07:53,472 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'link_drop'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:15
+

@@ -3,8 +3,8 @@
 [TRACE io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] Searching for postgres binaries - location: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] System specific postgres binaries found: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Postgres binaries at .anvil-data\db-bin\PG-3ecc125de4870fe95f7f29f11aba3613
-[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] cf596609-f3ed-4768-9408-fcf2ef35c739 postgres data directory is .anvil-data\db
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] cf596609-f3ed-4768-9408-fcf2ef35c739 postmaster started as Process[pid=25864, exitValue="not exited"] on port 60111.  Waiting up to PT10S for server startup to finish.
+[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postgres data directory is .anvil-data\db
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postmaster started as Process[pid=2288, exitValue="not exited"] on port 58060.  Waiting up to PT10S for server startup to finish.
 [TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] While waiting for server startup
 java.sql.SQLException: connect failed
 	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:344)
@@ -35,38 +35,6 @@ Caused by: java.net.ConnectException: Connection refused: no further information
 	at java.base/java.net.Socket.connect(Socket.java:633)
 	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:342)
 	... 18 more
-[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] While waiting for server startup
-org.postgresql.util.PSQLException: FATAL: the database system is starting up
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:520)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:141)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:192)
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:49)
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:195)
-	at org.postgresql.Driver.makeConnection(Driver.java:458)
-	at org.postgresql.Driver.connect(Driver.java:260)
-	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
-	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:229)
-	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:97)
-	at org.postgresql.ds.common.BaseDataSource.getConnection(BaseDataSource.java:82)
-	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:346)
-	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.waitForServerStartup(EmbeddedPostgres.java:319)
-	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.startPostmaster(EmbeddedPostgres.java:284)
-	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.<init>(EmbeddedPostgres.java:163)
-	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres$Builder.start(EmbeddedPostgres.java:583)
-	at anvil.app_server.postgres$launch_bundled_db_BANG_.invokeStatic(postgres.clj:93)
-	at anvil.app_server.postgres$launch_bundled_db_BANG_.invoke(postgres.clj:21)
-	at anvil.app_server.run$_main$fn__1753.invoke(run.clj:432)
-	at clojure.lang.AFn.applyToHelper(AFn.java:154)
-	at clojure.lang.AFn.applyTo(AFn.java:144)
-	at clojure.core$apply.invokeStatic(core.clj:659)
-	at clojure.core$update_in$up__6562.invoke(core.clj:6105)
-	at clojure.core$update_in.invokeStatic(core.clj:6106)
-	at clojure.core$update_in.doInvoke(core.clj:6092)
-	at clojure.lang.RestFn.invoke(RestFn.java:445)
-	at anvil.app_server.run$_main.invokeStatic(run.clj:432)
-	at anvil.app_server.run$_main.doInvoke(run.clj:278)
-	at clojure.lang.RestFn.applyTo(RestFn.java:137)
-	at anvil.app_server.run.main(Unknown Source)
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] cf596609-f3ed-4768-9408-fcf2ef35c739 postmaster startup finished in 00:00:00.469
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] cf596609-f3ed-4768-9408-fcf2ef35c739 shut down postmaster in 00:00:00.249
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 postmaster startup finished in 00:00:00.261
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] e6388538-b716-40d9-8473-d51094d975a8 shut down postmaster in 00:00:00.277
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Did not clean up directory C:\Users\markd\PycharmProjects\fantasy-baseball-scramble\.anvil-data\db
