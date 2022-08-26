@@ -3,8 +3,8 @@
 [TRACE io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] Searching for postgres binaries - location: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.DefaultPostgresBinaryResolver] System specific postgres binaries found: 'postgres-windows-x86_64.txz'
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Postgres binaries at .anvil-data\db-bin\PG-3ecc125de4870fe95f7f29f11aba3613
-[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 98f3b7d1-3c4d-4f33-aa7b-d50b1ab8340e postgres data directory is .anvil-data\db
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 98f3b7d1-3c4d-4f33-aa7b-d50b1ab8340e postmaster started as Process[pid=12680, exitValue="not exited"] on port 52056.  Waiting up to PT10S for server startup to finish.
+[TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 052d3bcb-8910-435d-ac76-b1c7c88d52a4 postgres data directory is .anvil-data\db
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 052d3bcb-8910-435d-ac76-b1c7c88d52a4 postmaster started as Process[pid=28592, exitValue="not exited"] on port 59961.  Waiting up to PT10S for server startup to finish.
 [TRACE io.zonky.test.db.postgres.embedded.EmbeddedPostgres] While waiting for server startup
 java.sql.SQLException: connect failed
 	at io.zonky.test.db.postgres.embedded.EmbeddedPostgres.verifyReady(EmbeddedPostgres.java:344)
@@ -67,6 +67,6 @@ org.postgresql.util.PSQLException: FATAL: the database system is starting up
 	at anvil.app_server.run$_main.doInvoke(run.clj:278)
 	at clojure.lang.RestFn.applyTo(RestFn.java:137)
 	at anvil.app_server.run.main(Unknown Source)
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 98f3b7d1-3c4d-4f33-aa7b-d50b1ab8340e postmaster startup finished in 00:00:00.360
-[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 98f3b7d1-3c4d-4f33-aa7b-d50b1ab8340e shut down postmaster in 00:00:00.165
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 052d3bcb-8910-435d-ac76-b1c7c88d52a4 postmaster startup finished in 00:00:00.385
+[INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] 052d3bcb-8910-435d-ac76-b1c7c88d52a4 shut down postmaster in 00:00:00.179
 [INFO  io.zonky.test.db.postgres.embedded.EmbeddedPostgres] Did not clean up directory C:\Users\markd\PycharmProjects\fantasy-baseball-scramble\.anvil-data\db

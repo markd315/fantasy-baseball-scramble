@@ -108,10 +108,9 @@ def offenseCalibrationOutput(team):
     print(histogram)
 
 
-def simulateAndLogGame(home, away, starter_idx, league):
-    runtime = datetime.now().strftime("%m-%d")
+def simulateAndLogGame(home, away, starter_idx, league, week):
     winner, line_score, long_output = headToHeadGame(home, away, starter_idx)
-    shortname = runtime + "-" + away['abbv'] + "@" + home['abbv'] + "-" + str(starter_idx + 1)
+    shortname = away['abbv'] + "@" + home['abbv'] + "-wk" + str(week) + "-" + str(starter_idx + 1)
     with open("leagues/" + league + "/debug_output/" + shortname, "w") as f:
         f.write(long_output)
         f.close()

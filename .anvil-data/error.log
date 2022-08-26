@@ -452,3 +452,133 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
 
+2022-08-25 18:25:10,728 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: set_event_handler() takes exactly 2 arguments (3 given)
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:102
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:10
+
+2022-08-25 18:27:25,800 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: <lambda>() got an unexpected keyword argument 'keys'
+Traceback:
+2022-08-25 18:27:26,426 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: <lambda>() got an unexpected keyword argument 'keys'
+Traceback:
+2022-08-26 00:17:44,302 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: The 'click' event handler added to Button must be a callable, not type 'Button'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:121
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:10
+
+2022-08-26 00:18:07,938 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'DropDown' object has no attribute 'text'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 00:18:40,171 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'DropDown' object has no attribute 'value'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:34
+
+2022-08-26 00:20:12,436 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: local variable 'ret' referenced before assignment
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:148
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:34
+
+2022-08-26 00:21:04,290 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: local variable 'ret' referenced before assignment
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:149
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 00:23:34,344 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: local variable 'ret' referenced before assignment
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:149
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 00:24:41,418 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/debug_output/NYB_wk0_totals.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:125
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 00:36:25,843 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/team-lineups/next_team.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:69
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:23
+
+2022-08-26 00:36:28,622 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/team-lineups/next_team.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:22
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:29
+
+2022-08-26 00:37:06,784 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/team-lineups/next_team.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:22
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:29
+
+2022-08-26 00:37:12,461 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/team-lineups/next_team.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:36
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:14
+
+2022-08-26 01:29:22,352 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: 'charmap' codec can't decode byte 0x81 in position 9395: character maps to <undefined>
+Traceback:
+  c:/users/markd/appdata/local/programs/python/python38/lib/encodings/cp1252.py:23
+
+  FantasyLineupSetter/ServerModule1.py:142
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 01:35:12,545 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/team-lineups/next_team.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:22
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:29
+
+2022-08-26 01:35:58,893 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/debug_output/_wk_totals.json'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:125
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+
+2022-08-26 01:42:16,357 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'chat_box'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:76
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-26 01:45:03,513 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'LineupChangeForm' object has no attribute 'chat_msg'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:79
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-26 01:57:40,807 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: [Errno 2] No such file or directory: 'leagues/livetestleague/debug_output/League_note'
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:136
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
+

@@ -160,7 +160,7 @@ def loadLineup(league, team_name, box_games, weekNumber):
         playerTotals['errors'] = team['errors']
         fileName = team['abbv'] + "_wk" + str(weekNumber) + "_totals.json"
         with open("leagues/" + league + "/debug_output/" + fileName, "w") as json_file:
-            json_file.write(json.dumps(playerTotals))
+            json_file.write(json.dumps(playerTotals, indent=2, separators=(',', ': ')))
         return team
 
 

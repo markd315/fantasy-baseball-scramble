@@ -1,11 +1,12 @@
 import os
 import random
 from datetime import datetime
+from pathlib import Path
 
 from tabulate import tabulate
 
 import game
-from scripts import mlb_api
+import mlb_api
 from itertools import permutations
 
 
@@ -15,8 +16,19 @@ box_games = mlb_api.getWeeklyBox(
 
 leagueWeek = 0
 
+def commitNewRosters(league):
+    pathpre = "leagues/" + league + "/team-lineups/"
+    for p in Path(pathpre).glob('next_*'):
+        lines = []
+        with open(pathpre + p.name, 'r') as file_read:
+            lines = file_read.readlines()
+            file_read.close()
+        committed_path = p.name.replace("next_", "")
+        with open(pathpre + committed_path, 'w') as file_write:
+            file_write.writelines(lines)
+            file_write.close()
 
-def multiGameSeries(home, away, games, league):
+def multiGameSeries(home, away, games, league, week):
     h = home['team-name']
     a = away['team-name']
     count = {h: 0, a: 0}
@@ -25,11 +37,10 @@ def multiGameSeries(home, away, games, league):
             team['errors'][error]['game'] = random.randint(0, games-1)
     line_scores = ""
     for starter in range(0, games):
-        winner, line_score = game.simulateAndLogGame(home, away, starter, league)
+        winner, line_score = game.simulateAndLogGame(home, away, starter, league, week)
         count[winner] += 1
         line_scores += tabulate(line_score) + "\n\n"
-    runtime = datetime.now().strftime("%m-%d")
-    shortname = runtime + "-" + away['abbv'] + "@" + home['abbv']
+    shortname = away['abbv'] + "@" + home['abbv'] + "wk" + str(week)
     with open("leagues/" + league + "/debug_output/" + shortname + ".line", "w") as f:
         f.write(line_scores)
         f.close()
@@ -47,7 +58,7 @@ for league in os.listdir("leagues"):
     league = str(league)
     lineups = os.listdir("leagues/" + league + "/team-lineups")
     for file in os.listdir("leagues/" + league + "/team-lineups"):
-        if str(file).endswith(".json"):
+        if str(file).endswith(".json") and not str(file).startswith("next_"):
             team_nm = str(file)[:-5]
             teams.append(mlb_api.loadLineup(league, team_nm, box_games, leagueWeek))
     if len(teams) % 2 != 0:
@@ -91,7 +102,8 @@ for league in os.listdir("leagues"):
     for gm in week:
         print(gm[1]['team-name'] + "@" + gm[0]['team-name'])
         if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
-            multiGameSeries(gm[0], gm[1], 4, league)
+            multiGameSeries(gm[0], gm[1], 4, league, leagueWeek)
+    commitNewRosters(league)
 
 # game.offenseCalibrationOutput(away)
 print("fin")
