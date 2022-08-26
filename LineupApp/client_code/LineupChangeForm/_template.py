@@ -58,11 +58,11 @@ class LineupChangeTemplate(HtmlPanel):
         self.roster = TextArea(placeholder="Roster", width=350, height=700)
         self.results = TextArea(placeholder="Results", width=350, height=700,
                                 font="Courier")
-        self.lineup_json = TextArea(placeholder="Team Lineup", width=350, height=700)
+        self.base_json = None
         self.chat_box = TextArea(placeholder="Click button to load chat", width=350,
                                     height=700)
         self.txt_label = [
-            "You must submit your adjusted lineup in the JSON format. I suggest putting in your team code and then getting the current JSON first, then making small changes before submitting to avoid mistakes. For the starters, lineup, and bullpen arrays, order will affect the simulation! You must have one player from each position in the lineup and only one DH. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup. Anyone who has it can submit changes on your behalf so keep it hidden.",
+            "For the starters, lineup, and bullpen, order will affect the simulation! You must have one player from each position in the lineup and only one DH. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup. Anyone who has it can submit changes on your behalf so keep it hidden.",
             "The closer can only enter the game in the 9th inning or later. "
             "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. For callups after August 20th, notify the league manager to have the player cache invalidated.",
             "To drop a player, they must first not appear anywhere in your lineup. Other teams will be able to add them immediately.",
@@ -72,16 +72,22 @@ class LineupChangeTemplate(HtmlPanel):
         self.lineup = FlowPanel(align="center")
         self.main_content.add_component(self.lineup)
         for i in range(1,6):
+            self.lineup.add_component(Label(text="S" +str(i), width=10))
             self.lineup.add_component(TextBox(placeholder="Starter " + str(i)))
         for i in range(1,7):
+            self.lineup.add_component(Label(text="R" + str(i), width=10))
             self.lineup.add_component(TextBox(placeholder="Bullpen " + str(i)))
         for i in range(1,10):
+            self.lineup.add_component(Label(text="B" + str(i), width=10))
             self.lineup.add_component(TextBox(placeholder="Batting order " + str(i)))
+        self.lineup.add_component(Label(text="C"), width=10)
         self.lineup.add_component(TextBox(placeholder="Closer"))
+        self.lineup.add_component(Label(text="F"), width=10)
         self.lineup.add_component(TextBox(placeholder="Fireman"))
-        self.lineup.add_component(TextBox(placeholder="Blowout Pitcher Settings"))
-        self.lineup.add_component(TextBox(placeholder="Use Closer Settings"))
-        #print(self.lineup.children)
+        self.lineup.add_component(Label(text="Reverse bullpen order (when losing by this many runs in inning index)"))
+        self.lineup.add_component(TextBox(placeholder="Save Bullpen Deficit"))
+        self.lineup.add_component(Label(text="Closer enters game when lead is between (min):(max) runs"))
+        self.lineup.add_component(TextBox(placeholder="Closer Settings"))
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.lineup,
                            self.get_lineup, self.set_lineup, self.instr}
@@ -94,7 +100,6 @@ class LineupChangeTemplate(HtmlPanel):
         self.ctl_chat = {self.league_name, self.team_name, self.chat_box, self.chat_msg, self.send_chat, self.load_chat}
         self.ctl_all = self.ctl_lineup.union(
             self.ctl_add.union(self.ctl_drop.union(self.ctl_results.union(self.ctl_chat))))
-
 
         # Add
         self.addComponent(self.league_name)
@@ -111,7 +116,6 @@ class LineupChangeTemplate(HtmlPanel):
         self.addComponent(self.add_lineup)
         self.addComponent(self.roster)
         self.addComponent(self.results)
-        self.addComponent(self.lineup_json)
         self.addComponent(self.instr)
         self.addComponent(self.chat_box)
         self.addComponent(self.chat_msg)

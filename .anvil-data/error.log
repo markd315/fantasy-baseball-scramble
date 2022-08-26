@@ -596,3 +596,79 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
 
+2022-08-26 16:53:34,505 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: string indices must be integers, not str
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:16
+
+2022-08-26 16:54:02,894 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: string indices must be integers, not str
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:17
+
+2022-08-26 17:00:11,888 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: cannot concatenate 'str' and 'int' objects
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:35
+
+2022-08-26 17:00:34,593 [ERROR anvil.app-server.run] Error report from client code:
+TypeError: cannot concatenate 'str' and 'int' objects
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:35
+
+2022-08-26 17:04:22,507 [ERROR anvil.app-server.run] Error report from client code:
+IndexError: pop index out of range
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+
+2022-08-26 17:05:16,578 [ERROR anvil.app-server.run] Error report from client code:
+IndexError: pop index out of range
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:25
+
+2022-08-26 17:23:36,099 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'TextBox' object has no attribute 'replace'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:58
+
+2022-08-26 17:24:26,594 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'str' object has no attribute 'trim'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:62
+
+2022-08-26 17:25:13,060 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: list index out of range
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:63
+
+  FantasyLineupSetter/ServerModule1.py:63
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:67
+
+2022-08-26 17:26:01,398 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: list index out of range
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:63
+
+  FantasyLineupSetter/ServerModule1.py:63
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:68
+
+2022-08-26 17:27:26,437 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: list index out of range
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:64
+
+  FantasyLineupSetter/ServerModule1.py:63
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:68
+
+2022-08-26 17:29:43,437 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: list index out of range
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:63
+
+  FantasyLineupSetter/ServerModule1.py:63
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:69
+
