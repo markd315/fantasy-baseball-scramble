@@ -18,6 +18,7 @@ def authenticateAndGetAbbv(league, teamNm):
         lineup = json.load(lineup_file)
         abbv = lineup['abbv']
         lineup_file.close()
+        return abbv
 
 @anvil.server.http_endpoint('/league/:league/:teamNm/lineup', methods=["POST"], authenticate_users=False)
 def post_lineup(league, teamNm, **q):

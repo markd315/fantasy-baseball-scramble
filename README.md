@@ -56,7 +56,7 @@ Given that you choose high OBP players who can hit doubles or steal bases for th
 For aid in drafting, a file playersTeamsAndPositions.json is included and you can query it in code by importing `lineup_api`. See some examples of using it
 
 ```python
-import mlb_api from scripts
+import mlb_api
 
 shohei = mlb_api.playerQuery(teamId=108, pos='TWP')[0]
 judge = mlb_api.playerQuery('Aaron Judge')[0]
@@ -73,6 +73,30 @@ Ok so maybe implement PR straight up since they are specialists. For PH, look at
 Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
 
 More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
+
+
+# Docker commands for admin
+Saves containerid for anything below.
+`eid=$(docker ps --filter name=fantasy-baseball | tail -n 1 | awk '{print $1;}')`
+
+Takes a league backup to the vm
+`docker cp $eid:/apps/leagues backups/leagues_backup$(date +'%d-%m-%Y-%H-%M')`
+
+Updates the league week prior to an execution
+```bash
+docker cp $eid:/apps/simulateLeagueWeek.py simulateLeagueWeek.py
+cp simulateLeagueWeek.py simulateLeagueWeek.py.backup
+echo 'leagueWeek = 0'> simulateLeagueWeek.py
+cat simulateLeagueWeek.py.backup |tail -n+2>> simulateLeagueWeek.py
+docker cp simulateLeagueWeek.py $eid:/apps/simulateLeagueWeek.py
+```
+
+Runs the league week, publishing results logs etc
+`docker exec -it $eid python simulateLeagueWeek.py`
+
+For any further debugging
+`docker exec -it $eid /bin/sh`
+
 
 ### some math on handedness
 

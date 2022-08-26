@@ -285,3 +285,35 @@ waiting for server to shut down...2022-08-26 17:34:17.272 EDT [30120] LOG:  rece
 2022-08-26 17:34:17.296 EDT [30120] LOG:  database system is shut down
  done
 server stopped
+2022-08-26 17:37:04.727 EDT [14468] LOG:  listening on IPv6 address "::1", port 52676
+2022-08-26 17:37:04.728 EDT [14468] LOG:  listening on IPv4 address "127.0.0.1", port 52676
+2022-08-26 17:37:04.757 EDT [5728] LOG:  database system was shut down at 2022-08-26 17:34:17 EDT
+2022-08-26 17:37:04.781 EDT [14468] LOG:  database system is ready to accept connections
+2022-08-26 17:37:04.803 EDT [9280] LOG:  incomplete startup packet
+waiting for server to shut down...2022-08-26 18:22:41.896 EDT [14468] LOG:  received fast shutdown request
+2022-08-26 18:22:41.896 EDT [14468] LOG:  aborting any active transactions
+2022-08-26 18:22:41.897 EDT [29640] FATAL:  terminating connection due to administrator command
+2022-08-26 18:22:41.898 EDT [28460] FATAL:  terminating connection due to administrator command
+2022-08-26 18:22:41.899 EDT [26308] FATAL:  terminating connection due to administrator command
+.2022-08-26 18:22:41.903 EDT [14468] LOG:  worker process: logical replication launcher (PID 7892) exited with exit code 1
+2022-08-26 18:22:41.905 EDT [11988] LOG:  shutting down
+2022-08-26 18:22:41.922 EDT [14468] LOG:  database system is shut down
+ done
+server stopped
+2022-08-26 18:22:46.789 EDT [29052] LOG:  listening on IPv6 address "::1", port 58035
+2022-08-26 18:22:46.789 EDT [29052] LOG:  listening on IPv4 address "127.0.0.1", port 58035
+2022-08-26 18:22:46.826 EDT [6680] LOG:  database system was shut down at 2022-08-26 18:22:41 EDT
+2022-08-26 18:22:46.829 EDT [18544] LOG:  incomplete startup packet
+2022-08-26 18:22:46.841 EDT [2844] FATAL:  the database system is starting up
+2022-08-26 18:22:46.856 EDT [29052] LOG:  database system is ready to accept connections
+2022-08-26 18:22:46.967 EDT [8092] LOG:  incomplete startup packet
+2022-08-26 18:46:43.779 EDT [29052] LOG:  received fast shutdown request
+waiting for server to shut down...2022-08-26 18:46:43.779 EDT [29052] LOG:  aborting any active transactions
+2022-08-26 18:46:43.780 EDT [8564] FATAL:  terminating connection due to administrator command
+2022-08-26 18:46:43.780 EDT [7704] FATAL:  terminating connection due to administrator command
+2022-08-26 18:46:43.780 EDT [25288] FATAL:  terminating connection due to administrator command
+.2022-08-26 18:46:43.785 EDT [29052] LOG:  worker process: logical replication launcher (PID 21408) exited with exit code 1
+2022-08-26 18:46:43.786 EDT [27024] LOG:  shutting down
+2022-08-26 18:46:43.803 EDT [29052] LOG:  database system is shut down
+ done
+server stopped

@@ -40,6 +40,7 @@ COPY game.py game.py
 COPY inning.py inning.py
 COPY mlb_api.py mlb_api.py
 COPY processing.py processing.py
+COPY simulateLeagueWeek.py simulateLeagueWeek.py
 COPY playersTeamsAndPositions.json playersTeamsAndPositions.json
 RUN chmod 755 leagues
 

@@ -1,3 +1,5 @@
+leagueWeek = 0
+
 import os
 import random
 from datetime import datetime
@@ -11,10 +13,9 @@ from itertools import permutations
 
 
 box_games = mlb_api.getWeeklyBox(
-    datetime(year=2022, month=8, day=16, hour=20, minute=0, second=0)
+    datetime.now()
 )
 
-leagueWeek = 0
 
 def commitNewRosters(league):
     pathpre = "leagues/" + league + "/team-lineups/"

@@ -62,7 +62,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.chat_box = TextArea(placeholder="Click button to load chat", width=350,
                                     height=700)
         self.txt_label = [
-            "For the starters, lineup, and bullpen, order will affect the simulation! You must have one player from each position in the lineup and only one DH. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup. Anyone who has it can submit changes on your behalf so keep it hidden.",
+            "For the starters, lineup, and bullpen, order will affect the simulation! You must have one player from each position in the lineup and only one DH. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden.",
             "The closer can only enter the game in the 9th inning or later. "
             "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. For callups after August 20th, notify the league manager to have the player cache invalidated.",
             "To drop a player, they must first not appear anywhere in your lineup. Other teams will be able to add them immediately.",
@@ -70,23 +70,23 @@ class LineupChangeTemplate(HtmlPanel):
         ]
         self.instr = Label(text=self.txt_label[0])
         self.lineup = FlowPanel(align="center")
-        self.main_content.add_component(self.lineup)
         for i in range(1,6):
-            self.lineup.add_component(Label(text="S" +str(i), width=10))
-            self.lineup.add_component(TextBox(placeholder="Starter " + str(i)))
+            self.lineup.add_component(Label(text="S" +str(i), width=20))
+            self.lineup.add_component(TextBox(placeholder="Starter " + str(i), width=310))
         for i in range(1,7):
-            self.lineup.add_component(Label(text="R" + str(i), width=10))
-            self.lineup.add_component(TextBox(placeholder="Bullpen " + str(i)))
+            self.lineup.add_component(Label(text="R" + str(i), width=20))
+            self.lineup.add_component(TextBox(placeholder="Bullpen " + str(i), width=310))
+        self.lineup.add_component(Label(text="FI"), width=20)
+        self.lineup.add_component(TextBox(placeholder="Fireman", width=310))
+        self.lineup.add_component(Label(text="CL"), width=20)
+        self.lineup.add_component(TextBox(placeholder="Closer", width=310))
         for i in range(1,10):
-            self.lineup.add_component(Label(text="B" + str(i), width=10))
-            self.lineup.add_component(TextBox(placeholder="Batting order " + str(i)))
-        self.lineup.add_component(Label(text="C"), width=10)
-        self.lineup.add_component(TextBox(placeholder="Closer"))
-        self.lineup.add_component(Label(text="F"), width=10)
-        self.lineup.add_component(TextBox(placeholder="Fireman"))
-        self.lineup.add_component(Label(text="Reverse bullpen order (when losing by this many runs in inning index)"))
-        self.lineup.add_component(TextBox(placeholder="Save Bullpen Deficit"))
-        self.lineup.add_component(Label(text="Closer enters game when lead is between (min):(max) runs"))
+            self.lineup.add_component(Label(text="B" + str(i), width=20))
+            self.lineup.add_component(TextBox(placeholder="Batting order " + str(i), width=310))
+
+        self.lineup.add_component(Label(text="Reverse bullpen order (when losing by <=N runs in the indexed inning)", width=310))
+        self.lineup.add_component(TextBox(placeholder="Save Bullpen Deficit", width=310))
+        self.lineup.add_component(Label(text="Closer enters game when lead is between (min):(max) runs", width=310))
         self.lineup.add_component(TextBox(placeholder="Closer Settings"))
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.lineup,
@@ -116,6 +116,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.addComponent(self.add_lineup)
         self.addComponent(self.roster)
         self.addComponent(self.results)
+        self.addComponent(self.lineup)
         self.addComponent(self.instr)
         self.addComponent(self.chat_box)
         self.addComponent(self.chat_msg)

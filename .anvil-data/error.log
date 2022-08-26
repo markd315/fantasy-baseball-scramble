@@ -672,3 +672,10 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:69
 
+2022-08-26 18:43:52,026 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: can only concatenate str (not "NoneType") to str
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:30
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
