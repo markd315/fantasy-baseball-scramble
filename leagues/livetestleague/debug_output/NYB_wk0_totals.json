@@ -27,8 +27,8 @@
   "pit_e": 0,
   "pit_hbp": 3,
   "pit_out": 223,
-  "pit_single": 40,
-  "pit_double": 13,
+  "pit_single": 39,
+  "pit_double": 14,
   "pit_triple": 0,
   "pit_ab": 282,
   "pit_home run": 6,
@@ -291,8 +291,8 @@
     "e": 0,
     "hbp": 0,
     "out": 17,
-    "single": 8,
-    "double": 1,
+    "single": 5,
+    "double": 4,
     "triple": 0,
     "ab": 27,
     "home run": 1,
@@ -329,8 +329,8 @@
     "e": 0,
     "hbp": 0,
     "out": 18,
-    "single": 2,
-    "double": 3,
+    "single": 4,
+    "double": 1,
     "triple": 0,
     "ab": 23,
     "home run": 0,
@@ -424,8 +424,8 @@
     "e": 0,
     "hbp": 1,
     "out": 28,
-    "single": 5,
-    "double": 1,
+    "single": 4,
+    "double": 2,
     "triple": 0,
     "ab": 34,
     "home run": 0,
@@ -462,8 +462,8 @@
     "e": 0,
     "hbp": 0,
     "out": 11,
-    "single": 2,
-    "double": 1,
+    "single": 3,
+    "double": 0,
     "triple": 0,
     "ab": 14,
     "home run": 0,
@@ -472,7 +472,7 @@
     "walk": 0
   },
   "errors": {
-    "7.3": {
+    "2.1": {
       "game": 0,
       "name": "Pete Alonso"
     }

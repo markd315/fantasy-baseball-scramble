@@ -63,13 +63,27 @@ class LineupChangeTemplate(HtmlPanel):
                                     height=700)
         self.txt_label = [
             "You must submit your adjusted lineup in the JSON format. I suggest putting in your team code and then getting the current JSON first, then making small changes before submitting to avoid mistakes. For the starters, lineup, and bullpen arrays, order will affect the simulation! You must have one player from each position in the lineup and only one DH. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup. Anyone who has it can submit changes on your behalf so keep it hidden.",
+            "The closer can only enter the game in the 9th inning or later. "
             "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. For callups after August 20th, notify the league manager to have the player cache invalidated.",
             "To drop a player, they must first not appear anywhere in your lineup. Other teams will be able to add them immediately.",
             "Put in the abbreviation of the team whose results you want to view on this page, not the full team code that you use on the other pages. Standings, League Note, and MLB Player Data are global settings that do not require a team or week specified."
         ]
         self.instr = Label(text=self.txt_label[0])
+        self.lineup = FlowPanel(align="center")
+        self.main_content.add_component(self.lineup)
+        for i in range(1,6):
+            self.lineup.add_component(TextBox(placeholder="Starter " + str(i)))
+        for i in range(1,7):
+            self.lineup.add_component(TextBox(placeholder="Bullpen " + str(i)))
+        for i in range(1,10):
+            self.lineup.add_component(TextBox(placeholder="Batting order " + str(i)))
+        self.lineup.add_component(TextBox(placeholder="Closer"))
+        self.lineup.add_component(TextBox(placeholder="Fireman"))
+        self.lineup.add_component(TextBox(placeholder="Blowout Pitcher Settings"))
+        self.lineup.add_component(TextBox(placeholder="Use Closer Settings"))
+        #print(self.lineup.children)
         # Pages
-        self.ctl_lineup = {self.league_name, self.team_name, self.lineup_json,
+        self.ctl_lineup = {self.league_name, self.team_name, self.lineup,
                            self.get_lineup, self.set_lineup, self.instr}
         self.ctl_add = {self.league_name, self.team_name, self.get_roster,
                         self.add_lineup, self.roster, self.player_name, self.instr}

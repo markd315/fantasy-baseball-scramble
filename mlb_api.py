@@ -77,22 +77,18 @@ def loadLineup(league, team_name, box_games, weekNumber):
         team['pitching-results'] = {}
         team['handedness'] = {}
         team['errors'] = {}
-        positions_filled = [1, 0, 0, 0, 0, 0, 0, 0, 0]  # ignore 0 slot and pitcher slot 1
+        positions_filled = [0, 0, 0, 0, 0, 0, 0, 0, 0]  # ignore 0 slot and pitcher slot 1
         offense = getOffense(team)
         batterTotals = {}
         for idx, player in enumerate(offense):
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
-            if player['fullName'] != team['designated-hitter']:
-                code = player['primaryPosition']['code']
-                if code == 'Y':
-                    raise(BaseException(player['fullName'] + " must be the designated hitter s they are a TWP"))
-                if int(code) > 9:
-                    raise (BaseException(player['fullName'] + " must be the designated hitter s they are primarily a DH"))
-            if player['primaryPosition']['code'] != 'Y' and player['fullName'] != team['designated-hitter']:
-                #print(player)
-                positions_filled[int(player['primaryPosition']['code']) - 1] += 1
+            code = player['primaryPosition']['code']
+            if code == 'Y' or str(code) == "10":
+                code = 1  # DH, TWP bats in pitcher spot
+            code = int(code)
+            positions_filled[code - 1] += 1
             totals = processing.filterPlayerPas(box_games, player)
             batterTotals[player['fullName'] + '_b'] = totals
             pas = processing.randomWalkOfWeeklyTotals(totals)

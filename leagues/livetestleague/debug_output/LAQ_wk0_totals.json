@@ -27,8 +27,8 @@
   "pit_e": 0,
   "pit_hbp": 2,
   "pit_out": 196,
-  "pit_single": 28,
-  "pit_double": 9,
+  "pit_single": 31,
+  "pit_double": 6,
   "pit_triple": 0,
   "pit_ab": 237,
   "pit_home run": 4,
@@ -234,8 +234,8 @@
     "e": 0,
     "hbp": 0,
     "out": 14,
-    "single": 4,
-    "double": 2,
+    "single": 5,
+    "double": 1,
     "triple": 0,
     "ab": 20,
     "home run": 0,
@@ -253,8 +253,8 @@
     "e": 0,
     "hbp": 0,
     "out": 18,
-    "single": 3,
-    "double": 0,
+    "single": 1,
+    "double": 2,
     "triple": 0,
     "ab": 21,
     "home run": 0,
@@ -272,8 +272,8 @@
     "e": 0,
     "hbp": 0,
     "out": 17,
-    "single": 6,
-    "double": 1,
+    "single": 7,
+    "double": 0,
     "triple": 0,
     "ab": 24,
     "home run": 0,
@@ -291,8 +291,8 @@
     "e": 0,
     "hbp": 1,
     "out": 21,
-    "single": 7,
-    "double": 2,
+    "single": 9,
+    "double": 0,
     "triple": 0,
     "ab": 30,
     "home run": 0,
@@ -386,8 +386,8 @@
     "e": 0,
     "hbp": 0,
     "out": 18,
-    "single": 0,
-    "double": 1,
+    "single": 1,
+    "double": 0,
     "triple": 0,
     "ab": 19,
     "home run": 0,
@@ -472,11 +472,11 @@
     "walk": 2
   },
   "errors": {
-    "2.1": {
+    "3.1": {
       "game": 0,
       "name": "Dansby Swanson"
     },
-    "9.1": {
+    "6.1": {
       "game": 0,
       "name": "Vladimir Guerrero"
     }

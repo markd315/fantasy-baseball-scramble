@@ -582,3 +582,17 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:33
 
+2022-08-26 12:05:48,214 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'FlowPanel' object has no attribute 'add'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:74
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+
+2022-08-26 12:15:24,155 [ERROR anvil.app-server.run] Error report from client code:
+AttributeError: 'FlowPanel' object has no attribute 'children'
+Traceback:
+  app/FantasyLineupSetter/LineupChangeForm/_template.py:84
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:8
+

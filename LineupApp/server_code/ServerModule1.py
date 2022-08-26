@@ -2,15 +2,22 @@ import json
 from pathlib import Path
 
 import anvil.server
-from anvil.tables import app_tables
-
-
-# This is a server module. It runs on the server, rather than in the user's browser.
-#
-# To allow anvil.server.call() to call functions here, we mark
-# them with @anvil.server.callable.
 import mlb_api
 
+
+def add_chat(league, sender, msg):
+    msg = msg.replace(">", "\\>")  # to avoid fake messages
+    with open("leagues/" + league + "/Chat", "a") as chat_file:
+        toAdd = ">" + sender + ": " + msg + "\n\n"
+        chat_file.write(toAdd)
+        chat_file.close()
+
+def authenticateAndGetAbbv(league, teamNm):
+    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
+              "r") as lineup_file:
+        lineup = json.load(lineup_file)
+        abbv = lineup['abbv']
+        lineup_file.close()
 
 @anvil.server.http_endpoint('/league/:league/:teamNm/lineup', methods=["POST"], authenticate_users=False)
 def post_lineup(league, teamNm, **q):
@@ -19,11 +26,7 @@ def post_lineup(league, teamNm, **q):
 
 @anvil.server.callable
 def get_roster(league, teamNm):
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
+    abbv = authenticateAndGetAbbv(league, teamNm)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
               "r") as roster_file:
         roster = roster_file.readlines()
@@ -66,11 +69,7 @@ def set_lineup(league, teamNm, lineup):
 
 @anvil.server.callable
 def drop_player(league, teamNm, player_drop):
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
+    abbv = authenticateAndGetAbbv(league, teamNm)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
               "r") as roster_file:
         roster = roster_file.readlines()
@@ -85,17 +84,14 @@ def drop_player(league, teamNm, player_drop):
         roster[len(roster) - 1] = roster[len(roster) - 1].strip()
         roster_file.writelines(roster)
         roster_file.close()
+        add_chat(league, "Waiver Drop", str(abbv) + " released " + player_drop)
     return {}
 
 
 @anvil.server.callable
 def add_player(league, teamNm, player_add):
     any_roster = []
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
+    abbv = authenticateAndGetAbbv(league, teamNm)
     for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
         with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
             roster = roster_file.readlines()
@@ -113,6 +109,7 @@ def add_player(league, teamNm, player_add):
         print(our_roster)
         roster_file.writelines(our_roster)
         roster_file.close()
+    add_chat(league, "Waiver Add", str(abbv) + " added " + player_add)
     return {}
 
 
@@ -163,12 +160,5 @@ def get_results(league, teamAbbv, week, selector):
 
 @anvil.server.callable
 def send_chat(league, teamNm, msg):
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
-    with open("leagues/" + league + "/Chat", "a") as chat_file:
-        toAdd = ">" + abbv + ": " + msg + "\n\n"
-        chat_file.write(toAdd)
-        chat_file.close()
+    abbv = authenticateAndGetAbbv(league, teamNm)
+    add_chat(league, abbv, msg)
