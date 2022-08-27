@@ -59,11 +59,12 @@ def get_bench(league, teamNm):
 
 @anvil.server.callable
 def get_lineup(league, teamNm):
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
-        ptl_lineup = json.load(lineup_file)
-        return json.dumps(ptl_lineup, indent=2, separators=(',', ': '))
-    return ""
+    try:
+        with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json", "r") as lineup_file:
+            ptl_lineup = json.load(lineup_file)
+            return json.dumps(ptl_lineup, indent=2, separators=(',', ': '))
+    except BaseException:
+        return ""
 
 
 @anvil.server.callable
@@ -117,13 +118,11 @@ def add_player(league, teamNm, player_add):
             roster_file.close()
             if abbv in p.name:
                 our_roster = roster
-                print(our_roster)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
               "w") as roster_file:
         if player_add not in any_roster and len(our_roster) < 25:
             our_roster[len(our_roster) - 1] += "\n"
             our_roster.append(player_add)
-        print(our_roster)
         roster_file.writelines(our_roster)
         roster_file.close()
     add_chat(league, "Waiver Add", str(abbv) + " added " + player_add)
@@ -132,7 +131,6 @@ def add_player(league, teamNm, player_add):
 
 @anvil.server.callable
 def get_results(league, teamAbbv, week, selector):
-    print(selector)
     out_path = "leagues/" + league + "/debug_output/"
     if selector == "Team totals":
         name = teamAbbv + "_wk" + str(week) + "_totals.json"
@@ -164,11 +162,9 @@ def get_results(league, teamAbbv, week, selector):
     else:  # game int or line score
         if selector == "Line scores":
             suffix = "wk" + str(week) + ".line"
-            print(suffix)
         else:
             suffix = "-wk" + str(week) + "-" + str(selector)
         for p in Path(out_path).glob('*'):
-            print(p.name)
             if p.name.endswith(suffix) and teamAbbv in p.name:
                 with open(out_path + p.name, "r") as results_file:
                     ret = results_file.read()

@@ -75,6 +75,9 @@ Allow a 4-player bench in case position players have 5 or fewer plate appearence
 More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
 
 
+# SSL
+You must reconfigure the SSL Dockerfile command if you are deploying this somewhere else
+
 # Docker commands for admin
 Saves containerid for anything below.
 `eid=$(docker ps --filter name=fantasy-baseball | tail -n 1 | awk '{print $1;}')`
