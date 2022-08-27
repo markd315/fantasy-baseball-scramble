@@ -1,7 +1,9 @@
-import numpy as np
+import config
 
-leagueWeek = 0
-maxRegularSeasonWeeks = 16
+leagueWeek = config.leagueWeek
+maxRegularSeasonWeeks = config.maxRegularSeasonWeeks  # TODO this isn't a true cap yet, we will always play at least one full round robin.
+
+import numpy as np
 
 import os
 import random

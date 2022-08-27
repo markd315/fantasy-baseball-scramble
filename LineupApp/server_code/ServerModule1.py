@@ -1,3 +1,4 @@
+import datetime
 import json
 from pathlib import Path
 
@@ -7,8 +8,9 @@ import mlb_api
 
 def add_chat(league, sender, msg):
     msg = msg.replace(">", "\\>")  # to avoid fake messages
+    date_time_str = datetime.datetime.now().strftime("%m-%d %H:%M")
     with open("leagues/" + league + "/Chat", "a") as chat_file:
-        toAdd = ">" + sender + ": " + msg + "\n\n"
+        toAdd = ">" + sender + " " + date_time_str + ": " + msg + "\n\n"
         chat_file.write(toAdd)
         chat_file.close()
 
@@ -133,6 +135,10 @@ def add_player(league, teamNm, player_add):
 def get_results(league, teamAbbv, week, selector):
     out_path = "leagues/" + league + "/debug_output/"
     if selector == "Team totals":
+        if week == "":
+            return "Need to enter a `week` to get this result pane."
+        if teamAbbv == "":
+            return "This is a team-specific result. Enter the abbreviation for the team whose results you want."
         name = teamAbbv + "_wk" + str(week) + "_totals.json"
         with open(out_path + name,
                   "r") as results_file:
@@ -160,6 +166,10 @@ def get_results(league, teamAbbv, week, selector):
             results_file.close()
             return ret
     else:  # game int or line score
+        if week == "":
+            return "Need to enter a `week` to get this result pane."
+        if teamAbbv == "":
+            return "This is a team-specific result. Enter the abbreviation for the team whose results you want."
         if selector == "Line scores":
             suffix = "wk" + str(week) + ".line"
         else:

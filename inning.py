@@ -29,9 +29,13 @@ def parseHandednessData(arr, batter, pitcher):
 
 
 def getCoinForMatchup(teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot):
+    if config.ignoreRightyLeftyHandedness:
+        rng = random.uniform(0, 1)
+        return 0.5 > rng
     batter = battingTeam['batting-order'][orderSlot - 1]
     batter_hands = battingTeam['handedness'][batter]
     pitcher_hands = pitchingTeam['handedness'][currPitcher]
+    # It's okay that right handed batters do "better" in this than LHB because they face the disadvantage of same-handed pitchers MORE often than LHB. It kinda makes sense.
     if teamsInLeague > 11:  # calibrated for 16 teams
         batterCoinPercent = parseHandednessData([0.0, .742, .508, .461], batter_hands, pitcher_hands)
     elif teamsInLeague > 6:  # calibrated for 8 teams

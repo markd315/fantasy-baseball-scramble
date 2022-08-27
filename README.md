@@ -81,9 +81,26 @@ Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thi
 
 Ok so maybe implement PR straight up since they are specialists. For PH, look at the hitter being replaced. Add 3 past PA and 3 future PA to "see if they are hot" by taking the OPS. If the PH dataset has a higher OPS, make the substitution.
 
-Allow a 4-player bench in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
+Allow entering a 4-player bench into the lineup in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
 
-More balanced sample teams, LAQ and DVS are overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
+More balanced/unique sample teams, some duplicate orders and NYB is overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
+
+Injured list manage from Bench page, will also require change to data model to allow restrictions on readding player so that you cannot recall them for 10-15 days (or certain number of weeks) after adding.
+
+"injuredList" [
+    {
+        "fullName": "[fn]"
+        "placedOnILTimestamp": ""
+    }
+]
+
+Setup server cron job
+
+Webapp ideas for quality of life:
+filter for players on mlb_data conditional on results dropdown set to this
+Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc
+Social login instead of team-code?
+Eventually... draft
 
 
 # SSL
@@ -98,11 +115,11 @@ Takes a league backup to the vm
 
 Updates the league week prior to an execution
 ```bash
-docker cp $eid:/apps/simulateLeagueWeek.py simulateLeagueWeek.py
-cp simulateLeagueWeek.py simulateLeagueWeek.py.backup
-echo 'leagueWeek = 0'> simulateLeagueWeek.py
-cat simulateLeagueWeek.py.backup |tail -n+2>> simulateLeagueWeek.py
-docker cp simulateLeagueWeek.py $eid:/apps/simulateLeagueWeek.py
+docker cp $eid:/apps/config.py config.py
+cp config.py config.py.backup
+echo 'leagueWeek = 0'> config.py
+cat config.py.backup |tail -n+2>> config.py
+docker cp config.py $eid:/apps/config.py
 ```
 
 Runs the league week, publishing results logs etc
