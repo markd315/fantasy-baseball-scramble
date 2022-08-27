@@ -44,8 +44,6 @@ class LineupChangeTemplate(HtmlPanel):
         self.get_results = Button(text="Get Results",
                                   role="primary-color")
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
-        self.get_roster = Button(text="Get Current Bench",
-                                 role="primary-color")
         self.drop_lineup = Button(text="Drop Player", role="secondary-color", background='#ff0000')
         self.add_lineup = Button(text="Add Player", role="secondary-color", background='#40ff00')
         self.send_chat = Button(text="Send Msg", role="secondary-color")
@@ -67,8 +65,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.define_lineup()
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.lineup, self.roster, self.instr}
-        self.ctl_add_drop = {self.league_name, self.team_name, self.get_roster,
-                        self.add_lineup, self.drop_lineup, self.roster, self.player_name, self.instr}
+        self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.player_name, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.team_abbv, self.results_sel, self.results_panel, self.instr}
         self.ctl_chat = {self.league_name, self.team_name, self.chat_msg, self.send_chat, self.chat_box, self.instr}
@@ -104,7 +101,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.showAll(self.ctl_add_drop)
         self.instr.text = self.txt_label[1]
         if self.league_name.text != "" and self.team_name.text != "":
-            self.get_bench_click()
+            self.get_bench()
 
     def show_results_page(self, **properties):
         self.showAll(self.ctl_results)
@@ -177,8 +174,6 @@ class LineupChangeTemplate(HtmlPanel):
             for flowcomponent in self.lineup.get_components():
                 textbox = flowcomponent.get_components()[1]
                 textbox.set_event_handler('change', self.show_positions)
-        if hasattr(self, "get_roster"):
-            self.get_roster.set_event_handler('click', self.get_bench_click)
         if hasattr(self, "add_lineup"):
             self.add_lineup.set_event_handler('click', self.add_player_click)
         if hasattr(self, "drop_lineup"):

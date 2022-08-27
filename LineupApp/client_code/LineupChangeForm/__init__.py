@@ -80,7 +80,7 @@ class LineupChangeForm(LineupChangeTemplate):
                 if "Closer Settings" in textbox.placeholder:
                     res = "Home: " + str(payload['closer-min-lead-home']) + ":" + str(payload["closer-max-lead-home"]) + ", Away: " + str(payload['closer-min-lead-away']) + ":" + str(payload["closer-max-lead-away"])
                     textbox.text = res
-        self.get_bench_click()
+        self.get_bench()
 
     def set_lineup_click(self, **event_args):
         self.show_positions()
@@ -126,14 +126,14 @@ class LineupChangeForm(LineupChangeTemplate):
     def drop_player_click(self, **event_args):
         anvil.server.call('drop_player', self.league_name.text,
                           self.team_name.text, self.player_name.text)
-        self.get_bench_click()
+        self.get_bench()
 
     def add_player_click(self, **event_args):
         anvil.server.call('add_player', self.league_name.text,
                           self.team_name.text, self.player_name.text)
-        self.get_bench_click()
+        self.get_bench()
 
-    def get_bench_click(self, **event_args):
+    def get_bench(self, **event_args):
         list = anvil.server.call('get_bench', self.league_name.text,
                                  self.team_name.text)
         txt = ""

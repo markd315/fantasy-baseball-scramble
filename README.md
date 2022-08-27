@@ -106,9 +106,22 @@ Eventually... draft
 # SSL
 You must reconfigure the SSL Dockerfile command if you are deploying this somewhere else
 
+# Local docker commands to build image
+```commandline
+docker build -f Dockerfile.dev -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest .
+docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest
+
+docker build -f Dockerfile.prod -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
+docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
+```
+
 # Docker commands for admin
 Saves containerid for anything below.
-`eid=$(docker ps --filter name=fantasy-baseball | tail -n 1 | awk '{print $1;}')`
+```commandline
+eid=$(docker ps --filter name=fantasy-mlb-dev | tail -n 1 | awk '{print $1;}')
+
+eid=$(docker ps --filter name=fantasy-mlb-prod | tail -n 1 | awk '{print $1;}')
+```
 
 Takes a league backup to the vm
 `docker cp $eid:/apps/leagues backups/leagues_backup$(date +'%d-%m-%Y-%H-%M')`
