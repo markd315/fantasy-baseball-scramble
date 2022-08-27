@@ -17,7 +17,18 @@ anvil-app-server --app LineupApp
 
 ![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/debug_output.png)
 
-Both your batters and pitchers play a full simulated game against your opponent(s).
+There is even a cool webapp which can run in a docker container and allows you to set your lineups, obtain results etc during league operation. Be sure to change the origin setting in the Dockerfile if you host it somewhere else.
+
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/set_lineup.png)
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/add_drop.png)
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/standings.png)
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/web_output.png)
+
+It even works okay on mobile! Mostly.
+![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/mobile.png)
+
+
+Both your batters and pitchers play full simulated games against your opponent(s).
 
 Actual plate appearances from the week for each batter or pitcher are selected in random order to compose this game.
 

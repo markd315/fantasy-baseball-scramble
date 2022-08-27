@@ -15,7 +15,7 @@ class LineupChangeTemplate(HtmlPanel):
         # Sidebar
         self.navbar = FlowPanel(align="right")
         self.link_lineup = Link(text="Set lineup")
-        self.link_add = Link(text="Roster add")
+        self.link_add = Link(text="Manage bench")
         self.link_results = Link(text="Results")
         self.link_chat = Link(text="Chat")
         self.navbar.add_component(self.link_lineup, slot="nav-right")
