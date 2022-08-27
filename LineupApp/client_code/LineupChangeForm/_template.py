@@ -16,12 +16,10 @@ class LineupChangeTemplate(HtmlPanel):
         self.navbar = FlowPanel(align="right")
         self.link_lineup = Link(text="Set lineup")
         self.link_add = Link(text="Roster add")
-        self.link_drop = Link(text="Roster drop")
         self.link_results = Link(text="Results")
         self.link_chat = Link(text="Chat")
         self.navbar.add_component(self.link_lineup, slot="nav-right")
         self.navbar.add_component(self.link_add, slot="nav-right")
-        self.navbar.add_component(self.link_drop, slot="nav-right")
         self.navbar.add_component(self.link_results, slot="nav-right")
         self.navbar.add_component(self.link_chat, slot="nav-right")
         self.add_component(self.navbar, slot='nav-right')
@@ -50,21 +48,20 @@ class LineupChangeTemplate(HtmlPanel):
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
         self.get_roster = Button(text="Get Current Bench",
                                  role="primary-color")
-        self.drop_lineup = Button(text="Drop Player", role="secondary-color")
-        self.add_lineup = Button(text="Add Player", role="secondary-color")
+        self.drop_lineup = Button(text="Drop Player", role="secondary-color", background='#ff0000')
+        self.add_lineup = Button(text="Add Player", role="secondary-color", background='#40ff00')
         self.send_chat = Button(text="Send Msg", role="secondary-color")
         self.load_chat = Button(text="Load Chat", role="primary-color")
         self.team_abbv = TextBox(placeholder="Team", width=80)
-        self.roster = TextArea(placeholder="Bench", width=350, height=700)
-        self.results = TextArea(placeholder="Results", width=350, height=700,
+        self.roster = TextArea(placeholder="Bench", width=350, height=100)
+        self.results = TextArea(placeholder="Results", width=500, height=800,
                                 font="Courier")
         self.base_json = None
         self.chat_box = TextArea(placeholder="Click button to load chat", width=350,
                                     height=700)
         self.txt_label = [
             "For the starters, lineup, and bullpen, order will affect the simulation! You must have exactly one player from each position in the lineup and only one DH/TWP. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden. The closer can only enter the game in the 9th inning or later, and the fireman will be used in a 7th+ inning situations where there are runners on base in a close game.",
-            "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. For callups after August 20th, notify the league manager to have the player cache invalidated.",
-            "To drop a player, they must first not appear anywhere in your lineup (ie be showing on your bench). Other teams will be able to add them immediately.",
+            "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. To drop a player, they must first not appear anywhere in your lineup (ie be showing on your bench). Other teams will be able to add them immediately. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. If the player is not visible in the lineup (like for a recent minor league callup) notify the league manager to invalidate the player name cache",
             "Put in the *abbreviation* of the team whose results you want to view on this page, not the full team code that you use on the other pages. Standings, League Note, and MLB Player Data are global settings that do not require a team or week specified."
         ]
         self.instr = Label(text=self.txt_label[0])
@@ -90,15 +87,12 @@ class LineupChangeTemplate(HtmlPanel):
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.lineup,
                            self.get_lineup, self.set_lineup, self.instr}
-        self.ctl_add = {self.league_name, self.team_name, self.get_roster,
-                        self.add_lineup, self.roster, self.player_name, self.instr}
-        self.ctl_drop = {self.league_name, self.team_name, self.get_roster,
-                         self.drop_lineup, self.roster, self.player_name, self.instr}
+        self.ctl_add_drop = {self.league_name, self.team_name, self.get_roster,
+                        self.add_lineup, self.drop_lineup, self.roster, self.player_name, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.results, self.team_abbv, self.results_sel, self.instr}
         self.ctl_chat = {self.league_name, self.team_name, self.chat_box, self.chat_msg, self.send_chat, self.load_chat}
-        self.ctl_all = self.ctl_lineup.union(
-            self.ctl_add.union(self.ctl_drop.union(self.ctl_results.union(self.ctl_chat))))
+        self.ctl_all = self.ctl_lineup.union(self.ctl_add_drop.union(self.ctl_results.union(self.ctl_chat)))
 
         # Add
         self.addComponent(self.league_name)
@@ -111,8 +105,8 @@ class LineupChangeTemplate(HtmlPanel):
         self.addComponent(self.get_lineup)
         self.addComponent(self.set_lineup)
         self.addComponent(self.get_roster)
-        self.addComponent(self.drop_lineup)
         self.addComponent(self.add_lineup)
+        self.addComponent(self.drop_lineup)
         self.addComponent(self.roster)
         self.addComponent(self.results)
         self.addComponent(self.lineup)
@@ -142,21 +136,15 @@ class LineupChangeTemplate(HtmlPanel):
         if self.league_name.text != "" and self.team_name.text != "":
             self.load_positions()
 
-    def show_add_page(self, **properties):
-        self.showAll(self.ctl_add)
+    def show_add_drop_page(self, **properties):
+        self.showAll(self.ctl_add_drop)
         self.instr.text = self.txt_label[1]
-        if self.league_name.text != "" and self.team_name.text != "":
-            self.get_bench_click()
-
-    def show_drop_page(self, **properties):
-        self.showAll(self.ctl_drop)
-        self.instr.text = self.txt_label[2]
         if self.league_name.text != "" and self.team_name.text != "":
             self.get_bench_click()
 
     def show_results_page(self, **properties):
         self.showAll(self.ctl_results)
-        self.instr.text = self.txt_label[3]
+        self.instr.text = self.txt_label[2]
 
     def show_chat_page(self, **properties):
         self.showAll(self.ctl_chat)
@@ -185,9 +173,7 @@ class LineupChangeTemplate(HtmlPanel):
         if hasattr(self, "link_lineup"):
             self.link_lineup.set_event_handler('click', self.show_lineup_page)
         if hasattr(self, "link_add"):
-            self.link_add.set_event_handler('click', self.show_add_page)
-        if hasattr(self, "link_drop"):
-            self.link_drop.set_event_handler('click', self.show_drop_page)
+            self.link_add.set_event_handler('click', self.show_add_drop_page)
         if hasattr(self, "link_results"):
             self.link_results.set_event_handler('click', self.show_results_page)
         if hasattr(self, "link_chat"):

@@ -100,6 +100,7 @@ class LineupChangeForm(LineupChangeTemplate):
     def drop_player_click(self, **event_args):
         anvil.server.call('drop_player', self.league_name.text,
                           self.team_name.text, self.player_name.text)
+        self.get_bench_click()
 
     def add_player_click(self, **event_args):
         anvil.server.call('add_player', self.league_name.text,
