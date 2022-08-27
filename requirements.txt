@@ -4,3 +4,4 @@ pandas
 tabulate
 anvil-uplink
 jsbeautifier
+numpy

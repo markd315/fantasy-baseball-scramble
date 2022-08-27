@@ -1,7 +1,6 @@
-----------------------  -  -  -  -  -  -  -  -
-Inning / Total          W  L  R    RA  H   E
-Liverpool Ale Quaffers  3  1  16   11  31  0
-New York Bankers        2  2  13   16  28  1
-Denver Stoners          2  2  16   13  32  0
-Canada Hosers           1  3  11   16  28  2
-----------------------  -  -  -  -  -  -  -  -
+Team                      W    L    RD    R    RA    H    E
+----------------------  ---  ---  ----  ---  ----  ---  ---
+New York Bankers         37   15   102  263   161  454    0
+Liverpool Ale Quaffers   25   27    -1  285   286  488    8
+Denver Stoners           23   29   -16  240   256  469    0
+Canada Hosers            19   33   -85  205   290  377    0

@@ -1,4 +1,7 @@
+import numpy as np
+
 leagueWeek = 0
+maxRegularSeasonWeeks = 16
 
 import os
 import random
@@ -10,6 +13,7 @@ from tabulate import tabulate
 import game
 import mlb_api
 from itertools import permutations
+import pandas as pd
 
 
 box_games = mlb_api.getWeeklyBox(
@@ -29,6 +33,41 @@ def commitNewRosters(league):
             file_write.writelines(lines)
             file_write.close()
 
+
+def add_line_score_to_standings(home, away, line_score):
+    rhe = []
+    for line in line_score[1:]:
+        toAdd = []
+        for elem in line[-3:]:
+            toAdd.append(int(elem))
+        rhe.append(toAdd)
+    # reading the csv file
+    df = pd.read_csv("leagues/" + league + "/standings.csv")
+    home_row = int(np.where(df["Team"] == home['team-name'])[0].min())
+    away_row = int(np.where(df["Team"] == away['team-name'])[0].min())
+    if rhe[0][0] > rhe[1][0]:  # away win
+        df.loc[away_row, 'W'] += 1
+        df.loc[home_row, 'L'] += 1
+    else:
+        df.loc[home_row, 'W'] += 1
+        df.loc[away_row, 'L'] += 1
+    # writing into the file
+    rd_away = rhe[0][0] - rhe[1][0]
+    df.loc[home_row, 'RD'] -= rd_away
+    df.loc[away_row, 'RD'] += rd_away
+    df.loc[home_row, 'RA'] += rhe[0][0]
+    df.loc[away_row, 'RA'] += rhe[1][0]
+    iter = [away_row, home_row]
+    for idx, rows in enumerate(iter):
+        df.loc[iter[idx], 'R'] += rhe[idx][0]
+        df.loc[iter[idx], 'H'] += rhe[idx][1]
+        df.loc[iter[idx], 'E'] += rhe[idx][2]
+    df = df.sort_values(ascending=False, by=['W', 'RD', 'R', 'H'])
+    df.to_csv("leagues/" + league + "/standings.csv", index=False)
+    with open("leagues/" + league + "/Standings", "w") as file:
+        file.write(tabulate(df, headers='keys', showindex=False))
+
+
 def multiGameSeries(home, away, games, league, week):
     h = home['team-name']
     a = away['team-name']
@@ -39,6 +78,7 @@ def multiGameSeries(home, away, games, league, week):
     line_scores = ""
     for starter in range(0, games):
         winner, line_score = game.simulateAndLogGame(home, away, starter, league, week)
+        add_line_score_to_standings(home, away, line_score)
         count[winner] += 1
         line_scores += tabulate(line_score) + "\n\n"
     shortname = away['abbv'] + "@" + home['abbv'] + "wk" + str(week)
@@ -65,9 +105,9 @@ for league in os.listdir("leagues"):
     if len(teams) % 2 != 0:
         teams.append({'team-name': 'Bye'})
     perms = [n for n in permutations(teams, 2)]
-    if len(teams) <= 4:
+    if len(teams) <= 4 and maxRegularSeasonWeeks > 4 * (len(teams) - 1):
         perms.extend(perms)
-        if len(teams) <= 2:
+        if len(teams) <= 2 and maxRegularSeasonWeeks > 8 * (len(teams) - 1):
             perms.extend(perms)
     print("League " + league + " week " + str(leagueWeek) + ":")
     targetWeeks = 0
@@ -99,7 +139,10 @@ for league in os.listdir("leagues"):
         with open("leagues/" + league + "/scheduleSeed.txt", 'w') as seedFile:
             seedFile.write(str(rng))
             seedFile.close()
-    week = weeks[leagueWeek]
+    if leagueWeek < len(weeks) -1:
+        week = weeks[leagueWeek]
+    else:
+        continue
     for gm in week:
         print(gm[1]['team-name'] + "@" + gm[0]['team-name'])
         if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':

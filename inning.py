@@ -336,7 +336,8 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
 
 def executePitchingChange(team, logs, currPitcher, newPitcher):
     logs += currPitcher + " takes a seat. " + newPitcher + " has been warming up and enters the game.\n"
-    team['burned-pitchers'].append(newPitcher)
+    if newPitcher != 'Position Player':
+        team['burned-pitchers'].append(newPitcher)
     return newPitcher, logs
 
 
@@ -373,8 +374,8 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
                 if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
                     currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
                     break
-    if currPitcher not in team['burned-pitchers']:  # shouldnt happen
-        team['burned-pitchers'].append(currPitcher)
+    #if currPitcher not in team['burned-pitchers'] and currPitcher != 'Position Player':  # shouldnt happen
+        #team['burned-pitchers'].append(currPitcher)
     return currPitcher, team, logs
 
 
