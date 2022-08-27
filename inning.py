@@ -361,8 +361,10 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
     if double_blowout:
         currPitcher, logs = executePitchingChange(team, logs, currPitcher, 'Position Player')
     while len(results[currPitcher]) < 2:  #We still need to substitute SOMEONE who can pitch
-        if is_blowout:  # reverse bullpen order
-            for pitcher in team['bullpen'][-2::-1]:  # reverse order and ignore position player
+        if is_blowout:
+            iter_order = team['bullpen'][-2::-1]  # reverse bullpen order and ignore position player
+            iter_order.append(team['bullpen'][-1])  # add position player back in as a last resort
+            for pitcher in iter_order:
                 if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
                     currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
                     break

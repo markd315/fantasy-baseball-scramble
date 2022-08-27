@@ -679,3 +679,90 @@ Traceback:
 
   app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
 
+2022-08-26 20:20:24,423 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: can only concatenate str (not "tuple") to str
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:31
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 20:20:26,495 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: can only concatenate str (not "tuple") to str
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:31
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:21:26,100 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Marcus Stroman is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:64
+
+  FantasyLineupSetter/ServerModule1.py:43
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:23:46,978 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Marcus Stroman is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:64
+
+  FantasyLineupSetter/ServerModule1.py:43
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:24:25,944 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Marcus Stroman is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:65
+
+  FantasyLineupSetter/ServerModule1.py:43
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:25:54,796 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Josh Hader is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:65
+
+  FantasyLineupSetter/ServerModule1.py:45
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:27:16,830 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: list.remove(x): x not in list
+Traceback:
+  FantasyLineupSetter/ServerModule1.py:99
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:77
+
+2022-08-26 21:29:27,103 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Shohei Ohtani is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:65
+
+  FantasyLineupSetter/ServerModule1.py:53
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+
+2022-08-26 21:29:42,063 [ERROR anvil.app-server.run] Error report from client code:
+AnvilWrappedError: Shohei Ohtani is in the lineup but not on their roster.
+Traceback:
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:12
+
+  C:/Users/markd/PycharmProjects/fantasy-baseball-scramble/mlb_api.py:65
+
+  FantasyLineupSetter/ServerModule1.py:53
+
+  app/FantasyLineupSetter/LineupChangeForm/__init__.py:85
+

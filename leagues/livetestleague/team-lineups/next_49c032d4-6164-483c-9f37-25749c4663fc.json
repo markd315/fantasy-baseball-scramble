@@ -2,7 +2,7 @@
   "team-name": "Denver Stoners",
   "abbv": "DVS",
   "batting-order": [
-    "Shohei Ohtani",
+    "Giancarlo Stanton",
     "Alejandro Kirk",
     "Dansby Swanson",
     "Whit Merrifield",
@@ -15,25 +15,24 @@
   "pinch-hitter": "",
   "pinch-runner": "",
   "starters": [
-    "Shohei Ohtani",
-    "Blake Snell",
-    "Paolo Espino",
-    "Max Scherzer",
-    "Nestor Cortes"
+    "Chad Kuhl",
+    "Aaron Nola",
+    "Nathan Eovaldi",
+    "Dylan Cease",
+    "Carlos Rodon"
   ],
   "bullpen": [
-    "Kenley Jansen",
-    "Andrew Chafin",
-    "Garrett Whitlock",
-    "Cristian Javier",
-    "Drew Rasmussen",
-    "Mike Clevinger"
+    "Steve Cishek",
+    "Jake Diekman",
+    "Scott Effross",
+    "Felix Bautista",
+    "Framber Valdez"
   ],
-  "closer": "Josh Hader",
+  "closer": "Adam Wainwright",
   "closer-min-lead-away": 0,
   "closer-max-lead-away": 3,
   "closer-min-lead-home": 0,
   "closer-max-lead-home": 2,
   "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
-  "fireman": "Corey Knebel"
+  "fireman": "Zac Gallen"
 }

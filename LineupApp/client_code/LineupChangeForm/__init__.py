@@ -82,7 +82,7 @@ class LineupChangeForm(LineupChangeTemplate):
                           self.team_name.text, self.player_name.text)
 
     def get_roster_click(self, **event_args):
-        list = anvil.server.call('get_roster', self.league_name.text,
+        list = anvil.server.call('get_bench', self.league_name.text,
                                  self.team_name.text)
         self.roster.text = list
 

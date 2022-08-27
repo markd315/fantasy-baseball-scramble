@@ -48,14 +48,14 @@ class LineupChangeTemplate(HtmlPanel):
         self.get_lineup = Button(text="Get Current Lineup",
                                  role="primary-color")
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
-        self.get_roster = Button(text="Get Current Roster",
+        self.get_roster = Button(text="Get Current Bench",
                                  role="primary-color")
         self.drop_lineup = Button(text="Drop Player", role="secondary-color")
         self.add_lineup = Button(text="Add Player", role="secondary-color")
         self.send_chat = Button(text="Send Msg", role="secondary-color")
         self.load_chat = Button(text="Load Chat", role="primary-color")
         self.team_abbv = TextBox(placeholder="Team", width=80)
-        self.roster = TextArea(placeholder="Roster", width=350, height=700)
+        self.roster = TextArea(placeholder="Bench", width=350, height=700)
         self.results = TextArea(placeholder="Results", width=350, height=700,
                                 font="Courier")
         self.base_json = None
@@ -73,7 +73,7 @@ class LineupChangeTemplate(HtmlPanel):
         for i in range(1,6):
             self.lineup.add_component(Label(text="S" +str(i), width=20))
             self.lineup.add_component(TextBox(placeholder="Starter " + str(i), width=310))
-        for i in range(1,7):
+        for i in range(1,6):
             self.lineup.add_component(Label(text="R" + str(i), width=20))
             self.lineup.add_component(TextBox(placeholder="Bullpen " + str(i), width=310))
         self.lineup.add_component(Label(text="FI"), width=20)

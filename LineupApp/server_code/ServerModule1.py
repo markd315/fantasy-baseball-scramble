@@ -20,20 +20,42 @@ def authenticateAndGetAbbv(league, teamNm):
         lineup_file.close()
         return abbv
 
+def getLineup(league, teamNm):
+    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
+              "r") as lineup_file:
+        lineup = json.load(lineup_file)
+        abbv = lineup['abbv']
+        lineup_file.close()
+        return lineup
+
+def getRoster(league, abbv):
+    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
+              "r") as roster_file:
+        roster = roster_file.readlines()
+        for idx, line in enumerate(roster):
+            roster[idx] = line.strip()
+        return roster
+
 @anvil.server.http_endpoint('/league/:league/:teamNm/lineup', methods=["POST"], authenticate_users=False)
 def post_lineup(league, teamNm, **q):
     set_lineup(league, teamNm, json.dumps(anvil.server.request.body_json))
 
 
 @anvil.server.callable
-def get_roster(league, teamNm):
+def get_bench(league, teamNm):
     abbv = authenticateAndGetAbbv(league, teamNm)
+    lineup = getLineup(league, teamNm)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
               "r") as roster_file:
         roster = roster_file.readlines()
         for idx, line in enumerate(roster):
             roster[idx] = line.strip()
-    return roster
+        starting_lineup = mlb_api.getAndValidateLineup(lineup, roster)
+        bench = []
+        for line in roster:
+            if line not in starting_lineup:
+                bench.append(line)
+    return bench
 
 @anvil.server.callable
 def get_lineup(league, teamNm):
@@ -56,12 +78,8 @@ def set_lineup(league, teamNm, lineup):
         else:
             abbv = old_lineup['abbv']
         lineup_file.close()
-    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
-              "r") as roster_file:
-        roster = roster_file.readlines()
-        for idx, line in enumerate(roster):
-            roster[idx] = line.strip()
-    mlb_api.getAndValidateTeam(lineup, roster)
+    roster = getRoster(league, abbv)
+    mlb_api.getAndValidateLineup(lineup, roster)
     with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
               "w") as lineup_file:
         lineup_file.write(json.dumps(lineup, indent=2, separators=(',', ': ')))
@@ -71,17 +89,15 @@ def set_lineup(league, teamNm, lineup):
 @anvil.server.callable
 def drop_player(league, teamNm, player_drop):
     abbv = authenticateAndGetAbbv(league, teamNm)
-    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
-              "r") as roster_file:
-        roster = roster_file.readlines()
+    lineup = getLineup(league, teamNm)
+    roster = getRoster(league, abbv)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
               "w") as roster_file:
-        roster_stripped = []
-        for p in roster:
-            roster_stripped.append(p.strip())
-        team = mlb_api.getAndValidateTeam(lineup, roster_stripped)
-        if player_drop in roster_stripped and player_drop not in team:
+        starters = mlb_api.getAndValidateLineup(lineup, roster)
+        if player_drop in roster and player_drop not in starters:
             roster.remove(player_drop)
+        for idx, line in enumerate(roster):
+            roster[idx] = line+'\n'
         roster[len(roster) - 1] = roster[len(roster) - 1].strip()
         roster_file.writelines(roster)
         roster_file.close()

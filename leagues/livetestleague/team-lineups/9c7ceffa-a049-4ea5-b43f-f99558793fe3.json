@@ -15,25 +15,25 @@
   "pinch-hitter": "",
   "pinch-runner": "",
   "starters": [
-    "Joe Musgrove",
-    "Jacob deGrom",
-    "Sandy Alcantara",
-    "Corey Kluber",
-    "Nestor Cortes"
+    "Justin Verlander",
+    "Max Fried",
+    "Merrill Kelly",
+    "Tony Gonsolin",
+    "Jason Adam"
   ],
   "bullpen": [
-    "Logan Gilbert",
-    "Carlos Carrasco",
-    "Adam Ottavino",
-    "Emmanuel Clase",
-    "Paul Sewald",
-    "Edward Cabrera"
+    "Domingo Acevedo",
+    "Shane McClanahan",
+    "John Brebbia",
+    "Johnny Cueto",
+    "Paul Sewald"
   ],
-  "closer": "Edwin Diaz",
+  "closer": "Corey Knebel",
   "closer-min-lead-away": 0,
   "closer-max-lead-away": 3,
   "closer-min-lead-home": 0,
   "closer-max-lead-home": 2,
   "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
-  "fireman": "Seth Lugo"
+  "fireman": "Garrett Whitlock"
 }
+

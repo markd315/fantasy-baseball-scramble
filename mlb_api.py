@@ -56,9 +56,10 @@ def getPitchers(team):
     return pitchers
 
 
-def getAndValidateTeam(team, roster):
+def getAndValidateLineup(team, roster):
     ret = getPitchers(team)
     ret.extend(getOffense(team))
+    #print(roster)
     for pl in ret:
         player = playerQuery(pl)[0]
         validateOnRoster(player, roster)
@@ -114,6 +115,7 @@ def loadLineup(league, team_name, box_games, weekNumber):
         pitchers = getPitchers(team)
         pitcherTotals = {}
         for player in pitchers:
+            #print(player)
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
@@ -203,7 +205,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
         try:
             with open("cached-box-scores/" + str(game['game_id']) + ".json",
                       "r") as json_file:
-                # print(str(game['game_id']))
+                #print(str(game['game_id']))
                 game = json.load(json_file)
                 box_games.append(game)
         except FileNotFoundError:  # Hit the API
@@ -219,11 +221,11 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
             pbp = statsapi.get("game_playByPlay",
                                {"gamePk": str(game['game_id'])})
             for play in pbp['allPlays']:
-                if play["result"]["event"] == "Hit By Pitch" and play["result"]["eventType"] == "hit_by_pitch":
+                if "event" in play["result"] and play["result"]["event"] == "Hit By Pitch" and play["result"]["eventType"] == "hit_by_pitch":
                     box['hbp'].append(play["matchup"]["batter"]["fullName"])
                     box['hbp_pitcher'].append(
                         play["matchup"]["pitcher"]["fullName"])
-                if play["result"]["event"].startswith("Caught Stealing") and \
+                if "event" in play["result"] and play["result"]["event"].startswith("Caught Stealing") and \
                         play["result"]["eventType"].startswith(
                             "caught_stealing"):
                     desc = play["result"]["description"].split(" ")
@@ -243,7 +245,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                         box['cs_catcher'].append(player[0]['fullName'])
                     except Exception as e:
                         print("unhandled caught stealing")
-                if play["result"]["event"] == "Catcher Interference" and \
+                if "event" in play["result"] and play["result"]["event"] == "Catcher Interference" and \
                         play["result"]["eventType"] == "catcher_interf":
                     box['errors-detail'].append(play)
                     desc = play["result"]["description"].split(" ")
@@ -257,7 +259,7 @@ def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
                     except Exception as e:
                         print("unhandled fielding error")
                         box['errors-blame'].append("Unknown")
-                if play["result"]["event"] == "Field Error" and play["result"][
+                if "event" in play["result"] and play["result"]["event"] == "Field Error" and play["result"][
                     "eventType"] == "field_error":
                     box['errors-detail'].append(play)
                     desc = play["result"]["description"].split(" ")
