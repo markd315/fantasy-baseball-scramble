@@ -1,6 +1,6 @@
 import random
 
-import config
+import simulationConfig as config
 
 
 def offensiveOutcome(team, orderSlot):

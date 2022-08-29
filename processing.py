@@ -1,5 +1,5 @@
 import random
-import config
+import simulationConfig as config
 
 def randomWalkOfWeeklyTotals(weekly_totals):
     outcomes = ['k', 'in_play_out', 'walk', 'hbp', 'single', 'double', 'triple', 'home run']

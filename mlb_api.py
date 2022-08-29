@@ -59,10 +59,10 @@ def getPitchers(team):
 def getAndValidateLineup(team, roster):
     ret = getPitchers(team)
     ret.extend(getOffense(team))
-    #print(roster)
     for pl in ret:
-        player = playerQuery(pl)[0]
-        validateOnRoster(player, roster)
+        if pl != "":
+            player = playerQuery(pl)[0]
+            validateOnRoster(player, roster)
     return ret
 
 def loadLineup(league, team_name, box_games, weekNumber):

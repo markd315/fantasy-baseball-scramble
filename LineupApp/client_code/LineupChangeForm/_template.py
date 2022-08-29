@@ -46,6 +46,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
         self.drop_lineup = Button(text="Drop Player", role="secondary-color", background='#ff0000')
         self.add_lineup = Button(text="Add Player", role="secondary-color", background='#40ff00')
+        self.add_drop_position = Label(text="Undefined Player")
         self.send_chat = Button(text="Send Msg", role="secondary-color")
         self.team_abbv = TextBox(placeholder="Team", width=80)
         self.roster = TextArea(placeholder="Bench", width=300, height=100)
@@ -63,9 +64,10 @@ class LineupChangeTemplate(HtmlPanel):
         ]
         self.instr = Label(text=self.txt_label[0])
         self.define_lineup()
+        self.page_state = 'lineup'
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.lineup, self.roster, self.instr}
-        self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.player_name, self.instr}
+        self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.add_drop_position, self.player_name, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.team_abbv, self.results_sel, self.results_panel, self.instr}
         self.ctl_chat = {self.league_name, self.team_name, self.chat_msg, self.send_chat, self.chat_box, self.instr}
@@ -92,22 +94,29 @@ class LineupChangeTemplate(HtmlPanel):
         self.main_content.add_component(component)
 
     def show_lineup_page(self, **properties):
+        self.page_state = 'lineup'
         self.showAll(self.ctl_lineup)
         self.instr.text = self.txt_label[0]
         if self.league_name.text != "" and self.team_name.text != "":
             self.load_positions()
 
+
     def show_add_drop_page(self, **properties):
+        self.page_state = 'add-drop'
         self.showAll(self.ctl_add_drop)
         self.instr.text = self.txt_label[1]
         if self.league_name.text != "" and self.team_name.text != "":
             self.get_bench()
 
+
     def show_results_page(self, **properties):
+        self.page_state = 'results'
         self.showAll(self.ctl_results)
         self.instr.text = self.txt_label[2]
 
+
     def show_chat_page(self, **properties):
+        self.page_state = 'chat'
         self.showAll(self.ctl_chat)
         self.instr.text = self.txt_label[3]
         self.load_chat_click()
@@ -122,8 +131,6 @@ class LineupChangeTemplate(HtmlPanel):
                     codes[c_idx] += inc
                 else:
                     codes[c_idx] = 255
-        print(codes)
-        print(str(hex(codes[0])))
         return "#" + str(hex(codes[0]))[-2:] + str(hex(codes[1]))[-2:] + str(hex(codes[2]))[-2:]
 
 
@@ -168,6 +175,10 @@ class LineupChangeTemplate(HtmlPanel):
     def addHandlers(self):
         if hasattr(self, "team_name"):
             self.team_name.set_event_handler('change', self.load_positions)
+        if hasattr(self, "league_name"):
+            self.league_name.set_event_handler('change', self.load_positions)
+        if hasattr(self, "player_name"):
+            self.player_name.set_event_handler('change', self.check_pos_add_rm)
         if hasattr(self, "set_lineup"):
             self.set_lineup.set_event_handler('click', self.set_lineup_click)
         if hasattr(self, "lineup"):

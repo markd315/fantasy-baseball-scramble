@@ -64,6 +64,8 @@ class LineupChangeForm(LineupChangeTemplate):
             textbox = flowcomponent.get_components()[1]
             label = flowcomponent.get_components()[0]
             if hasattr(textbox, "placeholder"):
+                if payload == None:
+                    continue
                 if "Starter" in textbox.placeholder and len(payload['starters']) > 0:
                     textbox.text = payload['starters'].pop(0)
                 if "Bullpen" in textbox.placeholder and len(payload['bullpen']) > 0:
@@ -136,7 +138,18 @@ class LineupChangeForm(LineupChangeTemplate):
     def get_bench(self, **event_args):
         list = anvil.server.call('get_bench', self.league_name.text,
                                  self.team_name.text)
+        if list == "Your team hasn't started drafting yet, check current pick status by visiting Results > League Note":
+            self.roster.text = list
+            return
         txt = ""
+        if len(list) < 0:
+            self.drop_lineup.visible = False
+        else:
+            if self.page_state == 'add-drop':
+                self.drop_lineup.visible = True
+                self.add_lineup.visible = True
+            if len(list) >= 25:  # TODO find a way to import simulationConfig for this later lol
+                self.add_lineup.visible = False
         for elem in list:
             txt += self.get_position(elem.strip(), json.loads(self.get_pl_data()))
             txt += ": " + elem + "     "
@@ -161,3 +174,22 @@ class LineupChangeForm(LineupChangeTemplate):
                                     self.team_abbv.text, self.league_week.text,
                                     "Chat")
         self.chat_box.text = results
+
+
+    def check_pos_add_rm(self, **event_args):
+        pl_data = json.loads(self.get_pl_data())
+        check_for = self.player_name.text
+        found = False
+        for player in pl_data:
+            if player['fullName'].lower() == check_for.lower():
+                if player['fullName'] == check_for:  # todo check for already rostered
+                    rostered_team = anvil.server.call('get_rostered_team', self.league_name.text, check_for)
+                    if rostered_team != "":
+                        self.add_drop_position.text = "Already on team " + rostered_team
+                    else:
+                        self.add_drop_position.text = "Player Position: " + player['primaryPosition']['abbreviation']
+                else:
+                    self.add_drop_position.text = "Typo? Found similar player: " + str(player['fullName'])
+                found = True
+        if not found:
+            self.add_drop_position.text = "Undefined Player"

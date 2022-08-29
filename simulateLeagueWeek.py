@@ -1,4 +1,4 @@
-import config
+import simulationConfig as config
 
 leagueWeek = config.leagueWeek
 maxRegularSeasonWeeks = config.maxRegularSeasonWeeks  # TODO this isn't a true cap yet, we will always play at least one full round robin.

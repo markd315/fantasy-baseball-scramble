@@ -35,7 +35,8 @@ USER anvil
 
 COPY sample_results sample_results
 COPY __init__.py __init__.py
-COPY config.py config.py
+COPY simulationConfig.py simulationConfig.py
+COPY commitNewRosters.py commitNewRosters.py
 COPY game.py game.py
 COPY inning.py inning.py
 COPY mlb_api.py mlb_api.py

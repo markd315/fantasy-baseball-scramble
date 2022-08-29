@@ -118,8 +118,12 @@ docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:l
 # Docker commands for admin
 Saves containerid for anything below.
 ```commandline
-eid=$(docker ps --filter name=fantasy-mlb-dev | tail -n 1 | awk '{print $1;}')
 
+Note: not working yet in set-eid.sh
+sudo su -
+cd /home/ec2-user
+
+eid=$(docker ps --filter name=fantasy-mlb-dev | tail -n 1 | awk '{print $1;}')
 eid=$(docker ps --filter name=fantasy-mlb-prod | tail -n 1 | awk '{print $1;}')
 ```
 
@@ -128,11 +132,11 @@ Takes a league backup to the vm
 
 Updates the league week prior to an execution
 ```bash
-docker cp $eid:/apps/config.py config.py
-cp config.py config.py.backup
-echo 'leagueWeek = 0'> config.py
-cat config.py.backup |tail -n+2>> config.py
-docker cp config.py $eid:/apps/config.py
+sudo docker cp $eid:/apps/config.py config.py
+sudo cp config.py config.py.backup
+sudo echo 'leagueWeek = 0'> config.py
+sudo cat config.py.backup |tail -n+2>> config.py
+sudo docker cp config.py $eid:/apps/config.py
 ```
 
 Runs the league week, publishing results logs etc

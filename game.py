@@ -1,7 +1,7 @@
 import statistics
 from datetime import datetime
 
-import config
+import simulationConfig as config
 import inning
 
 
