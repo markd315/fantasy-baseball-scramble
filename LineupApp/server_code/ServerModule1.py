@@ -288,20 +288,29 @@ def load_trades(league, teamNm):
 @anvil.server.callable
 def create_trade(league, teamNm, propose_send, propose_get, trade_team):
     league = league.lower()
+    other_team_teamcode = None
+    for p in Path("leagues/" + league + "/team-lineups").glob('*.json'):
+        if not p.name.startswith("next_"):
+            with open("leagues/" + league + "/team-lineups/" + p.name, "r") as lineup_file:
+                json_obj = json.load(lineup_file)
+                if json_obj['abbv'] == trade_team:
+                    other_team_teamcode = p.name.replace(".json", "")
+    if other_team_teamcode == None:
+        return
     highest_number = 1
     trade_files = Path("leagues/" + league + "/team-lineups/trades").glob('*.json')
     found = True
     while found:
         found = False
         for p in trade_files:
-            if p.name == teamNm + "-trade" + str(highest_number) + ".json":
+            if p.name == other_team_teamcode + "-trade" + str(highest_number) + ".json":
                 highest_number+=1
                 found=True
                 break
-    full_file = teamNm + "-trade" + str(highest_number) + ".json"
+    full_file = other_team_teamcode + "-trade" + str(highest_number) + ".json"
     with open("leagues/" + league + "/team-lineups/trades/" + full_file, "w") as trade_file:
         trade = {}
-        trade['trade_team'] = trade_team
+        trade['from'] = trade_team
         rcv, lose = [], []
         for line in propose_get.split("\n"):
             rcv.append(line.strip())
@@ -339,7 +348,7 @@ def approve_trade(league, teamNm, trade_code):
     for player in trade['receive']:
         if player not in requesting_roster:
             return
-    if len(approving_roster) + len(trade['receive'] - len(trade['send']) > 25) or len(requesting_roster) + len(trade['send'] - len(trade['receive']) > 25):
+    if len(approving_roster) + len(trade['receive']) - len(trade['send']) > 25 or len(requesting_roster) + len(trade['send']) - len(trade['receive']) > 25:
         return
     for pl in trade['receive']:
         approving_roster.append(pl)
@@ -354,6 +363,8 @@ def approve_trade(league, teamNm, trade_code):
         out = out[:-1]
         roster_file.write(out)
         roster_file.close()
+    msg = str(abbv) + " and " + trade['from'] + " exchange players:\n"
+    msg += out + " for:\n"
     with open("leagues/" + league + "/team-lineups/" + trade['from'] + ".roster", "w") as roster_file:
         out = ""
         for pl in requesting_roster:
@@ -361,4 +372,6 @@ def approve_trade(league, teamNm, trade_code):
         out = out[:-1]
         roster_file.write(out)
         roster_file.close()
+    msg += out
     delete_trade(league, teamNm, trade_code)
+    add_chat(league, "Trade Executed", msg)

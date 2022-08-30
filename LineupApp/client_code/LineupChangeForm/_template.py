@@ -9,7 +9,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.html = '@theme:standard-page.html'
         self.content_panel = GridPanel()
         self.add_component(self.content_panel)
-        self.title_label = Label(text="Fantasy Lineup Setter", font_size=24)
+        self.title_label = Label(text="MLB Fantasy", font_size=24)
         self.add_component(self.title_label, slot="title")
 
         # Navbar
@@ -17,13 +17,13 @@ class LineupChangeTemplate(HtmlPanel):
         self.link_lineup = Link(text="Set lineup", font_size=16)
         self.link_add = Link(text="Add/Drop", font_size=16)
         self.link_results = Link(text="Results", font_size=16)
-        self.link_chat = Link(text="Chat", font_size=16)
         self.link_trade = Link(text="Trade", font_size=16)
+        self.link_chat = Link(text="Chat", font_size=16)
         self.navbar.add_component(self.link_lineup, slot="nav-right")
         self.navbar.add_component(self.link_add, slot="nav-right")
         self.navbar.add_component(self.link_results, slot="nav-right")
-        self.navbar.add_component(self.link_chat, slot="nav-right")
         self.navbar.add_component(self.link_trade, slot="nav-right")
+        self.navbar.add_component(self.link_chat, slot="nav-right")
         self.add_component(self.navbar, slot='nav-right')
 
         self.card_1 = GridPanel(role="card")
@@ -35,7 +35,7 @@ class LineupChangeTemplate(HtmlPanel):
 
         # Parts
         self.league_name = TextBox(placeholder="League Name",
-                                   text="livetestleague")
+                                   text="completed-league")
         self.team_name = TextBox(placeholder="Team Code")
         self.results_sel = DropDown(
             items=["Standings", "Line scores", "Team totals", "1", "2", "3",
@@ -60,10 +60,10 @@ class LineupChangeTemplate(HtmlPanel):
         self.base_json = None
         self.pl_data = None
         self.chat_box = TextArea(placeholder="Click button to load chat", width=350,
-                                    height=700)
-        #Trades
-        self.propose_send = TextArea(placeholder="Send Players", width=180, height=300)
-        self.propose_rcv = TextArea(placeholder="Receive Players", width=180, height=300)
+                                 height=700)
+        # Trades
+        self.propose_send = TextArea(placeholder="Send Players", width=145, height=300)
+        self.propose_rcv = TextArea(placeholder="Receive Players", width=145, height=300)
         self.trade_team_abbv = TextBox(placeholder="Trade With", width=78)
         self.propose = Button(text="Propose Trade", role="secondary-color")
         self.propose_panel = FlowPanel()
@@ -71,7 +71,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.propose_panel.add_component(self.propose_rcv)
         self.propose_panel.add_component(self.trade_team_abbv)
         self.propose_panel.add_component(self.propose)
-        self.view_trade = TextArea(placeholder="Proposed Trade", width=180, height=300)
+        self.view_trade = TextArea(placeholder="Proposed Trade", width=145, height=300)
         self.trade_selector = DropDown()
         self.accept = Button(text="Accept Trade", role="secondary-color", background='#40ff00')
         self.reject = Button(text="Reject Trade", role="secondary-color", background='#ff0000')
@@ -83,11 +83,11 @@ class LineupChangeTemplate(HtmlPanel):
         self.json_trades = {}
 
         self.txt_label = [
-            "^ That's your bench. For the starters, lineup, and bullpen, order will affect the simulation! You must have exactly one player from each position in the lineup and only one DH/TWP. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden. The closer can only enter the game in the 9th inning or later, and the fireman will be used in a 7th+ inning situations where there are runners on base in a close game.",
-            "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. To drop a player, they must first not appear anywhere in your lineup (ie be showing on your bench). Other teams will be able to add them immediately. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. If the player is not visible in the lineup (like for a recent minor league callup) notify the league manager to invalidate the player name cache",
-            "Put in the *abbreviation* of the team whose results you want to view on this page, not the full team code that you use on the other pages. Standings, League Note, and MLB Player Data are global settings that do not require a team or week specified.",
+            "^ That's your bench. Order of players will affect the simulation results. You must have exactly one player from each position in the lineup and only one DH/TWP. Errors with positions will display at the start of these instructions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden. The closer can only enter the game in the 9th inning or later, and the fireman will be used in a 7th+ inning situations where there are runners on base in a close game.",
+            "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. To drop a player, they must first not appear anywhere in your lineup (ie be showing on your bench). Other teams will be able to add them immediately. In order to include the player in your lineup you must use the fullname (case-sensitive) for a player who is registered to a position. You can roster minor league players in the hope that they are called up to play games, but must ask for the player data to be updated to include these players in your lineup.",
+            "Put in the *abbreviation* of the team whose results you want to view on this page, not the full team code that you use on the other pages. Standings, League Note, and MLB Player Data are global outputs that do not require a team or week specified.",
             "All times in the chat are UTC",
-            "Trade page will not work yet."
+            "Propose trades using the top part of the form. Put each player name on a separate line and ensure correct spelling/capitalization. Accept trades from other players using the bottom part of the form. Highlight a trade using the dropdown, then accept or reject it as desired."
         ]
         self.instr = Label(text=self.txt_label[0])
         self.define_lineup()
@@ -105,7 +105,6 @@ class LineupChangeTemplate(HtmlPanel):
         # Add
         for component in self.ctl_all:
             self.addComponent(component)
-
 
     def showAll(self, components):
         for component in self.ctl_all:
@@ -128,7 +127,6 @@ class LineupChangeTemplate(HtmlPanel):
         if self.league_name.text != "" and self.team_name.text != "":
             self.load_positions()
 
-
     def show_add_drop_page(self, **properties):
         self.page_state = 'add-drop'
         self.showAll(self.ctl_add_drop)
@@ -136,12 +134,10 @@ class LineupChangeTemplate(HtmlPanel):
         if self.league_name.text != "" and self.team_name.text != "":
             self.get_bench()
 
-
     def show_results_page(self, **properties):
         self.page_state = 'results'
         self.showAll(self.ctl_results)
         self.instr.text = self.txt_label[2]
-
 
     def show_chat_page(self, **properties):
         self.page_state = 'chat'
@@ -155,11 +151,10 @@ class LineupChangeTemplate(HtmlPanel):
         self.instr.text = self.txt_label[4]
         self.load_trades()
 
-
     def hex_from_base(self, base, idx):
-        inc = 15
+        inc = 11
         h = base.lstrip('#')
-        codes = list(int(h[i:i+2], 16) for i in (0, 2, 4))
+        codes = list(int(h[i:i + 2], 16) for i in (0, 2, 4))
         for c_idx, component in enumerate(codes):
             for i in range(0, idx):
                 if codes[c_idx] < 255 - inc:
@@ -167,7 +162,6 @@ class LineupChangeTemplate(HtmlPanel):
                 else:
                     codes[c_idx] = 255
         return "#" + str(hex(codes[0]))[-2:] + str(hex(codes[1]))[-2:] + str(hex(codes[2]))[-2:]
-
 
     def define_lineup(self):
         self.lineup = FlowPanel(align="center")
@@ -185,11 +179,11 @@ class LineupChangeTemplate(HtmlPanel):
             self.lineup.add_component(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="FI"), width=20)
-        player.add_component(TextBox(placeholder="Fireman", width=240, background='#44fbd0'))
+        player.add_component(TextBox(placeholder="Fireman", width=240, background='#64fff0'))
         self.lineup.add_component(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="CL"), width=20)
-        player.add_component(TextBox(placeholder="Closer", width=240, background='#8f8fff'))
+        player.add_component(TextBox(placeholder="Closer", width=240, background='#afafff'))
         self.lineup.add_component(player)
         for i in range(1, 10):
             player = FlowPanel(align="center")

@@ -180,7 +180,7 @@ class LineupChangeForm(LineupChangeTemplate):
         self.chat_box.text = results
 
     def send_propose(self, **event_args):
-        anvil.server.call('create_trade', self.league_name.text, self.team_name.text, self.propose_send, self.propose_rcv, self.trade_team_abbv)
+        anvil.server.call('create_trade', self.league_name.text, self.team_name.text, self.propose_send.text, self.propose_rcv.text, self.trade_team_abbv.text)
         self.propose_send.text = ""
         self.propose_rcv.text = ""
         self.trade_team_abbv.text = ""
@@ -199,9 +199,9 @@ class LineupChangeForm(LineupChangeTemplate):
         self.json_trades = anvil.server.call('load_trades', self.league_name.text, self.team_name.text)
         self.trade_selector.items = self.json_trades.keys()
         if len(self.json_trades) > 0:
-            for key, str in self.json_trades.items():
-                str = "".join(str)
-                trade_obj = json.loads(str)
+            for key, strn in self.json_trades.items():
+                strn = "".join(strn)
+                trade_obj = json.loads(strn)
                 self.view_trade.text = "From: " + trade_obj['from'] + "\n"
                 self.view_trade.text += "Receive:\n"
                 for pl in trade_obj['receive']:
@@ -213,7 +213,16 @@ class LineupChangeForm(LineupChangeTemplate):
                 break
 
     def trade_selector_change(self, **event_args):
-        self.view_trade.text = self.json_trades[self.trade_selector.selected_value]
+        strn = "".join(self.json_trades[self.trade_selector.selected_value])
+        trade_obj = json.loads(strn)
+        self.view_trade.text = "From: " + trade_obj['from'] + "\n"
+        self.view_trade.text += "Receive:\n"
+        for pl in trade_obj['receive']:
+            self.view_trade.text += pl + "\n"
+        self.view_trade.text += "Send:\n"
+        for pl in trade_obj['send']:
+            self.view_trade.text += pl + "\n"
+        self.view_trade.text = self.view_trade.text[:-1]
 
 
     def check_pos_add_rm(self, **event_args):
