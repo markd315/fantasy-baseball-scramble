@@ -288,6 +288,7 @@ def load_trades(league, teamNm):
 @anvil.server.callable
 def create_trade(league, teamNm, propose_send, propose_get, trade_team):
     league = league.lower()
+    abbv = authenticateAndGetAbbv(league, teamNm)
     other_team_teamcode = None
     for p in Path("leagues/" + league + "/team-lineups").glob('*.json'):
         if not p.name.startswith("next_"):
@@ -310,7 +311,7 @@ def create_trade(league, teamNm, propose_send, propose_get, trade_team):
     full_file = other_team_teamcode + "-trade" + str(highest_number) + ".json"
     with open("leagues/" + league + "/team-lineups/trades/" + full_file, "w") as trade_file:
         trade = {}
-        trade['from'] = trade_team
+        trade['from'] = abbv
         rcv, lose = [], []
         for line in propose_get.split("\n"):
             rcv.append(line.strip())
@@ -350,12 +351,16 @@ def approve_trade(league, teamNm, trade_code):
             return
     if len(approving_roster) + len(trade['receive']) - len(trade['send']) > 25 or len(requesting_roster) + len(trade['send']) - len(trade['receive']) > 25:
         return
+    msg = str(abbv) + " and " + trade['from'] + " exchange players:\n"
     for pl in trade['receive']:
         approving_roster.append(pl)
         requesting_roster.remove(pl)
+        msg += pl + "\n"
+    msg += "for:\n"
     for pl in trade['send']:
         approving_roster.remove(pl)
         requesting_roster.append(pl)
+        msg += pl + "\n"
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "w") as roster_file:
         out = ""
         for pl in approving_roster:
@@ -363,8 +368,6 @@ def approve_trade(league, teamNm, trade_code):
         out = out[:-1]
         roster_file.write(out)
         roster_file.close()
-    msg = str(abbv) + " and " + trade['from'] + " exchange players:\n"
-    msg += out + " for:\n"
     with open("leagues/" + league + "/team-lineups/" + trade['from'] + ".roster", "w") as roster_file:
         out = ""
         for pl in requesting_roster:
@@ -372,6 +375,5 @@ def approve_trade(league, teamNm, trade_code):
         out = out[:-1]
         roster_file.write(out)
         roster_file.close()
-    msg += out
     delete_trade(league, teamNm, trade_code)
     add_chat(league, "Trade Executed", msg)

@@ -180,7 +180,7 @@ class LineupChangeForm(LineupChangeTemplate):
         self.chat_box.text = results
 
     def send_propose(self, **event_args):
-        anvil.server.call('create_trade', self.league_name.text, self.team_name.text, self.propose_send.text, self.propose_rcv.text, self.trade_team_abbv.text)
+        anvil.server.call('create_trade', self.league_name.text, self.team_name.text, self.propose_send.text, self.propose_rcv.text, self.trade_team_abbv.text.upper())
         self.propose_send.text = ""
         self.propose_rcv.text = ""
         self.trade_team_abbv.text = ""
