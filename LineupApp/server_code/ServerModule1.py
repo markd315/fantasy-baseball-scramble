@@ -1,9 +1,8 @@
 import datetime
 import json
+import os
 from pathlib import Path
-
 import anvil.server
-
 import mlb_api
 import simulationConfig
 
@@ -24,6 +23,7 @@ def authenticateAndGetAbbv(league, teamNm):
         lineup_file.close()
         return abbv
 
+
 def getLineup(league, teamNm):
     try:
         with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json", "r") as lineup_file:
@@ -40,9 +40,9 @@ def getLineup(league, teamNm):
             preset_lineup_file.close()
 
 
+@anvil.server.callable
 def getRoster(league, abbv):
-    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster",
-              "r") as roster_file:
+    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "r") as roster_file:
         roster = roster_file.readlines()
         for idx, line in enumerate(roster):
             roster[idx] = line.strip()
@@ -51,30 +51,33 @@ def getRoster(league, abbv):
 
 @anvil.server.http_endpoint('/league/:league/:teamNm/lineup', methods=["POST"], authenticate_users=False)
 def post_lineup(league, teamNm, **q):
+    league = league.lower()
     set_lineup(league, teamNm, json.dumps(anvil.server.request.body_json))
 
 
 @anvil.server.callable
 def get_bench(league, teamNm):
+    league = league.lower()
     abbv = authenticateAndGetAbbv(league, teamNm)
     lineup = getLineup(league, teamNm)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "r") as roster_file:
         roster = roster_file.readlines()
         if len(roster) == 0:
-            return "Your team hasn't started drafting yet, check current pick status by visiting Results > League Note"
+            return "Your team hasn't started drafting yet, check current pick order by visiting Results > League Note"
         for idx, line in enumerate(roster):
             if line == "" or line == None:
-                return "Your team hasn't started drafting yet, check current pick status by visiting Results > League Note"
+                return "Your team hasn't started drafting yet, check current pick order by visiting Results > League Note"
             roster[idx] = line.strip()
         starting_lineup = mlb_api.getAndValidateLineup(lineup, roster)
         bench = []
         for line in roster:
             if line not in starting_lineup:
                 bench.append(line)
-    return bench
+    return bench, len(roster)
 
 @anvil.server.callable
 def get_lineup(league, teamNm):
+    league = league.lower()
     try:
         ptl_lineup = getLineup(league, teamNm)
         return json.dumps(ptl_lineup, indent=2, separators=(',', ': '))
@@ -84,6 +87,7 @@ def get_lineup(league, teamNm):
 
 @anvil.server.callable
 def set_lineup(league, teamNm, lineup):
+    league = league.lower()
     lineup = json.loads(lineup)
     with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
               "r") as lineup_file:
@@ -104,6 +108,7 @@ def set_lineup(league, teamNm, lineup):
 
 @anvil.server.callable
 def drop_player(league, teamNm, player_drop):
+    league = league.lower()
     abbv = authenticateAndGetAbbv(league, teamNm)
     lineup = getLineup(league, teamNm)
     roster = getRoster(league, abbv)
@@ -182,6 +187,7 @@ def addPlayerValidated(league, abbv, player_add):
 
 @anvil.server.callable
 def get_rostered_team(league, player_nm, **q):
+    league = league.lower()
     for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
         with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
             lines = roster_file.readlines()
@@ -197,6 +203,7 @@ def get_rostered_team(league, player_nm, **q):
 def add_player(league, teamNm, player_add):
     if "\n" in player_add:
         return {}
+    league = league.lower()
     abbv = authenticateAndGetAbbv(league, teamNm)
     if checkDraftState(league, abbv, player_add):
         return {}
@@ -208,6 +215,7 @@ def add_player(league, teamNm, player_add):
 
 @anvil.server.callable
 def get_results(league, teamAbbv, week, selector):
+    league = league.lower()
     out_path = "leagues/" + league + "/debug_output/"
     if selector == "Team totals":
         if week == "":
@@ -258,5 +266,99 @@ def get_results(league, teamAbbv, week, selector):
 
 @anvil.server.callable
 def send_chat(league, teamNm, msg):
+    league = league.lower()
     abbv = authenticateAndGetAbbv(league, teamNm)
     add_chat(league, abbv, msg)
+
+
+@anvil.server.callable
+def load_trades(league, teamNm):
+    league = league.lower()
+    trades = {}
+    for p in Path("leagues/" + league + "/team-lineups/trades").glob('*.json'):
+        if p.name.startswith(teamNm + "-trade"):
+            with open("leagues/" + league + "/team-lineups/trades/" + p.name, "r") as trade_file:
+                lines = trade_file.readlines()
+                code = p.name.replace(teamNm + "-trade", "").replace(".json", "")
+                trades[code] = lines
+                trade_file.close()
+    return trades
+
+
+@anvil.server.callable
+def create_trade(league, teamNm, propose_send, propose_get, trade_team):
+    league = league.lower()
+    highest_number = 1
+    trade_files = Path("leagues/" + league + "/team-lineups/trades").glob('*.json')
+    found = True
+    while found:
+        found = False
+        for p in trade_files:
+            if p.name == teamNm + "-trade" + str(highest_number):
+                highest_number+=1
+                found=True
+                break
+    full_file = teamNm + "-trade" + str(highest_number)
+    with open("leagues/" + league + "/team-lineups/trades/" + full_file, "w") as trade_file:
+        trade = {}
+        trade['trade_team'] = trade_team
+        rcv, lose = [], []
+        for line in propose_get.split("\n"):
+            rcv.append(line.strip())
+        for line in propose_send.split("\n"):
+            lose.append(line.strip())
+        trade['receive'] = lose
+        trade['send'] = rcv
+        trade_file.write(json.dumps(trade))
+        trade_file.close()
+    return {}
+
+
+@anvil.server.callable
+def delete_trade(league, teamNm, trade_code):
+    league = league.lower()
+    try:
+        fn = "leagues/" + league + "/team-lineups/trades/" + teamNm + "-trade" + str(trade_code) + ".json"
+        print(fn)
+        os.remove(fn)
+    except:
+        pass
+
+
+@anvil.server.callable
+def approve_trade(league, teamNm, trade_code):
+    league = league.lower()
+    abbv = authenticateAndGetAbbv(league, teamNm)
+    with open("leagues/" + league + "/team-lineups/trades/" + teamNm + "-trade" + str(trade_code), "r") as trade_file:
+        trade = json.loads(trade_file)
+    approving_roster = getRoster(league, abbv)
+    requesting_roster = getRoster(league, trade['from'])
+    for player in trade['send']:
+        if player not in approving_roster:
+            return
+    for player in trade['receive']:
+        if player not in requesting_roster:
+            return
+    if len(approving_roster) + len(trade['receive'] - len(trade['send']) > 25) or len(requesting_roster) + len(trade['send'] - len(trade['receive']) > 25):
+        return
+    for pl in trade['receive']:
+        approving_roster.append(pl)
+        requesting_roster.remove(pl)
+    for pl in trade['send']:
+        approving_roster.remove(pl)
+        requesting_roster.append(pl)
+    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "w") as roster_file:
+        str = ""
+        for pl in approving_roster:
+            str += pl + "\n"
+        str = str[:-1]
+        roster_file.write(str)
+        roster_file.close()
+    with open("leagues/" + league + "/team-lineups/" + trade['from'] + ".roster", "w") as roster_file:
+        str = ""
+        for pl in requesting_roster:
+            str += pl + "\n"
+        str = str[:-1]
+        roster_file.write(str)
+        roster_file.close()
+    delete_trade(league, teamNm, trade_code)

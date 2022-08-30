@@ -9,19 +9,21 @@ class LineupChangeTemplate(HtmlPanel):
         self.html = '@theme:standard-page.html'
         self.content_panel = GridPanel()
         self.add_component(self.content_panel)
-        self.title_label = Label(text="Fantasy Lineup Setter")
+        self.title_label = Label(text="Fantasy Lineup Setter", font_size=24)
         self.add_component(self.title_label, slot="title")
 
         # Navbar
         self.navbar = FlowPanel(align="right")
-        self.link_lineup = Link(text="Set lineup")
-        self.link_add = Link(text="Add/Drop")
-        self.link_results = Link(text="Results")
-        self.link_chat = Link(text="Chat")
+        self.link_lineup = Link(text="Set lineup", font_size=16)
+        self.link_add = Link(text="Add/Drop", font_size=16)
+        self.link_results = Link(text="Results", font_size=16)
+        self.link_chat = Link(text="Chat", font_size=16)
+        self.link_trade = Link(text="Trade", font_size=16)
         self.navbar.add_component(self.link_lineup, slot="nav-right")
         self.navbar.add_component(self.link_add, slot="nav-right")
         self.navbar.add_component(self.link_results, slot="nav-right")
         self.navbar.add_component(self.link_chat, slot="nav-right")
+        self.navbar.add_component(self.link_trade, slot="nav-right")
         self.add_component(self.navbar, slot='nav-right')
 
         self.card_1 = GridPanel(role="card")
@@ -37,7 +39,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.team_name = TextBox(placeholder="Team Code")
         self.results_sel = DropDown(
             items=["Standings", "Line scores", "Team totals", "1", "2", "3",
-                   "4", "5", "League note", "MLB Player Data"])
+                   "4", "5", "League note", "Roster", "MLB Player Data"])
         self.player_name = TextBox(placeholder="Player Name")
         self.chat_msg = TextBox(placeholder="Say hi here!")
         self.league_week = TextBox(placeholder="Week", width=45)
@@ -52,28 +54,54 @@ class LineupChangeTemplate(HtmlPanel):
         self.roster = TextArea(placeholder="Bench", width=300, height=100)
         self.results_panel = FlowPanel()
         self.results_panel.add_component(TextArea(placeholder="Results", height=800, width=300, font="Courier"))
+        self.add_panel = FlowPanel()
+        self.add_panel.add_component(self.add_drop_position)
+        self.add_panel.add_component(self.player_name)
         self.base_json = None
         self.pl_data = None
         self.chat_box = TextArea(placeholder="Click button to load chat", width=350,
                                     height=700)
+        #Trades
+        self.propose_send = TextArea(placeholder="Send Players", width=180, height=300)
+        self.propose_rcv = TextArea(placeholder="Receive Players", width=180, height=300)
+        self.trade_team_abbv = TextBox(placeholder="Trade With", width=78)
+        self.propose = Button(text="Propose Trade", role="secondary-color")
+        self.propose_panel = FlowPanel()
+        self.propose_panel.add_component(self.propose_send)
+        self.propose_panel.add_component(self.propose_rcv)
+        self.propose_panel.add_component(self.trade_team_abbv)
+        self.propose_panel.add_component(self.propose)
+        self.view_trade = TextArea(placeholder="Proposed Trade", width=180, height=300)
+        self.trade_selector = DropDown()
+        self.accept = Button(text="Accept Trade", role="secondary-color", background='#40ff00')
+        self.reject = Button(text="Reject Trade", role="secondary-color", background='#ff0000')
+        self.accept_panel = FlowPanel()
+        self.accept_panel.add_component(self.view_trade)
+        self.accept_panel.add_component(self.trade_selector)
+        self.accept_panel.add_component(self.accept)
+        self.accept_panel.add_component(self.reject)
+        self.json_trades = {}
+
         self.txt_label = [
             "^ That's your bench. For the starters, lineup, and bullpen, order will affect the simulation! You must have exactly one player from each position in the lineup and only one DH/TWP. Request \"MLB Player Data\" from the results page to validate your players primary positions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden. The closer can only enter the game in the 9th inning or later, and the fireman will be used in a 7th+ inning situations where there are runners on base in a close game.",
             "To add a new player, they cannot be on any other fantasy roster, and you must currently have <=24 players on your roster. To drop a player, they must first not appear anywhere in your lineup (ie be showing on your bench). Other teams will be able to add them immediately. Use the fullname matching a player in the \"MLB Player Data\" if you want to be able to include the player in your lineup. If the player is not visible in the lineup (like for a recent minor league callup) notify the league manager to invalidate the player name cache",
             "Put in the *abbreviation* of the team whose results you want to view on this page, not the full team code that you use on the other pages. Standings, League Note, and MLB Player Data are global settings that do not require a team or week specified.",
             "All times in the chat are UTC",
+            "Trade page will not work yet."
         ]
         self.instr = Label(text=self.txt_label[0])
         self.define_lineup()
         self.page_state = 'lineup'
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.lineup, self.roster, self.instr}
-        self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.add_drop_position, self.player_name, self.instr}
+        self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.add_panel, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.team_abbv, self.results_sel, self.results_panel, self.instr}
         self.ctl_chat = {self.league_name, self.team_name, self.chat_msg, self.send_chat, self.chat_box, self.instr}
-        self.ctl_all = self.ctl_lineup.union(self.ctl_add_drop.union(self.ctl_results.union(self.ctl_chat)))
+        self.ctl_trade = {self.league_name, self.team_name, self.propose_panel, self.accept_panel, self.instr}
+        self.ctl_all = self.ctl_lineup.union(self.ctl_add_drop.union(self.ctl_results.union(self.ctl_chat.union(self.ctl_trade))))
         self.ctl_all.remove(self.instr)
-        self.ctl_all.add(self.instr)  # hacky since set is unordered but I always want instructions at the bottom despite appearing multiple places
+        self.ctl_all.add(self.instr)  # hacky since set is unordered but I always want instructions at the bottom despite appearing in multiple places
         # Add
         for component in self.ctl_all:
             self.addComponent(component)
@@ -121,6 +149,13 @@ class LineupChangeTemplate(HtmlPanel):
         self.instr.text = self.txt_label[3]
         self.load_chat_click()
 
+    def show_trade_page(self, **properties):
+        self.page_state = 'trade'
+        self.showAll(self.ctl_trade)
+        self.instr.text = self.txt_label[4]
+        self.load_trades()
+
+
     def hex_from_base(self, base, idx):
         inc = 15
         h = base.lstrip('#')
@@ -150,11 +185,11 @@ class LineupChangeTemplate(HtmlPanel):
             self.lineup.add_component(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="FI"), width=20)
-        player.add_component(TextBox(placeholder="Fireman", width=240, background='#34ebc0'))
+        player.add_component(TextBox(placeholder="Fireman", width=240, background='#44fbd0'))
         self.lineup.add_component(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="CL"), width=20)
-        player.add_component(TextBox(placeholder="Closer", width=240, background='#6666ff'))
+        player.add_component(TextBox(placeholder="Closer", width=240, background='#8f8fff'))
         self.lineup.add_component(player)
         for i in range(1, 10):
             player = FlowPanel(align="center")
@@ -179,6 +214,8 @@ class LineupChangeTemplate(HtmlPanel):
             self.league_name.set_event_handler('change', self.load_positions)
         if hasattr(self, "player_name"):
             self.player_name.set_event_handler('change', self.check_pos_add_rm)
+        if hasattr(self, "trade_selector"):
+            self.trade_selector.set_event_handler('change', self.trade_selector_change)
         if hasattr(self, "set_lineup"):
             self.set_lineup.set_event_handler('click', self.set_lineup_click)
         if hasattr(self, "lineup"):
@@ -193,6 +230,14 @@ class LineupChangeTemplate(HtmlPanel):
             self.get_results.set_event_handler('click', self.get_results_click)
         if hasattr(self, "send_chat"):
             self.send_chat.set_event_handler('click', self.send_chat_click)
+        if hasattr(self, "send_chat"):
+            self.send_chat.set_event_handler('click', self.send_chat_click)
+        if hasattr(self, "propose"):
+            self.propose.set_event_handler('click', self.send_propose)
+        if hasattr(self, "accept"):
+            self.accept.set_event_handler('click', self.send_accept)
+        if hasattr(self, "reject"):
+            self.reject.set_event_handler('click', self.send_reject)
         # Links
         if hasattr(self, "link_lineup"):
             self.link_lineup.set_event_handler('click', self.show_lineup_page)
@@ -202,3 +247,5 @@ class LineupChangeTemplate(HtmlPanel):
             self.link_results.set_event_handler('click', self.show_results_page)
         if hasattr(self, "link_chat"):
             self.link_chat.set_event_handler('click', self.show_chat_page)
+        if hasattr(self, "link_trade"):
+            self.link_trade.set_event_handler('click', self.show_trade_page)

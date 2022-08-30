@@ -52,6 +52,7 @@ class LineupChangeForm(LineupChangeTemplate):
 
 
     def load_positions(self, **event_args):
+        self.load_trades()
         json_str = anvil.server.call('get_lineup', self.league_name.text,
                                  self.team_name.text)
         if json_str == "":  # user still typing name, maybe this makes it easy to bruteforce though
@@ -136,19 +137,19 @@ class LineupChangeForm(LineupChangeTemplate):
         self.get_bench()
 
     def get_bench(self, **event_args):
-        list = anvil.server.call('get_bench', self.league_name.text,
+        list, roster_size = anvil.server.call('get_bench', self.league_name.text,
                                  self.team_name.text)
-        if list == "Your team hasn't started drafting yet, check current pick status by visiting Results > League Note":
+        if list == "Your team hasn't started drafting yet, check current pick order by visiting Results > League Note":
             self.roster.text = list
             return
         txt = ""
-        if len(list) < 0:
+        if roster_size < 0:
             self.drop_lineup.visible = False
         else:
             if self.page_state == 'add-drop':
                 self.drop_lineup.visible = True
                 self.add_lineup.visible = True
-            if len(list) >= 25:  # TODO find a way to import simulationConfig for this later lol
+            if roster_size >= 25:  # TODO find a way to import simulationConfig for this later lol
                 self.add_lineup.visible = False
         for elem in list:
             txt += self.get_position(elem.strip(), json.loads(self.get_pl_data()))
@@ -158,6 +159,9 @@ class LineupChangeForm(LineupChangeTemplate):
     def get_results_click(self, **event_args):
         if self.results_sel.selected_value == 'MLB Player Data':
             self.results_panel.get_components()[0].text = self.get_pl_data()
+            return
+        if self.results_sel.selected_value == 'Roster':
+            self.results_panel.get_components()[0].text = anvil.server.call('getRoster', self.league_name.text, self.team_abbv.text)
             return
         results = anvil.server.call('get_results', self.league_name.text,
                                     self.team_abbv.text, self.league_week.text,
@@ -174,6 +178,42 @@ class LineupChangeForm(LineupChangeTemplate):
                                     self.team_abbv.text, self.league_week.text,
                                     "Chat")
         self.chat_box.text = results
+
+    def send_propose(self, **event_args):
+        anvil.server.call('create_trade', self.league_name.text, self.team_name.text, self.propose_send, self.propose_rcv, self.trade_team_abbv)
+        self.propose_send.text = ""
+        self.propose_rcv.text = ""
+        self.trade_team_abbv.text = ""
+
+    def send_accept(self, **event_args):
+        anvil.server.call('approve_trade', self.league_name.text, self.team_name.text, self.trade_selector.selected_value)
+        self.view_trade.text = ""
+        self.load_trades()
+
+    def send_reject(self, **event_args):
+        anvil.server.call('delete_trade', self.league_name.text, self.team_name.text, self.trade_selector.selected_value)
+        self.view_trade.text = ""
+        self.load_trades()
+
+    def load_trades(self, **event_args):
+        self.json_trades = anvil.server.call('load_trades', self.league_name.text, self.team_name.text)
+        self.trade_selector.items = self.json_trades.keys()
+        if len(self.json_trades) > 0:
+            for key, str in self.json_trades.items():
+                str = "".join(str)
+                trade_obj = json.loads(str)
+                self.view_trade.text = "From: " + trade_obj['from'] + "\n"
+                self.view_trade.text += "Receive:\n"
+                for pl in trade_obj['receive']:
+                    self.view_trade.text += pl + "\n"
+                self.view_trade.text += "Send:\n"
+                for pl in trade_obj['send']:
+                    self.view_trade.text += pl + "\n"
+                self.view_trade.text = self.view_trade.text[:-1]
+                break
+
+    def trade_selector_change(self, **event_args):
+        self.view_trade.text = self.json_trades[self.trade_selector.selected_value]
 
 
     def check_pos_add_rm(self, **event_args):
