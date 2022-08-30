@@ -294,11 +294,11 @@ def create_trade(league, teamNm, propose_send, propose_get, trade_team):
     while found:
         found = False
         for p in trade_files:
-            if p.name == teamNm + "-trade" + str(highest_number):
+            if p.name == teamNm + "-trade" + str(highest_number) + ".json":
                 highest_number+=1
                 found=True
                 break
-    full_file = teamNm + "-trade" + str(highest_number)
+    full_file = teamNm + "-trade" + str(highest_number) + ".json"
     with open("leagues/" + league + "/team-lineups/trades/" + full_file, "w") as trade_file:
         trade = {}
         trade['trade_team'] = trade_team
@@ -329,8 +329,8 @@ def delete_trade(league, teamNm, trade_code):
 def approve_trade(league, teamNm, trade_code):
     league = league.lower()
     abbv = authenticateAndGetAbbv(league, teamNm)
-    with open("leagues/" + league + "/team-lineups/trades/" + teamNm + "-trade" + str(trade_code), "r") as trade_file:
-        trade = json.loads(trade_file)
+    with open("leagues/" + league + "/team-lineups/trades/" + teamNm + "-trade" + str(trade_code) + ".json", "r") as trade_file:
+        trade = json.load(trade_file)
     approving_roster = getRoster(league, abbv)
     requesting_roster = getRoster(league, trade['from'])
     for player in trade['send']:
@@ -348,17 +348,17 @@ def approve_trade(league, teamNm, trade_code):
         approving_roster.remove(pl)
         requesting_roster.append(pl)
     with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "w") as roster_file:
-        str = ""
+        out = ""
         for pl in approving_roster:
-            str += pl + "\n"
-        str = str[:-1]
-        roster_file.write(str)
+            out += pl + "\n"
+        out = out[:-1]
+        roster_file.write(out)
         roster_file.close()
     with open("leagues/" + league + "/team-lineups/" + trade['from'] + ".roster", "w") as roster_file:
-        str = ""
+        out = ""
         for pl in requesting_roster:
-            str += pl + "\n"
-        str = str[:-1]
-        roster_file.write(str)
+            out += pl + "\n"
+        out = out[:-1]
+        roster_file.write(out)
         roster_file.close()
     delete_trade(league, teamNm, trade_code)
