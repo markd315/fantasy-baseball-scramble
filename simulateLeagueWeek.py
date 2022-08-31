@@ -96,13 +96,7 @@ def multiGameSeries(home, away, games, league, week):
     print(outcome + str(count[h]) + " games to " + str(count[a]))
 
 
-for league in os.listdir("leagues"):
-    teams = []
-    league = str(league)
-    with open("leagues/" + league + "/League_note", "r") as league_note:
-        out = league_note.read()
-        if out.startswith("Drafting! Current pick order"):
-            continue
+def getWeeklySchedule(league):
     lineups = os.listdir("leagues/" + league + "/team-lineups")
     for file in os.listdir("leagues/" + league + "/team-lineups"):
         if str(file).endswith(".json") and not str(file).startswith("next_"):
@@ -118,7 +112,7 @@ for league in os.listdir("leagues"):
     print("League " + league + " week " + str(leagueWeek) + ":")
     targetWeeks = 0
     for perm in perms:
-        if(teams[0]['team-name'] == perm[0]['team-name'] or teams[0]['team-name'] == perm[1]['team-name']):
+        if (teams[0]['team-name'] == perm[0]['team-name'] or teams[0]['team-name'] == perm[1]['team-name']):
             targetWeeks += 1
     weeks = []
     for idx in range(0, targetWeeks):
@@ -132,7 +126,6 @@ for league in os.listdir("leagues"):
                     break
             if not teamAlreadyPlaying:
                 week.append(perm)
-                gamePlaced = True
                 break
     try:
         with open("leagues/" + league + "/scheduleSeed.txt", 'r') as seedFile:
@@ -145,7 +138,19 @@ for league in os.listdir("leagues"):
         with open("leagues/" + league + "/scheduleSeed.txt", 'w') as seedFile:
             seedFile.write(str(rng))
             seedFile.close()
-    if leagueWeek < len(weeks) -1:
+    return weeks
+
+
+for league in os.listdir("leagues"):
+    teams = []
+    league = str(league)
+    with open("leagues/" + league + "/League_note", "r") as league_note:
+        out = league_note.read()
+        if out.startswith("Drafting! Current pick order"):
+            continue
+    lineups = os.listdir("leagues/" + league + "/team-lineups")
+    weeks = getWeeklySchedule(league)
+    if leagueWeek < len(weeks) - 1:
         week = weeks[leagueWeek]
     else:
         continue

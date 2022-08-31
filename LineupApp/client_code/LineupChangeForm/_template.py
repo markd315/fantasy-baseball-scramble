@@ -16,7 +16,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.navbar = FlowPanel(align="right")
         self.link_lineup = Link(text="Set lineup", font_size=16)
         self.link_add = Link(text="Add/Drop", font_size=16)
-        self.link_results = Link(text="Results", font_size=16)
+        self.link_results = Link(text="League", font_size=16)
         self.link_trade = Link(text="Trade", font_size=16)
         self.link_chat = Link(text="Chat", font_size=16)
         self.navbar.add_component(self.link_lineup, slot="nav-right")
@@ -38,8 +38,8 @@ class LineupChangeTemplate(HtmlPanel):
                                    text="completed-league")
         self.team_name = TextBox(placeholder="Team Code")
         self.results_sel = DropDown(
-            items=["Standings", "Line scores", "Team totals", "1", "2", "3",
-                   "4", "5", "League note", "Roster", "MLB Player Data"])
+            items=["Standings", "Line scores", "Schedule", "Team totals", "League note", "Roster", "Game 1", "Game 2", "Game 3",
+                   "Game 4", "Game 5", "MLB Player Data"])
         self.player_name = TextBox(placeholder="Player Name")
         self.chat_msg = TextBox(placeholder="Say hi here!")
         self.league_week = TextBox(placeholder="Week", width=45)
@@ -53,7 +53,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.team_abbv = TextBox(placeholder="Team", width=80)
         self.roster = TextArea(placeholder="Bench", width=300, height=100)
         self.results_panel = FlowPanel()
-        self.results_panel.add_component(TextArea(placeholder="Results", height=800, width=300, font="Courier"))
+        self.results_panel.add_component(TextArea(placeholder="Results", height=600, width=375, font="Courier"))
         self.add_panel = FlowPanel()
         self.add_panel.add_component(self.add_drop_position)
         self.add_panel.add_component(self.player_name)

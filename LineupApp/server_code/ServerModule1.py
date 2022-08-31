@@ -6,6 +6,7 @@ from pathlib import Path
 import anvil.server
 from bson import BSON
 import mlb_api
+import simulateLeagueWeek
 import simulationConfig
 
 
@@ -235,6 +236,18 @@ def get_results(league, teamAbbv, week, selector):
             ret = results_file.read()
             results_file.close()
             return ret
+    elif selector == "Schedule":
+        weeks = simulateLeagueWeek.getWeeklySchedule(league)
+        out = ""
+        for idx, week in enumerate(weeks):
+            out += "Week " + str(idx) + ":"
+            for gm in week:
+                if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
+                    out += gm[1]['team-name'] + "@" + gm[0]['team-name'] + "\n"
+                else:
+                    out += (gm[0]['team-name'] + gm[1]['team-name']).replace("Bye", "") + " Bye Week\n"
+            out += "\n"
+        return out
     elif selector == "League note":
         with open("leagues/" + league + "/League_note", "r") as results_file:
             ret = results_file.read()
@@ -258,7 +271,7 @@ def get_results(league, teamAbbv, week, selector):
         if selector == "Line scores":
             suffix = "wk" + str(week) + ".line"
         else:
-            suffix = "-wk" + str(week) + "-" + str(selector)
+            suffix = "-wk" + str(week) + "-" + str(selector.replace("Game ", ""))
         for p in Path(out_path).glob('*'):
             if p.name.endswith(suffix) and teamAbbv in p.name:
                 with open(out_path + p.name, "r") as results_file:
