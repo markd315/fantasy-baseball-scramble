@@ -19,7 +19,7 @@ class LineupChangeForm(LineupChangeTemplate):
         return pos
 
     def get_pl_data(self):
-        if self.pl_data == None:
+        if self.pl_data is None:
             self.pl_data = anvil.server.call('get_results', self.league_name.text, '', 0, 'MLB Player Data')
         return self.pl_data
 
@@ -52,7 +52,6 @@ class LineupChangeForm(LineupChangeTemplate):
 
 
     def load_positions(self, **event_args):
-        self.load_trades()
         json_str = anvil.server.call('get_lineup', self.league_name.text,
                                  self.team_name.text)
         if json_str == "":  # user still typing name, maybe this makes it easy to bruteforce though
@@ -63,17 +62,13 @@ class LineupChangeForm(LineupChangeTemplate):
         self.base_json = payload
         for idx, flowcomponent in enumerate(self.lineup.get_components()):
             textbox = flowcomponent.get_components()[1]
-            label = flowcomponent.get_components()[0]
-            if hasattr(textbox, "placeholder"):
-                if payload == None:
-                    continue
+            if hasattr(textbox, "placeholder") and payload is not None:
                 if "Starter" in textbox.placeholder and len(payload['starters']) > 0:
                     textbox.text = payload['starters'].pop(0)
                 if "Bullpen" in textbox.placeholder and len(payload['bullpen']) > 0:
                     textbox.text = payload['bullpen'].pop(0)
                 if "Batting" in textbox.placeholder and len(payload['batting-order']) > 0:
                     textbox.text = payload['batting-order'].pop(0)
-                    label.text = self.get_position(textbox.text, json.loads(self.get_pl_data()))
                 if "Closer" == textbox.placeholder:
                     textbox.text = payload['closer']
                 if "Fireman" in textbox.placeholder:
@@ -84,6 +79,13 @@ class LineupChangeForm(LineupChangeTemplate):
                     res = "Home: " + str(payload['closer-min-lead-home']) + ":" + str(payload["closer-max-lead-home"]) + ", Away: " + str(payload['closer-min-lead-away']) + ":" + str(payload["closer-max-lead-away"])
                     textbox.text = res
         self.get_bench()
+        for idx, flowcomponent in enumerate(self.lineup.get_components()):
+            textbox = flowcomponent.get_components()[1]
+            label = flowcomponent.get_components()[0]
+            if hasattr(textbox, "placeholder") and payload is not None:
+                if "Batting" in textbox.placeholder and len(payload['batting-order']) > 0:
+                    label.text = self.get_position(textbox.text, json.loads(self.get_pl_data()))
+        self.load_trades()
 
     def set_lineup_click(self, **event_args):
         self.show_positions()

@@ -1,7 +1,8 @@
 requests
 MLB-StatsAPI
-pandas
-tabulate
+pandas~=1.4.3
+tabulate~=0.8.10
 anvil-uplink
 jsbeautifier
-numpy
+numpy~=1.23.2
+pymongo
