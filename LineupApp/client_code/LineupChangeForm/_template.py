@@ -170,6 +170,8 @@ class LineupChangeTemplate(HtmlPanel):
             player.add_component(Label(text="S" + str(i), width=20))
             color = self.hex_from_base('#b6efa3', i)
             player.add_component(TextBox(placeholder="Starter " + str(i), width=240, background=color))
+            if i == 5:
+                player.get_components()[1].placeholder = "Backup/Gm5 Starter"
             self.lineup.add_component(player)
         for i in range(1, 6):
             player = FlowPanel(align="center")

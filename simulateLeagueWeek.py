@@ -99,6 +99,10 @@ def multiGameSeries(home, away, games, league, week):
 for league in os.listdir("leagues"):
     teams = []
     league = str(league)
+    with open("leagues/" + league + "/League_note", "r") as league_note:
+        out = league_note.read()
+        if out.startswith("Drafting! Current pick order"):
+            continue
     lineups = os.listdir("leagues/" + league + "/team-lineups")
     for file in os.listdir("leagues/" + league + "/team-lineups"):
         if str(file).endswith(".json") and not str(file).startswith("next_"):

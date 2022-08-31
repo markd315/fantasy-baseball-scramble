@@ -79,19 +79,16 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
     logs = "\n"
     while outs < 3:
         prevOuts = outs
-        coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
         batter = battingTeam['batting-order'][orderSlot - 1]
+        score_d = pitcherScore - batterScore - runs
+        currPitcher, team, logs = decidePitchingChange(currPitcher, baseState, pitchingTeam, inning, score_d, pitcherHome, logs)
+        pitcherOutcome = pitchingTeam['pitching-results'][currPitcher].pop(0)
+        coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
         if coin == 'pitcher':
-            team = pitchingTeam
-            score_d = pitcherScore - batterScore - runs
-            currPitcher, team, logs = decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherHome, logs)
-            outcome = team['pitching-results'][currPitcher].pop(0)
-            # Discard a second outcome to compensate for "batter" at-bats
-            team['pitching-results'][currPitcher].pop(0)
-            logs += str(outs) + " out) " + currPitcher + " pitching (v " + batter.split(' ')[1] + "): " + outcome + "\n"
-            if (outcome == "k"):
+            logs += str(outs) + " out) " + currPitcher + " pitching (v " + batter.split(' ')[1] + "): " + pitcherOutcome + "\n"
+            if (pitcherOutcome == "k"):
                 outs += 1
-            if (outcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
+            if (pitcherOutcome == "in_play_out" and not isError(pitchingTeam, inning, outs, gameNumber)):
                 outs += 1
                 rng = random.uniform(0, 1)
                 if (baseState[2] == 1 and outs < 3):
@@ -122,23 +119,23 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                         baseState[1] = 1
                         baseState[0] = 0
             out_stealing = False
-            if outcome.endswith("+cs"):
+            if pitcherOutcome.endswith("+cs"):
                 out_stealing = True
-                outcome = outcome[0:-3]
+                pitcherOutcome = pitcherOutcome[0:-3]
                 logs += "Runner picked off by " + currPitcher + "\n"
-            if (outcome == 'home run'):
+            if (pitcherOutcome == 'home run'):
                 hits+=1
                 runs, logs = score(runs, logs, 1 + baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 0]
-            if (outcome == 'triple'):
+            if (pitcherOutcome == 'triple'):
                 hits += 1
                 runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 0, 1]
-            if (outcome == 'double'):
+            if (pitcherOutcome == 'double'):
                 hits += 1
                 runs, logs = score(runs, logs, baseState[0] + baseState[1] + baseState[2])
                 baseState = [0, 1, 0]
-            if (outcome == 'single'):
+            if (pitcherOutcome == 'single'):
                 hits += 1
                 runs, logs = score(runs, logs, baseState[1] + baseState[2])
                 baseState[2] = 0
@@ -151,7 +148,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     else:
                         baseState[1] = 1
                 baseState[0] = 1
-            if (outcome == "walk" or outcome == "hbp"):
+            if (pitcherOutcome == "walk" or pitcherOutcome == "hbp"):
                 if (baseState[0] + baseState[1] + baseState[2] == 3):  # ld
                     runs, logs = score(runs, logs, 1)
                 elif (baseState[0] == 1 and baseState[2] == 1):  # 13 loads it
@@ -165,12 +162,12 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 else:  # first empty
                     baseState[0] = 1
             if out_stealing:
-                if outcome == 'walk' or outcome == 'hbp':
-                    outcome = 1
-                    baseState[int(outcome) - 1] = 0
+                if pitcherOutcome == 'walk' or pitcherOutcome == 'hbp':
+                    pitcherOutcome = 1
+                    baseState[int(pitcherOutcome) - 1] = 0
                     outs += 1
                     logs += "Runner picked off by " + currPitcher + "\n"
-            errorPlayer = isError(pitchingTeam, inning, prevOuts, gameNumber, outcome, True)
+            errorPlayer = isError(pitchingTeam, inning, prevOuts, gameNumber, pitcherOutcome, True)
             if errorPlayer != False:
                 errors += 1
                 #logs += str(baseState) + "\n"
@@ -365,17 +362,17 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
     double_blowout = score_d * -1 > score_blowout * 2
     if double_blowout:
         currPitcher, logs = executePitchingChange(team, logs, currPitcher, 'Position Player')
-    while len(results[currPitcher]) < 2:  #We still need to substitute SOMEONE who can pitch
+    while len(results[currPitcher]) < 1:  # We still need to substitute SOMEONE who can pitch
         if is_blowout:
             iter_order = team['bullpen'][-2::-1]  # reverse bullpen order and ignore position player
             iter_order.append(team['bullpen'][-1])  # add position player back in as a last resort
             for pitcher in iter_order:
-                if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
+                if len(results[pitcher]) > 0 and pitcher not in team['burned-pitchers']:
                     currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
                     break
         else:
             for pitcher in team['bullpen']:
-                if len(results[pitcher]) > 1 and pitcher not in team['burned-pitchers']:
+                if len(results[pitcher]) > 0 and pitcher not in team['burned-pitchers']:
                     currPitcher, logs = executePitchingChange(team, logs, currPitcher, pitcher)
                     break
     #if currPitcher not in team['burned-pitchers'] and currPitcher != 'Position Player':  # shouldnt happen

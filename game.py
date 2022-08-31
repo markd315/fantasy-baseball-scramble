@@ -1,6 +1,4 @@
 import statistics
-from datetime import datetime
-
 import simulationConfig as config
 import inning
 
@@ -15,10 +13,30 @@ def headToHeadGame(home, away, starterIdx):
     currAwayPitcher = away['starters'][starterIdx]
     home['burned-pitchers'] = [currHomePitcher]
     away['burned-pitchers'] = [currAwayPitcher]
+    if len(home['pitching-results'][currHomePitcher]) == 0:
+        if len(home['pitching-results'][home['starters'][4]]) != 0:
+            long_output += "The scheduled starter " + currHomePitcher + " was unavailable for this game. " + home['starters'][4] + " takes the mound.\n"
+            currHomePitcher = home['starters'][4]
+            home['burned-pitchers'].append(currHomePitcher)
+        else:
+            long_output += "The scheduled and backup starters " + currHomePitcher + ", " + home['starters'][4] + " were both unavailable for this game. " + " Bullpen day.\n"
+            home['burned-pitchers'].append(home['starters'][4])
+            currHomePitcher = home['bullpen'][0]
+            home['burned-pitchers'].append(currHomePitcher)
+    if len(away['pitching-results'][currAwayPitcher]) == 0:
+        if len(away['pitching-results'][away['starters'][4]]) > 0:
+            long_output += "The scheduled starter " + currAwayPitcher + " was unavailable for this game. " + away['starters'][4] + " takes the mound.\n"
+            currAwayPitcher = away['starters'][4]
+            away['burned-pitchers'].append(currAwayPitcher)
+        else:
+            long_output += "The scheduled and backup starters " + currAwayPitcher + ", " + away['starters'][4] + " were both unavailable for this game. " + " Bullpen day.\n"
+            away['burned-pitchers'].append(away['starters'][4])
+            currAwayPitcher = away['bullpen'][0]
+            away['burned-pitchers'].append(currAwayPitcher)
     line_score = [["Inning / Total"],
                   [away['team-name']],
                   [home['team-name']]
-                  ] # header, aw_off, hm_off, aw_def, aw_def
+                  ]  # header, aw_off, hm_off, aw_def, aw_def
     away_hits, home_hits, away_errors, home_errors = 0, 0, 0, 0
     for i in range(1, 10):
         line_score[0].append(str(i))

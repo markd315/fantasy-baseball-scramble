@@ -19,10 +19,11 @@ class LineupChangeForm(LineupChangeTemplate):
         return pos
 
     def get_pl_data(self):
+        print("getting pl")
         if self.pl_data is None:
+            print("hitting server")
             self.pl_data = anvil.server.call('get_results', self.league_name.text, '', 0, 'MLB Player Data')
         return self.pl_data
-
 
     def show_positions(self, **event_args):
         used = [0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -79,11 +80,13 @@ class LineupChangeForm(LineupChangeTemplate):
                     res = "Home: " + str(payload['closer-min-lead-home']) + ":" + str(payload["closer-max-lead-home"]) + ", Away: " + str(payload['closer-min-lead-away']) + ":" + str(payload["closer-max-lead-away"])
                     textbox.text = res
         self.get_bench()
+        payload = json.loads(json_str)
         for idx, flowcomponent in enumerate(self.lineup.get_components()):
             textbox = flowcomponent.get_components()[1]
             label = flowcomponent.get_components()[0]
             if hasattr(textbox, "placeholder") and payload is not None:
                 if "Batting" in textbox.placeholder and len(payload['batting-order']) > 0:
+                    print("calling gtpl")
                     label.text = self.get_position(textbox.text, json.loads(self.get_pl_data()))
         self.load_trades()
 
