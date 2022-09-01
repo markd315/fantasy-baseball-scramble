@@ -379,24 +379,35 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
         #team['burned-pitchers'].append(currPitcher)
     return currPitcher, team, logs
 
+def obp(dataset):
+    ob = 0
+    if len(dataset) == 0:
+        return 0
+    for app in dataset:
+        if app in ['single', 'double', 'triple', 'home run', 'walk', 'hbp']:
+            ob += 1
+    obp = float(ob) / float(len(dataset))
+    return obp
 
-def ops(dataset):
+def slg(dataset):
     ab = 0
     slg = 0
-    pa = 0
-    ob = 1
-    # todo remove +cs +sb
+    if len(dataset) == 0:
+        return 0
     for app in dataset:
         if app in ['single', 'double', 'triple', 'home run']:
-            slg += int(app)
+            if app == 'single':
+                slg += 1
+            if app == 'double':
+                slg += 2
+            if app == 'triple':
+                slg += 3
+            if app == 'home run':
+                slg += 4
+        if app not in ['bb', 'hbp']:
             ab += 1
-            ob += 1
-        if app in ["in_place_out", "k"]:
-            ab += 1
-        if app in ["walk", "hbp"]:
-            pa += 1
-            ob += 1
-    pa += ab
-    obp = float(ob) / pa
     slgp = float(slg) / ab
-    return obp + slgp
+    return slgp
+
+def ops(dataset):
+    return obp(dataset) + slg(dataset)

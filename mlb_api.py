@@ -3,8 +3,8 @@ from datetime import datetime
 from datetime import timedelta
 import statsapi
 import json
-
 import processing
+import simulationConfig
 
 
 def validateOnRoster(player, roster):
@@ -94,7 +94,8 @@ def loadLineup(league, team_name, box_games, weekNumber):
             batterTotals[player['fullName'] + '_b'] = totals
             pas = processing.randomWalkOfWeeklyTotals(totals)
             if len(pas) < 5:
-                raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
+                print("Small sample for " + player['fullName'])
+                #raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
             team['batting-results'].append(pas)
             errs = fillErrors(player, box_games)
             for err in errs:
@@ -121,7 +122,10 @@ def loadLineup(league, team_name, box_games, weekNumber):
             validateOnRoster(player, roster)
             totals = processing.filterPlayerPasDefensive(box_games, player)
             pitcherTotals[player['fullName'] + '_p'] = totals
-            pas = processing.randomWalkOfWeeklyPitchingTotals(totals)
+            if simulationConfig.fatigueEnabled:
+                pas = processing.fatigueBasedRandomizePitching(totals)
+            else:
+                pas = processing.trueRandomizePitchingTotals(totals)
             name = player["fullName"]
             team['pitching-results'][name] = pas
         team['bullpen'].append('Position Player')
@@ -192,9 +196,7 @@ def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bi
         return playerQuery(name, teamId, pos)
 
 
-def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.5),
-                 duration_days=6):  # To rule out games in progress
-    # TODO revert test
+def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.00001), duration_days=6):  # Add timedelta to rule out games in progress
     end_date = endtime.strftime("%Y-%m-%d")
     begin = endtime - timedelta(
         days=duration_days)  # 6 day lookback instead of 7 to prevent double starts?

@@ -1,4 +1,7 @@
 import random
+from math import exp
+
+import simulationConfig
 import simulationConfig as config
 
 def randomWalkOfWeeklyTotals(weekly_totals):
@@ -29,7 +32,7 @@ def randomWalkOfWeeklyTotals(weekly_totals):
     return plateapps
 
 
-def randomWalkOfWeeklyPitchingTotals(weekly_totals):
+def trueRandomizePitchingTotals(weekly_totals):
     outcomes = ['k', 'in_play_out', 'walk', 'hbp', 'single', 'double', 'triple', 'home run']
     plateapps = []
     for outcome in outcomes:
@@ -135,3 +138,27 @@ def filterPlayerPasDefensive(box_games, player):
             if hit in player['fullName']:
                 weekly_totals['hbp'] += 1
     return weekly_totals
+
+
+def getOrderliness(n):
+    #return 0.0205561 * exp(-0.150123 * float(n)) # Calculated values based on non-baseball array testing.
+    return simulationConfig.fatigue * exp(-0.150123 * float(n)) #  Based on having a 5% OPS increase across a typical scramble of a 5-day pitching window (min 5 PA)
+
+
+def fatigueBasedRandomizePitching(totals):
+    pas = []
+    totals['more_outs'] = 2 / 3 * totals['in_play_out']
+    totals['in_play_out'] -= totals['more_outs']
+    for outcome in ["k", "in_play_out", "bb", "more_outs", "single", "triple", "double", "home run"]:
+        for _ in range(0, int(totals[outcome])):
+            if outcome == 'more_outs':
+                pas.append("in_play_out")
+            else:
+                pas.append(outcome)
+    orderliness = getOrderliness(len(pas))
+    pasOrder = range(len(pas))
+    pasOrder = sorted(pasOrder, key=lambda i: random.gauss(i * orderliness, 1))
+    pasFinal = []
+    for pa in pasOrder:
+        pasFinal.append(pas[pa])
+    return pasFinal

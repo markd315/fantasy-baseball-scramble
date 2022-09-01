@@ -1,23 +1,23 @@
 {
-  "bat_ab": 126,
-  "bat_h": 32,
+  "bat_ab": 106,
+  "bat_h": 29,
   "bat_doubles": 6,
   "bat_triples": 1,
-  "bat_hr": 4,
-  "bat_sb": 2,
+  "bat_hr": 3,
+  "bat_sb": 0,
   "bat_cs": 0,
-  "bat_bb": 12,
-  "bat_k": 31,
+  "bat_bb": 8,
+  "bat_k": 26,
   "bat_e": 0,
   "bat_hbp": 2,
   "bat_double": 6,
   "bat_triple": 1,
-  "bat_home run": 4,
-  "bat_single": 21,
-  "bat_out": 94,
-  "bat_pa": 138,
-  "bat_in_play_out": 63,
-  "bat_walk": 12,
+  "bat_home run": 3,
+  "bat_single": 19,
+  "bat_out": 77,
+  "bat_pa": 114,
+  "bat_in_play_out": 51,
+  "bat_walk": 8,
   "pit_ip": 24.2,
   "pit_h": 22.0,
   "pit_bb": 5.0,
@@ -27,37 +27,38 @@
   "pit_e": 1,
   "pit_hbp": 1,
   "pit_out": 73,
-  "pit_single": 16,
-  "pit_double": 3,
+  "pit_single": 15,
+  "pit_double": 4,
   "pit_triple": 0,
   "pit_ab": 95,
   "pit_home run": 3,
   "pit_pa": 100,
-  "pit_in_play_out": 48,
+  "pit_in_play_out": 16.000000000000004,
   "pit_walk": 5,
+  "pit_more_outs": 31.999999999999996,
   "Brandon Nimmo_b": {
-    "ab": 17,
-    "h": 5,
+    "ab": 15,
+    "h": 4,
     "doubles": 1,
     "triples": 0,
     "hr": 1,
     "sb": 0,
     "cs": 0,
-    "bb": 3,
+    "bb": 1,
     "k": 5,
     "e": 0,
     "hbp": 0,
     "double": 1,
     "triple": 0,
     "home run": 1,
-    "single": 3,
-    "out": 12,
-    "pa": 20,
-    "in_play_out": 7,
-    "walk": 3
+    "single": 2,
+    "out": 11,
+    "pa": 16,
+    "in_play_out": 6,
+    "walk": 1
   },
   "Austin Hays_b": {
-    "ab": 16,
+    "ab": 12,
     "h": 4,
     "doubles": 0,
     "triples": 0,
@@ -65,16 +66,16 @@
     "sb": 0,
     "cs": 0,
     "bb": 0,
-    "k": 5,
+    "k": 2,
     "e": 0,
     "hbp": 0,
     "double": 0,
     "triple": 0,
     "home run": 1,
     "single": 3,
-    "out": 12,
-    "pa": 16,
-    "in_play_out": 7,
+    "out": 8,
+    "pa": 12,
+    "in_play_out": 6,
     "walk": 0
   },
   "Marcus Semien_b": {
@@ -99,49 +100,49 @@
     "walk": 2
   },
   "Pete Alonso_b": {
-    "ab": 18,
-    "h": 5,
+    "ab": 14,
+    "h": 3,
     "doubles": 0,
     "triples": 0,
-    "hr": 1,
+    "hr": 0,
     "sb": 0,
     "cs": 0,
     "bb": 1,
-    "k": 6,
+    "k": 5,
     "e": 0,
     "hbp": 0,
     "double": 0,
     "triple": 0,
-    "home run": 1,
-    "single": 4,
-    "out": 13,
-    "pa": 19,
-    "in_play_out": 7,
+    "home run": 0,
+    "single": 3,
+    "out": 11,
+    "pa": 15,
+    "in_play_out": 6,
     "walk": 1
   },
   "Starling Marte_b": {
-    "ab": 15,
+    "ab": 11,
     "h": 4,
     "doubles": 1,
     "triples": 1,
     "hr": 1,
-    "sb": 1,
+    "sb": 0,
     "cs": 0,
     "bb": 0,
-    "k": 2,
+    "k": 1,
     "e": 0,
     "hbp": 1,
     "double": 1,
     "triple": 1,
     "home run": 1,
     "single": 1,
-    "out": 11,
-    "pa": 15,
-    "in_play_out": 9,
+    "out": 7,
+    "pa": 11,
+    "in_play_out": 6,
     "walk": 0
   },
   "Yordan Alvarez_b": {
-    "ab": 8,
+    "ab": 4,
     "h": 1,
     "doubles": 0,
     "triples": 0,
@@ -156,9 +157,9 @@
     "triple": 0,
     "home run": 0,
     "single": 1,
-    "out": 7,
-    "pa": 8,
-    "in_play_out": 7,
+    "out": 3,
+    "pa": 4,
+    "in_play_out": 3,
     "walk": 0
   },
   "Austin Riley_b": {
@@ -204,14 +205,14 @@
     "walk": 1
   },
   "Francisco Lindor_b": {
-    "ab": 14,
+    "ab": 12,
     "h": 1,
     "doubles": 0,
     "triples": 0,
     "hr": 0,
-    "sb": 1,
+    "sb": 0,
     "cs": 0,
-    "bb": 4,
+    "bb": 2,
     "k": 3,
     "e": 0,
     "hbp": 1,
@@ -219,10 +220,10 @@
     "triple": 0,
     "home run": 0,
     "single": 1,
-    "out": 13,
-    "pa": 18,
-    "in_play_out": 10,
-    "walk": 4
+    "out": 11,
+    "pa": 14,
+    "in_play_out": 8,
+    "walk": 2
   },
   "Justin Verlander_p": {
     "ip": 3.0,
@@ -240,8 +241,9 @@
     "ab": 12,
     "home run": 0,
     "pa": 13,
-    "in_play_out": 3,
-    "walk": 1
+    "in_play_out": 1.0,
+    "walk": 1,
+    "more_outs": 2.0
   },
   "Max Fried_p": {
     "ip": 5.0,
@@ -259,8 +261,9 @@
     "ab": 22,
     "home run": 0,
     "pa": 23,
-    "in_play_out": 12,
-    "walk": 1
+    "in_play_out": 4.0,
+    "walk": 1,
+    "more_outs": 8.0
   },
   "Merrill Kelly_p": {
     "ip": 7.1,
@@ -278,8 +281,9 @@
     "ab": 26,
     "home run": 1,
     "pa": 27,
-    "in_play_out": 14,
-    "walk": 1
+    "in_play_out": 4.666666666666668,
+    "walk": 1,
+    "more_outs": 9.333333333333332
   },
   "Tony Gonsolin_p": {
     "ip": 0.0,
@@ -297,8 +301,9 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0,
-    "walk": 0
+    "in_play_out": 0.0,
+    "walk": 0,
+    "more_outs": 0.0
   },
   "Jason Adam_p": {
     "ip": 0.2,
@@ -316,8 +321,9 @@
     "ab": 2,
     "home run": 0,
     "pa": 2,
-    "in_play_out": 0,
-    "walk": 0
+    "in_play_out": 0.0,
+    "walk": 0,
+    "more_outs": 0.0
   },
   "Domingo Acevedo_p": {
     "ip": 3.0,
@@ -335,8 +341,9 @@
     "ab": 9,
     "home run": 0,
     "pa": 9,
-    "in_play_out": 6,
-    "walk": 0
+    "in_play_out": 2.0,
+    "walk": 0,
+    "more_outs": 4.0
   },
   "Shane McClanahan_p": {
     "ip": 0.0,
@@ -354,8 +361,9 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0,
-    "walk": 0
+    "in_play_out": 0.0,
+    "walk": 0,
+    "more_outs": 0.0
   },
   "John Brebbia_p": {
     "ip": 1.2,
@@ -367,14 +375,15 @@
     "e": 0,
     "hbp": 0,
     "out": 5,
-    "single": 2,
-    "double": 0,
+    "single": 1,
+    "double": 1,
     "triple": 0,
     "ab": 7,
     "home run": 0,
     "pa": 7,
-    "in_play_out": 4,
-    "walk": 0
+    "in_play_out": 1.3333333333333335,
+    "walk": 0,
+    "more_outs": 2.6666666666666665
   },
   "Johnny Cueto_p": {
     "ip": 3.0,
@@ -392,8 +401,9 @@
     "ab": 14,
     "home run": 2,
     "pa": 16,
-    "in_play_out": 7,
-    "walk": 2
+    "in_play_out": 2.333333333333334,
+    "walk": 2,
+    "more_outs": 4.666666666666666
   },
   "Paul Sewald_p": {
     "ip": 1.0,
@@ -411,8 +421,9 @@
     "ab": 3,
     "home run": 0,
     "pa": 3,
-    "in_play_out": 2,
-    "walk": 0
+    "in_play_out": 0.6666666666666667,
+    "walk": 0,
+    "more_outs": 1.3333333333333333
   },
   "Corey Knebel_p": {
     "ip": 0.0,
@@ -430,8 +441,9 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0,
-    "walk": 0
+    "in_play_out": 0.0,
+    "walk": 0,
+    "more_outs": 0.0
   },
   "Garrett Whitlock_p": {
     "ip": 0.0,
@@ -449,8 +461,9 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0,
-    "walk": 0
+    "in_play_out": 0.0,
+    "walk": 0,
+    "more_outs": 0.0
   },
   "errors": {}
 }
