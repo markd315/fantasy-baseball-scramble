@@ -21,4 +21,4 @@ injuredListRestrictedWeeks = 3
 maxRosterSize = 25
 fatigue = 0.07  # TODO we may want to double this since only half of the outcomes actually come from the pitcher anyway, should recalibrate to be sure though.
 # Produces +5-7% in OPS between the first and second half of a pitcher's weekly sample, especially by frontloading walks and k's, and back-loading home runs, which mirrors real-life fatigue and time-through-order.
-fatigueEnabled = True
+fatigueEnabled = False

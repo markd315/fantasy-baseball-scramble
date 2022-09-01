@@ -35,7 +35,7 @@ class LineupChangeTemplate(HtmlPanel):
 
         # Parts
         self.league_name = TextBox(placeholder="League Name",
-                                   text="completed-league")
+                                   text="c1league")
         self.team_name = TextBox(placeholder="Team Code")
         self.results_sel = DropDown(
             items=["Standings", "Line scores", "Schedule", "Team totals", "League note", "Roster", "Game 1", "Game 2", "Game 3",
@@ -125,7 +125,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.showAll(self.ctl_lineup)
         self.instr.text = self.txt_label[0]
         if self.league_name.text != "" and self.team_name.text != "":
-            self.load_positions()
+            self.get_bench()
 
     def show_add_drop_page(self, **properties):
         self.page_state = 'add-drop'

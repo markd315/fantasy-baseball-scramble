@@ -27,15 +27,14 @@
   "pit_e": 0,
   "pit_hbp": 3,
   "pit_out": 139,
-  "pit_single": 23,
-  "pit_double": 12,
+  "pit_single": 28,
+  "pit_double": 7,
   "pit_triple": 0,
   "pit_ab": 182,
   "pit_home run": 8,
   "pit_pa": 192,
-  "pit_in_play_out": 31.00000000000001,
+  "pit_in_play_out": 93,
   "pit_walk": 10,
-  "pit_more_outs": 62.0,
   "Giancarlo Stanton_b": {
     "ab": 13,
     "h": 2,
@@ -235,15 +234,14 @@
     "e": 0,
     "hbp": 1,
     "out": 15,
-    "single": 2,
-    "double": 2,
+    "single": 3,
+    "double": 1,
     "triple": 0,
     "ab": 20,
     "home run": 1,
     "pa": 21,
-    "in_play_out": 3.666666666666667,
-    "walk": 1,
-    "more_outs": 7.333333333333333
+    "in_play_out": 11,
+    "walk": 1
   },
   "Aaron Nola_p": {
     "ip": 4.0,
@@ -255,15 +253,14 @@
     "e": 0,
     "hbp": 1,
     "out": 12,
-    "single": 7,
-    "double": 2,
+    "single": 8,
+    "double": 1,
     "triple": 0,
     "ab": 22,
     "home run": 1,
     "pa": 22,
-    "in_play_out": 2.333333333333334,
-    "walk": 0,
-    "more_outs": 4.666666666666666
+    "in_play_out": 7,
+    "walk": 0
   },
   "Nathan Eovaldi_p": {
     "ip": 0.0,
@@ -281,9 +278,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Dylan Cease_p": {
     "ip": 8.0,
@@ -301,9 +297,8 @@
     "ab": 26,
     "home run": 2,
     "pa": 27,
-    "in_play_out": 5.333333333333334,
-    "walk": 1,
-    "more_outs": 10.666666666666666
+    "in_play_out": 16,
+    "walk": 1
   },
   "Carlos Rodon_p": {
     "ip": 4.0,
@@ -321,9 +316,8 @@
     "ab": 16,
     "home run": 1,
     "pa": 20,
-    "in_play_out": 3.333333333333334,
-    "walk": 4,
-    "more_outs": 6.666666666666666
+    "in_play_out": 10,
+    "walk": 4
   },
   "Steve Cishek_p": {
     "ip": 1.0,
@@ -341,9 +335,8 @@
     "ab": 5,
     "home run": 1,
     "pa": 7,
-    "in_play_out": 0.33333333333333337,
-    "walk": 2,
-    "more_outs": 0.6666666666666666
+    "in_play_out": 1,
+    "walk": 2
   },
   "Jake Diekman_p": {
     "ip": 0.4,
@@ -355,15 +348,14 @@
     "e": 0,
     "hbp": 1,
     "out": 4,
-    "single": 2,
-    "double": 1,
+    "single": 3,
+    "double": 0,
     "triple": 0,
     "ab": 7,
     "home run": 0,
     "pa": 8,
-    "in_play_out": 0.33333333333333337,
-    "walk": 1,
-    "more_outs": 0.6666666666666666
+    "in_play_out": 1,
+    "walk": 1
   },
   "Scott Effross_p": {
     "ip": 0.0,
@@ -381,9 +373,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Felix Bautista_p": {
     "ip": 1.1,
@@ -401,9 +392,8 @@
     "ab": 4,
     "home run": 0,
     "pa": 4,
-    "in_play_out": 0.33333333333333337,
-    "walk": 0,
-    "more_outs": 0.6666666666666666
+    "in_play_out": 1,
+    "walk": 0
   },
   "Framber Valdez_p": {
     "ip": 8.0,
@@ -421,9 +411,8 @@
     "ab": 31,
     "home run": 2,
     "pa": 31,
-    "in_play_out": 5.333333333333334,
-    "walk": 0,
-    "more_outs": 10.666666666666666
+    "in_play_out": 16,
+    "walk": 0
   },
   "Adam Wainwright_p": {
     "ip": 6.2,
@@ -441,9 +430,8 @@
     "ab": 28,
     "home run": 0,
     "pa": 28,
-    "in_play_out": 5.333333333333334,
-    "walk": 0,
-    "more_outs": 10.666666666666666
+    "in_play_out": 16,
+    "walk": 0
   },
   "Zac Gallen_p": {
     "ip": 7.0,
@@ -455,15 +443,14 @@
     "e": 0,
     "hbp": 0,
     "out": 21,
-    "single": 0,
-    "double": 2,
+    "single": 2,
+    "double": 0,
     "triple": 0,
     "ab": 23,
     "home run": 0,
     "pa": 24,
-    "in_play_out": 4.666666666666668,
-    "walk": 1,
-    "more_outs": 9.333333333333332
+    "in_play_out": 14,
+    "walk": 1
   },
   "errors": {}
 }

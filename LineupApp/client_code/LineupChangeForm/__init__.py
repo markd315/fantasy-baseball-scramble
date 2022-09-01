@@ -11,18 +11,35 @@ class LineupChangeForm(LineupChangeTemplate):
         self.show_lineup_page()
         self.addHandlers()
 
-    def get_position(self, name, pl_data):
+    def get_position(self, name):
         pos = 'UN'
-        for pl in pl_data:
+        if self.pl_data is None:
+            self.get_pl_data()
+        for pl in self.pl_data:
             if pl['fullName'] == name:
                 pos = pl['primaryPosition']['abbreviation']
+        if pos == 'UN':  # We can try to query the server again
+            players = json.loads(anvil.server.call('get_results', self.league_name.text, '', [name], 'MLB Player Data'))
+            if len(players) > 0:
+                self.pl_data.extend(players)
+                for pl in self.pl_data:
+                    if pl['fullName'] == name:
+                        pos = pl['primaryPosition']['abbreviation']
         return pos
 
-    def get_pl_data(self):
-        print("getting pl")
-        if self.pl_data is None:
-            print("hitting server")
-            self.pl_data = anvil.server.call('get_results', self.league_name.text, '', 0, 'MLB Player Data')
+    def get_pl_data(self, full=False):
+        if not full or self.pl_data is None:
+            if self.pl_data is None:
+                print("hitting server first time")
+                roster_list = anvil.server.call('getRoster', self.league_name.text, self.team_abbv.text)
+                if roster_list == "":  # user still typing name, maybe this makes it easy to bruteforce though
+                    return
+                self.pl_data = json.loads(anvil.server.call('get_results', self.league_name.text, '', roster_list, 'MLB Player Data'))
+            return self.pl_data
+        else:
+            if len(self.pl_data) < 100:  # We have only retrieved this for lineup so far
+                self.pl_data = json.loads(anvil.server.call('get_results', self.league_name.text, '', 0, 'MLB Player Data'))
+                return self.pl_data
         return self.pl_data
 
     def show_positions(self, **event_args):
@@ -33,7 +50,7 @@ class LineupChangeForm(LineupChangeTemplate):
             label = flowcomponent.get_components()[0]
             component = flowcomponent.get_components()[1]
             if "Batting" in component.placeholder:
-                label.text = self.get_position(component.text, json.loads(self.get_pl_data()))
+                label.text = self.get_position(component.text)
                 label.foreground = "#000000"
                 if label.text == "TWP":
                     used[0] += 1
@@ -53,8 +70,7 @@ class LineupChangeForm(LineupChangeTemplate):
 
 
     def load_positions(self, **event_args):
-        json_str = anvil.server.call('get_lineup', self.league_name.text,
-                                 self.team_name.text)
+        json_str = anvil.server.call('get_lineup', self.league_name.text, self.team_name.text)
         if json_str == "":  # user still typing name, maybe this makes it easy to bruteforce though
             return
         payload = json.loads(json_str)
@@ -86,8 +102,7 @@ class LineupChangeForm(LineupChangeTemplate):
             label = flowcomponent.get_components()[0]
             if hasattr(textbox, "placeholder") and payload is not None:
                 if "Batting" in textbox.placeholder and len(payload['batting-order']) > 0:
-                    print("calling gtpl")
-                    label.text = self.get_position(textbox.text, json.loads(self.get_pl_data()))
+                    label.text = self.get_position(textbox.text)
         self.load_trades()
 
     def set_lineup_click(self, **event_args):
@@ -132,18 +147,15 @@ class LineupChangeForm(LineupChangeTemplate):
             self.load_positions()
 
     def drop_player_click(self, **event_args):
-        anvil.server.call('drop_player', self.league_name.text,
-                          self.team_name.text, self.player_name.text)
+        anvil.server.call('drop_player', self.league_name.text, self.team_name.text, self.player_name.text)
         self.get_bench()
 
     def add_player_click(self, **event_args):
-        anvil.server.call('add_player', self.league_name.text,
-                          self.team_name.text, self.player_name.text)
+        anvil.server.call('add_player', self.league_name.text, self.team_name.text, self.player_name.text)
         self.get_bench()
 
     def get_bench(self, **event_args):
-        list, roster_size = anvil.server.call('get_bench', self.league_name.text,
-                                 self.team_name.text)
+        list, roster_size = anvil.server.call('get_bench', self.league_name.text, self.team_name.text)
         if list == "Your team hasn't started drafting yet, check current pick order by visiting Results > League Note":
             self.roster.text = list
             return
@@ -157,13 +169,13 @@ class LineupChangeForm(LineupChangeTemplate):
             if roster_size >= 25:  # TODO find a way to import simulationConfig for this later lol
                 self.add_lineup.visible = False
         for elem in list:
-            txt += self.get_position(elem.strip(), json.loads(self.get_pl_data()))
+            txt += self.get_position(elem.strip())
             txt += ": " + elem + "     "
         self.roster.text = txt
 
     def get_results_click(self, **event_args):
         if self.results_sel.selected_value == 'MLB Player Data':
-            self.results_panel.get_components()[0].text = self.get_pl_data()
+            self.results_panel.get_components()[0].text = json.dumps(self.get_pl_data())
             return
         if self.results_sel.selected_value == 'Roster':
             self.results_panel.get_components()[0].text = anvil.server.call('getRoster', self.league_name.text, self.team_abbv.text)
@@ -174,14 +186,11 @@ class LineupChangeForm(LineupChangeTemplate):
         self.results_panel.get_components()[0].text = results
 
     def send_chat_click(self, **event_args):
-        anvil.server.call('send_chat', self.league_name.text,
-                          self.team_name.text, self.chat_msg.text)
+        anvil.server.call('send_chat', self.league_name.text, self.team_name.text, self.chat_msg.text)
         self.load_chat_click()
 
     def load_chat_click(self, **event_args):
-        results = anvil.server.call('get_results', self.league_name.text,
-                                    self.team_abbv.text, self.league_week.text,
-                                    "Chat")
+        results = anvil.server.call('get_results', self.league_name.text, self.team_abbv.text, self.league_week.text, "Chat")
         self.chat_box.text = results
 
     def send_propose(self, **event_args):
@@ -229,17 +238,15 @@ class LineupChangeForm(LineupChangeTemplate):
             self.view_trade.text += pl + "\n"
         self.view_trade.text = self.view_trade.text[:-1]
 
-
     def check_pos_add_rm(self, **event_args):
-        pl_data = json.loads(self.get_pl_data())
         check_for = self.player_name.text
         found = False
-        for player in pl_data:
+        for player in self.get_pl_data(full=True):
             if player['fullName'].lower() == check_for.lower():
-                if player['fullName'] == check_for:  # todo check for already rostered
+                if player['fullName'] == check_for:
                     rostered_team = anvil.server.call('get_rostered_team', self.league_name.text, check_for)
                     if rostered_team != "":
-                        self.add_drop_position.text = "Already on team " + rostered_team
+                        self.add_drop_position.text = "Currently on team " + rostered_team
                     else:
                         self.add_drop_position.text = "Player Position: " + player['primaryPosition']['abbreviation']
                 else:

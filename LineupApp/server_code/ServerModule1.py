@@ -5,7 +5,7 @@ from pathlib import Path
 
 import anvil.server
 import mlb_api
-import simulateLeagueWeek
+import scheduling
 import simulationConfig
 
 
@@ -233,10 +233,10 @@ def get_results(league, teamAbbv, week, selector):
             results_file.close()
             return ret
     elif selector == "Schedule":
-        weeks = simulateLeagueWeek.getWeeklySchedule(league)
+        weeks = scheduling.getWeeklySchedule(league, [])
         out = ""
         for idx, week in enumerate(weeks):
-            out += "Week " + str(idx) + ":"
+            out += "Week " + str(idx) + ":\n"
             for gm in week:
                 if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
                     out += gm[1]['team-name'] + "@" + gm[0]['team-name'] + "\n"
@@ -255,10 +255,19 @@ def get_results(league, teamAbbv, week, selector):
             results_file.close()
             return ret
     elif selector == "MLB Player Data":
-        with open("playersTeamsAndPositions.json", "r", encoding="utf-8") as results_file:
-            ret = results_file.read()
-            results_file.close()
-            return ret
+        try:
+            if week == "" or int(week) > -1:
+                print("getting the whole thing from server")
+                with open("playersTeamsAndPositions.json", "r", encoding="utf-8") as results_file:
+                    obj = json.load(results_file)
+                    return json.dumps(obj)
+            raise Exception("we received an array as input")
+        except BaseException:  # Intended that we get this from parsing the weeks param if it's an array, hacky but saves us time
+            playersQueried = week
+            ret = []
+            for name in playersQueried:
+                ret.extend(mlb_api.playerQuery(name))
+            return json.dumps(ret)
     else:  # game int or line score
         if week == "":
             return "Need to enter a `week` to get this result pane."

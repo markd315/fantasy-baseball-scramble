@@ -1,0 +1,38 @@
+{
+  "team-name": "Rashad Flames",
+  "abbv": "RAS",
+  "batting-order": [
+    "Brandon Nimmo",
+    "Austin Hays",
+    "Marcus Semien",
+    "Pete Alonso",
+    "Starling Marte",
+    "Yordan Alvarez",
+    "Austin Riley",
+    "William Contreras",
+    "Jose Barrero"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Max Scherzer",
+    "Jacob deGrom",
+    "Carlos Carrasco",
+    "Corey Kluber",
+    "Nestor Cortes"
+  ],
+  "bullpen": [
+    "Logan Gilbert",
+    "Sandy Alcantara",
+    "Adam Ottavino",
+    "Emmanuel Clase",
+    "Paul Sewald"
+  ],
+  "closer": "Edwin Diaz",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
+  "fireman": "Seth Lugo"
+}

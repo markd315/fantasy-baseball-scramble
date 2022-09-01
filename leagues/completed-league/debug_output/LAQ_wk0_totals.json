@@ -27,15 +27,14 @@
   "pit_e": 0,
   "pit_hbp": 3,
   "pit_out": 82,
-  "pit_single": 20,
-  "pit_double": 4,
+  "pit_single": 22,
+  "pit_double": 2,
   "pit_triple": 0,
   "pit_ab": 107,
   "pit_home run": 1,
   "pit_pa": 116,
-  "pit_in_play_out": 16.333333333333336,
+  "pit_in_play_out": 49,
   "pit_walk": 9,
-  "pit_more_outs": 32.666666666666664,
   "Shohei Ohtani_b": {
     "ab": 17,
     "h": 8,
@@ -241,9 +240,8 @@
     "ab": 23,
     "home run": 0,
     "pa": 24,
-    "in_play_out": 4.0,
-    "walk": 1,
-    "more_outs": 8.0
+    "in_play_out": 12,
+    "walk": 1
   },
   "Blake Snell_p": {
     "ip": 6.0,
@@ -255,15 +253,14 @@
     "e": 0,
     "hbp": 1,
     "out": 18,
-    "single": 2,
-    "double": 2,
+    "single": 4,
+    "double": 0,
     "triple": 0,
     "ab": 22,
     "home run": 0,
     "pa": 25,
-    "in_play_out": 3.333333333333334,
-    "walk": 3,
-    "more_outs": 6.666666666666666
+    "in_play_out": 10,
+    "walk": 3
   },
   "Paolo Espino_p": {
     "ip": 5.1,
@@ -275,15 +272,14 @@
     "e": 0,
     "hbp": 0,
     "out": 15,
-    "single": 6,
-    "double": 0,
+    "single": 5,
+    "double": 1,
     "triple": 0,
     "ab": 22,
     "home run": 1,
     "pa": 22,
-    "in_play_out": 3.666666666666667,
-    "walk": 0,
-    "more_outs": 7.333333333333333
+    "in_play_out": 11,
+    "walk": 0
   },
   "Max Scherzer_p": {
     "ip": 7.0,
@@ -301,9 +297,8 @@
     "ab": 25,
     "home run": 0,
     "pa": 26,
-    "in_play_out": 3.333333333333334,
-    "walk": 1,
-    "more_outs": 6.666666666666666
+    "in_play_out": 10,
+    "walk": 1
   },
   "Nestor Cortes_p": {
     "ip": 0.0,
@@ -321,9 +316,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Kenley Jansen_p": {
     "ip": 0.1,
@@ -341,9 +335,8 @@
     "ab": 3,
     "home run": 0,
     "pa": 5,
-    "in_play_out": 0.33333333333333337,
-    "walk": 2,
-    "more_outs": 0.6666666666666666
+    "in_play_out": 1,
+    "walk": 2
   },
   "Andrew Chafin_p": {
     "ip": 1.2,
@@ -361,9 +354,8 @@
     "ab": 6,
     "home run": 0,
     "pa": 6,
-    "in_play_out": 1.666666666666667,
-    "walk": 0,
-    "more_outs": 3.333333333333333
+    "in_play_out": 5,
+    "walk": 0
   },
   "Garrett Whitlock_p": {
     "ip": 0.0,
@@ -381,9 +373,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Cristian Javier_p": {
     "ip": 0.0,
@@ -401,9 +392,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Drew Rasmussen_p": {
     "ip": 0.0,
@@ -421,9 +411,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Josh Hader_p": {
     "ip": 0.1,
@@ -435,15 +424,14 @@
     "e": 0,
     "hbp": 0,
     "out": 1,
-    "single": 4,
-    "double": 1,
+    "single": 5,
+    "double": 0,
     "triple": 0,
     "ab": 6,
     "home run": 0,
     "pa": 8,
-    "in_play_out": 0.0,
-    "walk": 2,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 2
   },
   "Corey Knebel_p": {
     "ip": 0.0,
@@ -461,12 +449,11 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "errors": {
-    "7.2": {
+    "6.3": {
       "game": 0,
       "name": "Vladimir Guerrero"
     }

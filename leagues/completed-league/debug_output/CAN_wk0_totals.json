@@ -27,15 +27,14 @@
   "pit_e": 0,
   "pit_hbp": 1,
   "pit_out": 83,
-  "pit_single": 11,
-  "pit_double": 4,
+  "pit_single": 10,
+  "pit_double": 5,
   "pit_triple": 0,
   "pit_ab": 102,
   "pit_home run": 4,
   "pit_pa": 107,
-  "pit_in_play_out": 18.33333333333334,
+  "pit_in_play_out": 55,
   "pit_walk": 5,
-  "pit_more_outs": 36.666666666666664,
   "Brandon Nimmo_b": {
     "ab": 15,
     "h": 4,
@@ -241,9 +240,8 @@
     "ab": 25,
     "home run": 0,
     "pa": 26,
-    "in_play_out": 3.333333333333334,
-    "walk": 1,
-    "more_outs": 6.666666666666666
+    "in_play_out": 10,
+    "walk": 1
   },
   "Jacob deGrom_p": {
     "ip": 0.0,
@@ -261,9 +259,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Carlos Carrasco_p": {
     "ip": 0.0,
@@ -281,9 +278,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Corey Kluber_p": {
     "ip": 6.0,
@@ -295,15 +291,14 @@
     "e": 0,
     "hbp": 0,
     "out": 18,
-    "single": 3,
-    "double": 2,
+    "single": 4,
+    "double": 1,
     "triple": 0,
     "ab": 26,
     "home run": 3,
     "pa": 26,
-    "in_play_out": 4.666666666666668,
-    "walk": 0,
-    "more_outs": 9.333333333333332
+    "in_play_out": 14,
+    "walk": 0
   },
   "Nestor Cortes_p": {
     "ip": 0.0,
@@ -321,9 +316,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Logan Gilbert_p": {
     "ip": 0.0,
@@ -341,9 +335,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Sandy Alcantara_p": {
     "ip": 9.0,
@@ -355,15 +348,14 @@
     "e": 0,
     "hbp": 0,
     "out": 27,
-    "single": 4,
-    "double": 1,
+    "single": 3,
+    "double": 2,
     "triple": 0,
     "ab": 33,
     "home run": 1,
     "pa": 35,
-    "in_play_out": 5.666666666666668,
-    "walk": 2,
-    "more_outs": 11.333333333333332
+    "in_play_out": 17,
+    "walk": 2
   },
   "Adam Ottavino_p": {
     "ip": 1.0,
@@ -375,15 +367,14 @@
     "e": 0,
     "hbp": 0,
     "out": 3,
-    "single": 1,
-    "double": 0,
+    "single": 0,
+    "double": 1,
     "triple": 0,
     "ab": 4,
     "home run": 0,
     "pa": 4,
-    "in_play_out": 1.0,
-    "walk": 0,
-    "more_outs": 2.0
+    "in_play_out": 3,
+    "walk": 0
   },
   "Emmanuel Clase_p": {
     "ip": 2.0,
@@ -401,9 +392,8 @@
     "ab": 6,
     "home run": 0,
     "pa": 6,
-    "in_play_out": 2.0,
-    "walk": 0,
-    "more_outs": 4.0
+    "in_play_out": 6,
+    "walk": 0
   },
   "Paul Sewald_p": {
     "ip": 1.0,
@@ -421,9 +411,8 @@
     "ab": 3,
     "home run": 0,
     "pa": 3,
-    "in_play_out": 0.6666666666666667,
-    "walk": 0,
-    "more_outs": 1.3333333333333333
+    "in_play_out": 2,
+    "walk": 0
   },
   "Edwin Diaz_p": {
     "ip": 0.0,
@@ -441,9 +430,8 @@
     "ab": 0,
     "home run": 0,
     "pa": 0,
-    "in_play_out": 0.0,
-    "walk": 0,
-    "more_outs": 0.0
+    "in_play_out": 0,
+    "walk": 0
   },
   "Seth Lugo_p": {
     "ip": 1.2,
@@ -461,9 +449,8 @@
     "ab": 5,
     "home run": 0,
     "pa": 7,
-    "in_play_out": 1.0,
-    "walk": 2,
-    "more_outs": 2.0
+    "in_play_out": 3,
+    "walk": 2
   },
   "errors": {}
 }
