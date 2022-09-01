@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 
 import anvil.server
-from bson import BSON
 import mlb_api
 import simulateLeagueWeek
 import simulationConfig
@@ -92,19 +91,16 @@ def get_lineup(league, teamNm):
 def set_lineup(league, teamNm, lineup):
     league = league.lower()
     lineup = json.loads(lineup)
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "r") as lineup_file:
+    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json","r") as lineup_file:
         old_lineup = json.load(lineup_file)
-        if old_lineup['team-name'] != lineup['team-name'] or old_lineup[
-            'abbv'] != lineup['abbv']:
+        if old_lineup['team-name'] != lineup['team-name'] or old_lineup['abbv'] != lineup['abbv']:
             raise BaseException("Invalid access attempt")
         else:
             abbv = old_lineup['abbv']
         lineup_file.close()
     roster = getRoster(league, abbv)
     mlb_api.getAndValidateLineup(lineup, roster)
-    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json",
-              "w") as lineup_file:
+    with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json","w") as lineup_file:
         lineup_file.write(json.dumps(lineup, indent=2, separators=(',', ': ')))
         lineup_file.close()
     return {}
