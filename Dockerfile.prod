@@ -38,6 +38,7 @@ COPY __init__.py __init__.py
 COPY simulationConfig.py simulationConfig.py
 COPY commitNewRosters.py commitNewRosters.py
 COPY game.py game.py
+COPY scheduling.py scheduling.py
 COPY inning.py inning.py
 COPY mlb_api.py mlb_api.py
 COPY processing.py processing.py
