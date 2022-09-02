@@ -237,8 +237,14 @@ def get_results(league, teamAbbv, week, selector):
         out = ""
         for idx, week in enumerate(weeks):
             out += "Week " + str(idx) + ":\n"
-            for gm in week:
+            for idx, gm in enumerate(week):
                 if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
+                    if len(weeks) == 10:  # Must be a 5 man league
+                        if idx == 0:
+                            out += gm[1]['team-name'] + "@" + gm[0]['team-name'] + " (4 games)\n"
+                        else:
+                            out += gm[1]['team-name'] + "@" + gm[0]['team-name'] + " (2 games)\n"
+                        continue
                     out += gm[1]['team-name'] + "@" + gm[0]['team-name'] + "\n"
                 else:
                     out += (gm[0]['team-name'] + gm[1]['team-name']).replace("Bye", "") + " Bye Week\n"
@@ -277,12 +283,13 @@ def get_results(league, teamAbbv, week, selector):
             suffix = "wk" + str(week) + ".line"
         else:
             suffix = "-wk" + str(week) + "-" + str(selector.replace("Game ", ""))
+        ret = ""
         for p in Path(out_path).glob('*'):
             if p.name.endswith(suffix) and teamAbbv in p.name:
                 with open(out_path + p.name, "r") as results_file:
-                    ret = results_file.read()
+                    ret += results_file.read()
                     results_file.close()
-                    return ret
+        return ret
 
 @anvil.server.callable
 def send_chat(league, teamNm, msg):

@@ -62,6 +62,12 @@ def add_line_score_to_standings(league, home, away, line_score):
     with open("leagues/" + league + "/Standings", "w") as file:
         file.write(tabulate(df, headers='keys', showindex=False))
 
+def writeLineScores(league, line_scores, home, away, week):
+    shortname = away['abbv'] + "@" + home['abbv'] + "wk" + str(week)
+    with open("leagues/" + league + "/debug_output/" + shortname + ".line", "w") as f:
+        f.write(line_scores)
+        f.close()
+
 
 def multiGameSeries(home, away, games, league, week):
     h = home['team-name']
@@ -76,10 +82,7 @@ def multiGameSeries(home, away, games, league, week):
         add_line_score_to_standings(league, home, away, line_score)
         count[winner] += 1
         line_scores += tabulate(line_score) + "\n\n"
-    shortname = away['abbv'] + "@" + home['abbv'] + "wk" + str(week)
-    with open("leagues/" + league + "/debug_output/" + shortname + ".line", "w") as f:
-        f.write(line_scores)
-        f.close()
+    writeLineScores(league, line_scores, home, away, week)
     if (count[h] > count[a]):
         outcome = h + " win the series "
     elif (count[a] > count[h]):
@@ -96,7 +99,34 @@ def getWeeklySchedule(league, box_games):
             team_nm = str(file)[:-5]
             teams.append(mlb_api.loadLineup(league, team_nm, box_games, leagueWeek))
     if len(teams) % 2 != 0:
-        teams.append({'team-name': 'Bye'})
+        if len(teams) == 5: #  Stripe it so there is 1 4-game series and 3 2-game series each week: everyone plays!
+            weeks = [
+                ['2@1', '543'],
+                ['4@3', '152'],
+                ['1@5', '324'],
+                ['3@2', '415'],
+                ['5@3', '214'],
+                ['4@5', '231'],
+                ['3@1', '542'],
+                ['2@4', '153'],
+                ['1@4', '325'],
+                ['5@2', '431'],
+            ]
+            retWeeks = []
+            for week in weeks:
+                tri_matchup = week.pop(1)
+                week.append(tri_matchup[0] + '@' + tri_matchup[1])
+                week.append(tri_matchup[1] + '@' + tri_matchup[2])
+                week.append(tri_matchup[0] + '@' + tri_matchup[2])
+                retWeeks.append([
+                    [teams[int(week[0][0]) - 1], teams[int(week[0][2]) - 1]],
+                    [teams[int(week[1][0]) - 1], teams[int(week[1][2]) - 1]],
+                    [teams[int(week[2][0]) - 1], teams[int(week[2][2]) - 1]],
+                    [teams[int(week[3][0]) - 1], teams[int(week[3][2]) - 1]],
+                ])
+            return retWeeks
+        else:
+            teams.append({'team-name': 'Bye'})
     perms = [n for n in permutations(teams, 2)]
     if len(teams) <= 4 and maxRegularSeasonWeeks > 4 * (len(teams) - 1):
         perms.extend(perms)

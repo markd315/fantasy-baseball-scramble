@@ -3,14 +3,16 @@ import simulationConfig as config
 import inning
 
 
-def headToHeadGame(home, away, starterIdx):
+def headToHeadGame(home, away, starterIdx, awayStarterIdx=None):
+    if awayStarterIdx == None:
+        awayStarterIdx = starterIdx
     long_output = ""
     home_score = 0
     away_score = 0
     orderSlotHome = 1
     orderSlotAway = 1
     currHomePitcher = home['starters'][starterIdx]
-    currAwayPitcher = away['starters'][starterIdx]
+    currAwayPitcher = away['starters'][awayStarterIdx]
     home['burned-pitchers'] = [currHomePitcher]
     away['burned-pitchers'] = [currAwayPitcher]
     if len(home['pitching-results'][currHomePitcher]) == 0:
@@ -126,8 +128,8 @@ def offenseCalibrationOutput(team):
     print(histogram)
 
 
-def simulateAndLogGame(home, away, starter_idx, league, week):
-    winner, line_score, long_output = headToHeadGame(home, away, starter_idx)
+def simulateAndLogGame(home, away, starter_idx, league, week, away_starter_idx=None):
+    winner, line_score, long_output = headToHeadGame(home, away, starter_idx, awayStarterIdx=away_starter_idx)
     shortname = away['abbv'] + "@" + home['abbv'] + "-wk" + str(week) + "-" + str(starter_idx + 1)
     with open("leagues/" + league + "/debug_output/" + shortname, "w") as f:
         f.write(long_output)
