@@ -1,3 +1,4 @@
+import simulationConfig
 import simulationConfig as config
 
 leagueWeek = config.leagueWeek
@@ -92,6 +93,37 @@ def multiGameSeries(home, away, games, league, week):
     print(outcome + str(count[h]) + " games to " + str(count[a]))
 
 
+def extendScheduleToDesiredLength(weeks, maxRegularSeasonWeeks):
+    # first convert tuple to list screw tuples
+    for week in weeks:
+        for idx, game in enumerate(week):
+            week[idx] = list(game)
+    finalWeeks = []
+    for week in weeks:
+        newWk = []
+        for gm in week:
+            newWk.append(gm.copy())
+        finalWeeks.append(newWk)
+    remainingLen = maxRegularSeasonWeeks - len(weeks)
+    while remainingLen >= len(weeks):
+        # flip all the home and away
+        flippedWeeks = []
+        for idx, week in enumerate(weeks):
+            flippedWeeks.append([])
+            for idy, gm in enumerate(week):
+                tmp = gm[0]
+                gm[0] = gm[1]
+                gm[1] = tmp
+                flippedWeeks[len(flippedWeeks) - 1].append(gm)
+        for week in weeks:
+            newWk = []
+            for gm in week:
+                newWk.append(gm.copy())
+            finalWeeks.append(newWk)
+        remainingLen -= len(weeks)
+    return finalWeeks
+
+
 def getWeeklySchedule(league, box_games):
     teams = []
     for file in os.listdir("leagues/" + league + "/team-lineups"):
@@ -133,23 +165,32 @@ def getWeeklySchedule(league, box_games):
         if len(teams) <= 2 and maxRegularSeasonWeeks > 8 * (len(teams) - 1):
             perms.extend(perms)
     print("League " + league + " week " + str(leagueWeek) + ":")
-    targetWeeks = 0
-    for perm in perms:
-        if (teams[0]['team-name'] == perm[0]['team-name'] or teams[0]['team-name'] == perm[1]['team-name']):
-            targetWeeks += 1
+    """ Create a schedule for the players in the list and return it https://gist.github.com/ih84ds/be485a92f334c293ce4f1c84bfba54c9"""
     weeks = []
-    for idx in range(0, targetWeeks):
-        weeks.append([])
-    for perm in perms:
-        for idx, week in enumerate(weeks):
-            teamAlreadyPlaying = False
-            for gm in week:
-                if gm[0] in perm or gm[1] in perm:
-                    teamAlreadyPlaying = True
-                    break
-            if not teamAlreadyPlaying:
-                week.append(perm)
-                break
+    if len(teams) % 2 == 1: teams = teams + [None]
+    # manipulate map (array of indexes for list) instead of list itself
+    # this takes advantage of even/odd indexes to determine home vs. away
+    n = len(teams)
+    map = list(range(n))
+    mid = n // 2
+    for i in range(n - 1):
+        l1 = map[:mid]
+        l2 = map[mid:]
+        l2.reverse()
+        round = []
+        for j in range(mid):
+            t1 = teams[l1[j]]
+            t2 = teams[l2[j]]
+            if j == 0 and i % 2 == 1:
+                # flip the first match only, every other round
+                # (this is because the first match always involves the last player in the list)
+                round.append((t2, t1))
+            else:
+                round.append((t1, t2))
+        weeks.append(round)
+        # rotate list by n/2, leaving last element at the end
+        map = map[mid:-1] + map[:mid] + map[-1:]
+    weeks = extendScheduleToDesiredLength(weeks, maxRegularSeasonWeeks)
     try:
         with open("leagues/" + league + "/scheduleSeed.txt", 'r') as seedFile:
             seed = seedFile.readlines()[0]
@@ -161,4 +202,5 @@ def getWeeklySchedule(league, box_games):
         with open("leagues/" + league + "/scheduleSeed.txt", 'w') as seedFile:
             seedFile.write(str(rng))
             seedFile.close()
+    weeks = weeks[0:simulationConfig.maxRegularSeasonWeeks]
     return weeks

@@ -1,5 +1,5 @@
 leagueWeek = 0
-maxRegularSeasonWeeks = 16
+maxRegularSeasonWeeks = 5
 innings = 9
 trackedBattingStats = ['ab', 'h', 'doubles', 'triples', 'hr', 'sb', 'bb', 'k']
 trackedPitchingStats = ['ip', 'h', 'bb', 'k', 'hr']
@@ -16,7 +16,7 @@ teamsInLeague = 4
 secondToHomeOnErrorChance = 0.15
 secondToHomeOnErrorChanceTwoOuts = 0.50
 firstToThirdOnErrorChanceTwoOuts = 0.25  # subset of previous setting
-ignoreRightyLeftyHandedness = False
+ignoreRightyLeftyHandedness = True
 injuredListRestrictedWeeks = 3
 maxRosterSize = 25
 fatigue = 0.07  # TODO we may want to double this since only half of the outcomes actually come from the pitcher anyway, should recalibrate to be sure though.
