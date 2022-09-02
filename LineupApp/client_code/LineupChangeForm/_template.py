@@ -214,10 +214,10 @@ class LineupChangeTemplate(HtmlPanel):
             self.trade_selector.set_event_handler('change', self.trade_selector_change)
         if hasattr(self, "set_lineup"):
             self.set_lineup.set_event_handler('click', self.set_lineup_click)
-        if hasattr(self, "lineup"):
-            for flowcomponent in self.lineup.get_components():
-                textbox = flowcomponent.get_components()[1]
-                textbox.set_event_handler('change', self.show_positions)
+        #if hasattr(self, "lineup"):
+            #for flowcomponent in self.lineup.get_components():
+                #textbox = flowcomponent.get_components()[1]
+                #textbox.set_event_handler('change', self.show_positions)
         if hasattr(self, "add_lineup"):
             self.add_lineup.set_event_handler('click', self.add_player_click)
         if hasattr(self, "drop_lineup"):
