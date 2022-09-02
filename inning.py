@@ -84,7 +84,7 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
         currPitcher, team, logs = decidePitchingChange(currPitcher, baseState, pitchingTeam, inning, score_d, pitcherHome, logs)
         pitcherOutcome = pitchingTeam['pitching-results'][currPitcher].pop(0)
         coin = getCoinForMatchup(config.teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot)
-        if coin == 'pitcher':
+        if coin == 'pitcher' or len(battingTeam['batting-results'][orderSlot - 1]) < 1:
             logs += str(outs) + " out) " + currPitcher + " pitching (v " + batter.split(' ')[1] + "): " + pitcherOutcome + "\n"
             if (pitcherOutcome == "k"):
                 outs += 1
@@ -195,7 +195,6 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                     baseState[1] = baseState[0]
                     baseState[0] = 1
                 #logs += str(baseState) + "\n"
-
         else:
             team = battingTeam
             outcome = offensiveOutcome(team, orderSlot)
@@ -336,7 +335,8 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
 
 
 def executePitchingChange(team, logs, currPitcher, newPitcher):
-    logs += currPitcher + " takes a seat. " + newPitcher + " has been warming up and enters the game.\n"
+    if currPitcher != 'Position Player' or newPitcher != 'Position Player':
+        logs += currPitcher + " takes a seat. " + newPitcher + " has been warming up and enters the game.\n"
     if newPitcher != 'Position Player':
         team['burned-pitchers'].append(newPitcher)
     return newPitcher, logs
@@ -350,19 +350,24 @@ def decidePitchingChange(currPitcher, baseState, team, inning, score_d, pitcherH
     results = team['pitching-results']
     if inning >= 7:
         closer, fireman = team['closer'], team['fireman']
-        cl_pitches, fm_pitches = len(results[closer]) > 1, len(results[fireman]) > 1
+        cl_pitches, fm_pitches = False, False
+        if closer in results:
+            cl_pitches = len(results[closer]) > 0
+        if fireman in results:
+            fm_pitches = len(results[fireman]) > 0
         score_close = scoreIsClose(team, score_d, pitcherHome)
         if inning >= 9 and closer not in team['burned-pitchers'] and score_close and cl_pitches:
             currPitcher, logs = executePitchingChange(team, logs, currPitcher, closer)
-        elif fireman not in team['burned-pitchers'] and baseState[1] + baseState[2] > 0 and score_close:
+        elif fireman not in team['burned-pitchers'] and baseState[1] + baseState[2] > 0 and score_close and fm_pitches:
             currPitcher, logs = executePitchingChange(team, logs, currPitcher, fireman)
     inning = inning if inning <= 9 else 9
     score_blowout = team['blowout-deficit-by-inning'][inning - 1]
-    is_blowout = score_d * -1 > score_blowout
-    double_blowout = score_d * -1 > score_blowout * 2
+    is_blowout = abs(score_d) > score_blowout
+    double_blowout = abs(score_d) > score_blowout * 2
     if double_blowout:
         currPitcher, logs = executePitchingChange(team, logs, currPitcher, 'Position Player')
-    while len(results[currPitcher]) < 1:  # We still need to substitute SOMEONE who can pitch
+    while currPitcher == '' or len(results[currPitcher]) < 1:  # We still need to substitute SOMEONE who can pitch
+        team['burned-pitchers'] = [i for i in team['burned-pitchers'] if not i == 'Position Player']
         if is_blowout:
             iter_order = team['bullpen'][-2::-1]  # reverse bullpen order and ignore position player
             iter_order.append(team['bullpen'][-1])  # add position player back in as a last resort
@@ -388,6 +393,19 @@ def obp(dataset):
             ob += 1
     obp = float(ob) / float(len(dataset))
     return obp
+
+def ba(dataset):
+    ab = 0
+    h = 0
+    if len(dataset) == 0:
+        return 0
+    for app in dataset:
+        if app in ['single', 'double', 'triple', 'home run']:
+            h += 1
+        if app not in ['bb', 'hbp']:
+            ab += 1
+    ba = float(h) / ab
+    return ba
 
 def slg(dataset):
     ab = 0

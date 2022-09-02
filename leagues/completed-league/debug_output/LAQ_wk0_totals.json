@@ -27,8 +27,8 @@
   "pit_e": 0,
   "pit_hbp": 3,
   "pit_out": 82,
-  "pit_single": 19,
-  "pit_double": 5,
+  "pit_single": 16,
+  "pit_double": 8,
   "pit_triple": 0,
   "pit_ab": 107,
   "pit_home run": 1,
@@ -253,8 +253,8 @@
     "e": 0,
     "hbp": 1,
     "out": 18,
-    "single": 3,
-    "double": 1,
+    "single": 4,
+    "double": 0,
     "triple": 0,
     "ab": 22,
     "home run": 0,
@@ -272,8 +272,8 @@
     "e": 0,
     "hbp": 0,
     "out": 15,
-    "single": 6,
-    "double": 0,
+    "single": 2,
+    "double": 4,
     "triple": 0,
     "ab": 22,
     "home run": 1,
@@ -329,8 +329,8 @@
     "e": 0,
     "hbp": 1,
     "out": 1,
-    "single": 0,
-    "double": 2,
+    "single": 1,
+    "double": 1,
     "triple": 0,
     "ab": 3,
     "home run": 0,
@@ -424,8 +424,8 @@
     "e": 0,
     "hbp": 0,
     "out": 1,
-    "single": 4,
-    "double": 1,
+    "single": 3,
+    "double": 2,
     "triple": 0,
     "ab": 6,
     "home run": 0,
@@ -453,7 +453,7 @@
     "walk": 0
   },
   "errors": {
-    "1.2": {
+    "8.1": {
       "game": 0,
       "name": "Vladimir Guerrero"
     }

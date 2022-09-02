@@ -5,13 +5,18 @@ import pandas as pd
 
 import mlb_api
 import processing
-from inning import obp, slg, ops
+from inning import obp, slg, ops, ba
 from mlb_api import getWeeklyBox
 
 desired_width = 320
 pd.set_option('display.width', desired_width)
 np.set_printoptions(linewidth=desired_width)
 
+pos_pl = ['walk', 'walk', 'hbp', 'k', 'in_play_out', 'in_play_out', "in_play_out", 'in_play_out', 'in_play_out', 'home run', 'double', 'single', 'single', 'single']
+
+print(ba(pos_pl))
+print(obp(pos_pl))
+print(slg(pos_pl))
 
 def cornerToCornerMath(n, orderliness, cycles):
     orig = list(range(n))

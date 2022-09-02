@@ -60,6 +60,7 @@ def getAndValidateLineup(team, roster):
     ret = getPitchers(team)
     ret.extend(getOffense(team))
     for pl in ret:
+        #print(pl)
         if pl != "":
             player = playerQuery(pl)[0]
             validateOnRoster(player, roster)
@@ -116,7 +117,8 @@ def loadLineup(league, team_name, box_games, weekNumber):
         pitchers = getPitchers(team)
         pitcherTotals = {}
         for player in pitchers:
-            #print(player)
+            if player == '':
+                continue
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)

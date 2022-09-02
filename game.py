@@ -16,23 +16,27 @@ def headToHeadGame(home, away, starterIdx, awayStarterIdx=None):
     home['burned-pitchers'] = [currHomePitcher]
     away['burned-pitchers'] = [currAwayPitcher]
     if len(home['pitching-results'][currHomePitcher]) == 0:
-        if len(home['pitching-results'][home['starters'][4]]) != 0:
+        if len(home['starters']) > 4 and len(home['pitching-results'][home['starters'][4]]) != 0:
             long_output += "The scheduled starter " + currHomePitcher + " was unavailable for this game. " + home['starters'][4] + " takes the mound.\n"
             currHomePitcher = home['starters'][4]
             home['burned-pitchers'].append(currHomePitcher)
         else:
-            long_output += "The scheduled and backup starters " + currHomePitcher + ", " + home['starters'][4] + " were both unavailable for this game. " + " Bullpen day.\n"
-            home['burned-pitchers'].append(home['starters'][4])
+            backup = home['starters'][4] if len(home['starters']) > 4 else "none"
+            long_output += "The scheduled and backup starters " + currHomePitcher + ", " + str(backup) + " were both unavailable for this game. " + " Bullpen day.\n"
+            if len(home['starters']) > 4:
+                home['burned-pitchers'].append(home['starters'][4])
             currHomePitcher = home['bullpen'][0]
             home['burned-pitchers'].append(currHomePitcher)
     if len(away['pitching-results'][currAwayPitcher]) == 0:
-        if len(away['pitching-results'][away['starters'][4]]) > 0:
+        if len(away['starters']) > 4 and len(away['pitching-results'][away['starters'][4]]) > 0:
             long_output += "The scheduled starter " + currAwayPitcher + " was unavailable for this game. " + away['starters'][4] + " takes the mound.\n"
             currAwayPitcher = away['starters'][4]
             away['burned-pitchers'].append(currAwayPitcher)
         else:
-            long_output += "The scheduled and backup starters " + currAwayPitcher + ", " + away['starters'][4] + " were both unavailable for this game. " + " Bullpen day.\n"
-            away['burned-pitchers'].append(away['starters'][4])
+            backup = away['starters'][4] if len(away['starters']) > 4 else "none"
+            long_output += "The scheduled and backup starters " + currAwayPitcher + ", " + str(backup) + " were both unavailable for this game. " + " Bullpen day.\n"
+            if len(away['starters']) > 4:
+                away['burned-pitchers'].append(away['starters'][4])
             currAwayPitcher = away['bullpen'][0]
             away['burned-pitchers'].append(currAwayPitcher)
     line_score = [["Inning / Total"],

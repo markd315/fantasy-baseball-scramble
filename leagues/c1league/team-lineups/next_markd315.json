@@ -2,37 +2,49 @@
   "team-name": "Liverpool Ale Quaffers",
   "abbv": "LAQ",
   "batting-order": [
-    "Brandon Nimmo",
-    "Austin Hays",
-    "Marcus Semien",
-    "Pete Alonso",
-    "Starling Marte",
-    "Yordan Alvarez",
-    "Austin Riley",
-    "William Contreras",
-    "Jose Barrero"
+    "Salvador Perez",
+    "Paul Goldschmidt",
+    "Jose Altuve",
+    "Corey Seager",
+    "Nolan Arenado",
+    "Giancarlo Stanton",
+    "Aaron Judge",
+    "Franmil Reyes",
+    "Shohei Ohtani"
   ],
   "pinch-hitter": "",
   "pinch-runner": "",
   "starters": [
+    "Sandy Alcantara",
     "Max Scherzer",
-    "Jacob deGrom",
-    "Carlos Carrasco",
-    "Corey Kluber",
-    "Nestor Cortes"
+    "Kevin Gausman",
+    "Shane Bieber",
+    "Carlos Rodon"
   ],
   "bullpen": [
-    "Logan Gilbert",
-    "Sandy Alcantara",
-    "Adam Ottavino",
-    "Emmanuel Clase",
-    "Paul Sewald"
+    "Jacob deGrom",
+    "Justin Verlander",
+    "Kenley Jansen",
+    "Max Fried",
+    "Tony Gonsolin",
+    "Yu Darvish",
+    "Nestor Cortes"
   ],
   "closer": "Edwin Diaz",
   "closer-min-lead-away": 0,
   "closer-max-lead-away": 3,
   "closer-min-lead-home": 0,
   "closer-max-lead-home": 2,
-  "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
-  "fireman": "Seth Lugo"
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "fireman": "Aroldis Chapman"
 }

@@ -541,8 +541,8 @@
     "boxscoreName": "Alvarez",
     "currentTeam": 117,
     "primaryPosition": {
-      "code": "10",
-      "abbreviation": "DH"
+      "code": "7",
+      "abbreviation": "LF"
     },
     "handedness": [
       "LHB",
@@ -789,8 +789,8 @@
     "boxscoreName": "Arozarena",
     "currentTeam": 139,
     "primaryPosition": {
-      "code": "7",
-      "abbreviation": "LF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -1584,8 +1584,8 @@
     "boxscoreName": "Betts",
     "currentTeam": 119,
     "primaryPosition": {
-      "code": "9",
-      "abbreviation": "RF"
+      "code": "8",
+      "abbreviation": "CF"
     },
     "handedness": [
       "RHB",
@@ -2736,8 +2736,8 @@
     "boxscoreName": "Castellanos, N",
     "currentTeam": 143,
     "primaryPosition": {
-      "code": "9",
-      "abbreviation": "RF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -6505,8 +6505,8 @@
     "boxscoreName": "Guerrero Jr.",
     "currentTeam": 141,
     "primaryPosition": {
-      "code": "3",
-      "abbreviation": "1B"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -7225,8 +7225,8 @@
     "boxscoreName": "Hernández, T",
     "currentTeam": 141,
     "primaryPosition": {
-      "code": "9",
-      "abbreviation": "RF"
+      "code": "7",
+      "abbreviation": "LF"
     },
     "handedness": [
       "RHB",
@@ -8077,8 +8077,8 @@
     "boxscoreName": "Judge",
     "currentTeam": 147,
     "primaryPosition": {
-      "code": "9",
-      "abbreviation": "RF"
+      "code": "8",
+      "abbreviation": "CF"
     },
     "handedness": [
       "RHB",
@@ -15005,7 +15005,7 @@
     ]
   },
   {
-    "fullName": "Will Smith",
+    "fullName": "Will Smith (B)",
     "boxscoreName": "Smith, W.D.",
     "currentTeam": 119,
     "primaryPosition": {
@@ -15018,7 +15018,7 @@
     ]
   },
   {
-    "fullName": "Will Smith",
+    "fullName": "Will Smith (P)",
     "boxscoreName": "Smith, W.M.",
     "currentTeam": 117,
     "primaryPosition": {
@@ -15347,8 +15347,8 @@
     "boxscoreName": "Stanton",
     "currentTeam": 147,
     "primaryPosition": {
-      "code": "10",
-      "abbreviation": "DH"
+      "code": "7",
+      "abbreviation": "LF"
     },
     "handedness": [
       "RHB",
@@ -16520,8 +16520,8 @@
     "boxscoreName": "Turner, T",
     "currentTeam": 119,
     "primaryPosition": {
-      "code": "6",
-      "abbreviation": "SS"
+      "code": "4",
+      "abbreviation": "2B"
     },
     "handedness": [
       "RHB",
