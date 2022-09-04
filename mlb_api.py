@@ -121,7 +121,8 @@ def loadLineup(league, team_name, box_games, weekNumber):
                 continue
             player = playerQuery(player)[0]
             team['handedness'][player['fullName']] = player['handedness']
-            validateOnRoster(player, roster)
+            # Commenting this out because there could be trades drops etc, validate elsewhere.
+            # validateOnRoster(player, roster)
             totals = processing.filterPlayerPasDefensive(box_games, player)
             pitcherTotals[player['fullName'] + '_p'] = totals
             if simulationConfig.fatigueEnabled:

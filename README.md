@@ -142,6 +142,9 @@ sudo docker cp config.py $eid:/apps/config.py
 Runs the league week, publishing results logs etc
 `docker exec -it $eid python simulateLeagueWeek.py`
 
+To lock in rosters (normally a week will already do this)
+`docker exec -it $eid python commitNewRosters.py`
+
 For any further debugging
 `docker exec -it $eid /bin/sh`
 
