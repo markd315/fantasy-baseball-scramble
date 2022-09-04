@@ -27,6 +27,7 @@ COPY cached-box-scores cached-box-scores
 COPY leagues leagues
 
 RUN useradd anvil
+RUN useradd python
 RUN chown -R anvil:anvil /anvil-data
 RUN chown -R anvil:anvil leagues
 RUN chown -R anvil:anvil cached-box-scores
@@ -45,7 +46,8 @@ COPY fatigue.py fatigue.py
 COPY processing.py processing.py
 COPY simulateLeagueWeek.py simulateLeagueWeek.py
 COPY playersTeamsAndPositions.json playersTeamsAndPositions.json
-RUN chmod 755 leagues
+RUN chmod -R 777 leagues
+RUN chown -R anvil leagues
 
 EXPOSE 3030
 

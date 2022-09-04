@@ -106,6 +106,10 @@ class LineupChangeForm(LineupChangeTemplate):
         self.load_trades()
 
     def set_lineup_click(self, **event_args):
+        for flowcomponent in self.lineup.get_components():
+            textbox = flowcomponent.get_components()[1]
+            if hasattr(textbox, "placeholder"):
+                textbox.text = textbox.text.strip()
         self.show_positions()
         if "TOO MANY " in self.instr.text or "NEED A " in self.instr.text:  # Invalid, now the user will know
             return

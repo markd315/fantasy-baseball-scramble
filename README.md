@@ -128,7 +128,18 @@ eid=$(docker ps --filter name=fantasy-mlb-prod | tail -n 1 | awk '{print $1;}')
 ```
 
 Takes a league backup to the vm
-`docker cp $eid:/apps/leagues backups/leagues_backup$(date +'%d-%m-%Y-%H-%M')`
+```commandline
+docker cp $eid:/apps/leagues /home/ec2-user/backups/leagues_backup$(date +'%d-%m-%Y-%H-%M')
+```
+
+Restores a league backup
+```commandline
+docker exec -it $eid rm -rf /apps/leagues
+sudo cp /home/ec2-user/backups/leagues_backup------- backups/leagues -r
+sudo chown -R root leagues
+sudo chmod -R 777 leagues
+sudo docker cp backups/leagues/ $eid:/apps
+```
 
 Updates the league week prior to an execution
 ```bash
@@ -140,13 +151,19 @@ sudo docker cp config.py $eid:/apps/config.py
 ```
 
 Runs the league week, publishing results logs etc
-`docker exec -it $eid python simulateLeagueWeek.py`
+```commandline
+sudo docker exec -it $eid python simulateLeagueWeek.py
+```
 
 To lock in rosters (normally a week will already do this)
-`docker exec -it $eid python commitNewRosters.py`
+```commandline
+sudo docker exec -it $eid python commitNewRosters.py
+```
 
 For any further debugging
-`docker exec -it $eid /bin/sh`
+```commandline
+sudo docker exec -it $eid /bin/sh
+```
 
 
 ### some math on handedness
