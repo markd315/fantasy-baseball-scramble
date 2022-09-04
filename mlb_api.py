@@ -199,18 +199,15 @@ def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bi
         return playerQuery(name, teamId, pos)
 
 
-def getWeeklyBox(endtime=datetime.now() - timedelta(days=0.00001), duration_days=6):  # Add timedelta to rule out games in progress
+def getWeeklyBox(endtime=datetime.now(), duration_days=5):  # subtract timedelta to rule out games in progress
     end_date = endtime.strftime("%Y-%m-%d")
-    begin = endtime - timedelta(
-        days=duration_days)  # 6 day lookback instead of 7 to prevent double starts?
+    begin = endtime - timedelta(days=duration_days)  #5 day lookback instead of 7 to prevent double starts?
     st_date = begin.strftime("%Y-%m-%d")
     games = statsapi.schedule(start_date=st_date, end_date=end_date, team="", opponent="", sportId=1, game_id=None)
     box_games = []
     for game in games:
         try:
-            with open("cached-box-scores/" + str(game['game_id']) + ".json",
-                      "r") as json_file:
-                #print(str(game['game_id']))
+            with open("cached-box-scores/" + str(game['game_id']) + ".json", "r") as json_file:
                 game = json.load(json_file)
                 box_games.append(game)
         except FileNotFoundError:  # Hit the API

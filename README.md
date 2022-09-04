@@ -135,10 +135,10 @@ docker cp $eid:/apps/leagues /home/ec2-user/backups/leagues_backup$(date +'%d-%m
 Restores a league backup
 ```commandline
 docker exec -it $eid rm -rf /apps/leagues
-sudo cp /home/ec2-user/backups/leagues_backup------- backups/leagues -r
+sudo cp /home/ec2-user/backups/leagues_backup04-09-2022-04-52 /home/ec2-user/backups/leagues -r
 sudo chown -R root leagues
 sudo chmod -R 777 leagues
-sudo docker cp backups/leagues/ $eid:/apps
+sudo docker cp /home/ec2-user/backups/leagues/ $eid:/apps
 ```
 
 Updates the league week prior to an execution
