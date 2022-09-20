@@ -111,7 +111,7 @@ You must reconfigure the SSL Dockerfile command if you are deploying this somewh
 docker build -f Dockerfile.dev -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest .
 docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest
 
-docker build -f Dockerfile.prod -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
+docker build -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
 docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
 ```
 
