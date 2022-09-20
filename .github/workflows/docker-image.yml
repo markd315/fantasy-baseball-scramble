@@ -1,0 +1,27 @@
+name: CI
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+# Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://ghcr.io/kciter/aws-ecr-action:latest
+      with:
+        access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        account_id: ${{ secrets.AWS_ACCOUNT_ID }}
+        repo: fantasy-baseball-prod
+        region: us-east-1
+        tags: latest
+        create_repo: true
+        image_scanning_configuration: false
+        set_repo_policy: false
+        repo_policy_file: repo-policy.json
