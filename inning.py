@@ -31,7 +31,9 @@ def parseHandednessData(arr, batter, pitcher):
 def getCoinForMatchup(teamsInLeague, pitchingTeam, battingTeam, currPitcher, orderSlot):
     if config.ignoreRightyLeftyHandedness:
         rng = random.uniform(0, 1)
-        return 0.5 > rng
+        if 0.5 > rng:
+            return 'batter'
+        return 'pitcher'
     batter = battingTeam['batting-order'][orderSlot - 1]
     batter_hands = battingTeam['handedness'][batter]
     pitcher_hands = pitchingTeam['handedness'][currPitcher]

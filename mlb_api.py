@@ -66,10 +66,24 @@ def getAndValidateLineup(team, roster):
             validateOnRoster(player, roster)
     return ret
 
+
+def positionCompatible(toReplace, player):
+    positionToFill = toReplace['primaryPosition']['code']
+    player = playerQuery(player)[0]
+    if positionToFill == player['primaryPosition']['code']:
+        return True
+    if positionToFill in ["7", "8", "9"] and player['primaryPosition']['code'] in ["7", "8", "9"]:
+        return True  # Allow moving outfielders around
+    if positionToFill == '10' and player['primaryPosition']['code'] == 'Y':
+        return True
+    if positionToFill == 'Y' and player['primaryPosition']['code'] == '10':
+        return True
+    return False
+
+
 def loadLineup(league, team_name, box_games, weekNumber):
     with open("leagues/" + league + "/team-lineups/" + team_name + ".json", "r") as json_file:
         team = json.load(json_file)
-        roster = []
         with open("leagues/" + league + "/team-lineups/" + team['abbv'] + ".roster", "r") as roster_file:
             roster = roster_file.readlines()
             for idx, line in enumerate(roster):
@@ -95,8 +109,21 @@ def loadLineup(league, team_name, box_games, weekNumber):
             batterTotals[player['fullName'] + '_b'] = totals
             pas = processing.randomWalkOfWeeklyTotals(totals)
             if len(pas) < 5:
-                print("Small sample for " + player['fullName'])
-                #raise(BaseException("Not enough data for player " + player['fullName'] + " must be replaced by bench"))
+                print("Small sample for starter " + player['fullName'])
+                for pl in roster:
+                    if pl != player['fullName'] and positionCompatible(player, pl):
+                        query = playerQuery(pl)[0]
+                        totals_2 = processing.filterPlayerPas(box_games, query)
+                        batterTotals[pl + '_b'] = totals_2
+                        pas_2 = processing.randomWalkOfWeeklyTotals(totals_2)
+                        print(totals_2)
+                        print(pas_2)
+                        if len(pas_2) >= 5:
+                            print("Able to replace " + player['fullName'] + " with " + pl)
+                            print(team['batting-order'])
+                            orderIdx = team['batting-order'].index(player['fullName'])
+                            team['batting-order'][orderIdx] = player['fullName']
+                            pas = pas_2
             team['batting-results'].append(pas)
             errs = fillErrors(player, box_games)
             for err in errs:

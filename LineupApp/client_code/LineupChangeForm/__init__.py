@@ -249,6 +249,7 @@ class LineupChangeForm(LineupChangeTemplate):
             if player['fullName'].lower() == check_for.lower():
                 if player['fullName'] == check_for:
                     rostered_team = anvil.server.call('get_rostered_team', self.league_name.text, check_for)
+                    print(rostered_team)
                     if rostered_team != "":
                         self.add_drop_position.text = "Currently on team " + rostered_team
                     else:

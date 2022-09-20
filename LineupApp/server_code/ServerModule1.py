@@ -186,10 +186,11 @@ def addPlayerValidated(league, abbv, player_add):
 
 @anvil.server.callable
 def get_rostered_team(league, player_nm, **q):
-    league = league.lower()
     for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
         with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
             lines = roster_file.readlines()
+            for idx, line in enumerate(lines):
+                lines[idx] = line.strip()
             if player_nm in lines:
                 roster_file.close()
                 return p.name.replace(".roster", "")
