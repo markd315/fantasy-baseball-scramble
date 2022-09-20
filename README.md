@@ -114,7 +114,6 @@ docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:la
 docker build -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
 docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
 ```
-
 # Docker commands for admin
 Saves containerid for anything below.
 ```commandline
