@@ -29,7 +29,7 @@ COPY leagues leagues
 RUN useradd anvil
 RUN useradd python
 RUN chown -R anvil:anvil /anvil-data
-RUN chmod -R 777 /cached-box-scores
+RUN chmod -R 777 /apps/cached-box-scores
 USER anvil
 
 
