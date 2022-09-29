@@ -235,6 +235,7 @@ def getWeeklyBox(endtime=datetime.now(), duration_days=5):  # subtract timedelta
     for game in games:
         try:
             with open("cached-box-scores/" + str(game['game_id']) + ".json", "r") as json_file:
+                print(str(game['game_id']))
                 game = json.load(json_file)
                 box_games.append(game)
         except FileNotFoundError:  # Hit the API
@@ -292,8 +293,8 @@ def getWeeklyBox(endtime=datetime.now(), duration_days=5):  # subtract timedelta
                     "eventType"] == "field_error":
                     box['errors-detail'].append(play)
                     desc = play["result"]["description"].split(" ")
-                    byIndex = desc.index("by")
                     try:
+                        byIndex = desc.index("by")
                         # by [position] [player]
                         if desc[byIndex + 2] == "baseman" or desc[byIndex + 2] == "fielder":
                             fn = desc[byIndex + 3]
