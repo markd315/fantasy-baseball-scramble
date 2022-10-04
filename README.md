@@ -75,17 +75,26 @@ metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
 # Features to come:
+7 day weeks to prevent excessive lineup micromanagement.
+
+Troubleshoot any issues with substitutions using the live league backups.
+
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 
 Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thing OP. If it's just a second chance to steal/bat when the hitter does not succeed with no consequence, maybe that's too strong?
 
 Ok so maybe implement PR straight up since they are specialists. For PH, look at the hitter being replaced. Add 3 past PA and 3 future PA to "see if they are hot" by taking the OPS. If the PH dataset has a higher OPS, make the substitution.
 
-Allow entering a 4-player bench into the lineup in case position players have 5 or fewer plate appearences from the week (errors are at least detected for this)
-
-More balanced/unique sample teams, some duplicate orders and NYB is overpowered especially the batting orders. Maybe keep these as strong hitting teams but make their pitching weak.
-
 Injured list manage from Bench page, will also require change to data model to allow restrictions on readding player so that you cannot recall them for 10-15 days (or certain number of weeks) after adding.
+
+Expanded roster option? 30 may make more sense than 25.
+
+Per league simulation variables instead of globally configured ones.
+
+Walkoff wins
+
+Manager position as an optional fun thing, they can challenge wrong calls (put "it was a close play" sometimes in the output and have the wrong value) and get ejected for arguing balls and strikes.
+Need a datasource if I were to do this.
 
 "injuredList" [
     {
