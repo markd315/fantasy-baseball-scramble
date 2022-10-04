@@ -1,0 +1,45 @@
+{
+  "team-name": "Montreal Expos",
+  "abbv": "EML",
+  "batting-order": [
+    "Bo Bichette",
+    "Ronald Acuna Jr.",
+    "Manny Machado",
+    "Trevor Story",
+    "Tyler O'Neill",
+    "Will Smith (B)",
+    "George Springer",
+    "Matt Olson",
+    "Randy Arozarena"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Corbin Burnes",
+    "Julio Urias",
+    "Zack Wheeler",
+    "Aaron Nola"
+  ],
+  "bullpen": [
+    "Logan Webb",
+    "Frankie Montas",
+    "Trevor Rogers"
+  ],
+  "closer": "Josh Hader",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "fireman": "Ryan Pressly"
+}

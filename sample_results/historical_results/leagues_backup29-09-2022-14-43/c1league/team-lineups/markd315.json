@@ -1,0 +1,50 @@
+{
+  "team-name": "Liverpool Ale Quaffers",
+  "abbv": "LAQ",
+  "batting-order": [
+    "Aaron Judge",
+    "Paul Goldschmidt",
+    "Nolan Arenado",
+    "Jose Altuve",
+    "Shohei Ohtani",
+    "Alejandro Kirk",
+    "Corey Seager",
+    "Franmil Reyes",
+    "Mark Canha"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Shohei Ohtani",
+    "Max Scherzer",
+    "Jacob deGrom",
+    "Max Fried",
+    "Sandy Alcantara"
+  ],
+  "bullpen": [
+    "Kevin Gausman",
+    "Nick Lodolo",
+    "Shane Bieber",
+    "Nestor Cortes",
+    "Brandon Woodruff",
+    "Yu Darvish",
+    "Kenley Jansen"
+  ],
+  "closer": "Edwin Diaz",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": -1,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    7,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5
+  ],
+  "fireman": "Aroldis Chapman"
+}

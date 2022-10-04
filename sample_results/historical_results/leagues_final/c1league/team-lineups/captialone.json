@@ -1,0 +1,44 @@
+{
+  "team-name": "Mooney Money",
+  "abbv": "MOO",
+  "batting-order": [
+    "Jose Ramirez",
+    "Vladimir Guerrero",
+    "Mookie Betts",
+    "Teoscar Hernandez",
+    "Pete Alonso",
+    "Sean Murphy",
+    "Kyle Tucker",
+    "Whit Merrifield",
+    "Wander Franco"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Walker Buehler",
+    "Lucas Giolito",
+    "Robbie Ray",
+    "Jose Berrios",
+    "Dylan Cease"
+  ],
+  "bullpen": [
+    "Emmanuel Clase"
+  ],
+  "closer": "Liam Hendriks",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ],
+  "fireman": "Raisel Iglesias"
+}

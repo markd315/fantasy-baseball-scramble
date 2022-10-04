@@ -1,0 +1,39 @@
+{
+  "team-name": "New York Bankers",
+  "abbv": "NYB",
+  "batting-order": [
+    "Brandon Nimmo",
+    "Austin Hays",
+    "Marcus Semien",
+    "Pete Alonso",
+    "Starling Marte",
+    "Yordan Alvarez",
+    "Austin Riley",
+    "William Contreras",
+    "Francisco Lindor"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Justin Verlander",
+    "Max Fried",
+    "Merrill Kelly",
+    "Tony Gonsolin",
+    "Jason Adam"
+  ],
+  "bullpen": [
+    "Domingo Acevedo",
+    "Shane McClanahan",
+    "John Brebbia",
+    "Johnny Cueto",
+    "Paul Sewald"
+  ],
+  "closer": "Corey Knebel",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [8, 7, 6, 6, 5, 5, 5, 4, 4],
+  "fireman": "Garrett Whitlock"
+}
+
