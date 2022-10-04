@@ -25,7 +25,7 @@ for league in os.listdir("leagues"):
             continue
     weeks = scheduling.getWeeklySchedule(league, box_games)
     lineups = os.listdir("leagues/" + league + "/team-lineups")
-    if leagueWeek < len(weeks) - 1:
+    if leagueWeek < len(weeks):
         week = weeks[leagueWeek]
     else:
         continue

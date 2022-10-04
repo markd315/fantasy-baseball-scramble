@@ -1,4 +1,4 @@
-leagueWeek = 0
+leagueWeek = 5
 maxRegularSeasonWeeks = 6
 innings = 9
 trackedBattingStats = ['ab', 'h', 'doubles', 'triples', 'hr', 'sb', 'bb', 'k']
