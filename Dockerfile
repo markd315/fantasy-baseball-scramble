@@ -44,6 +44,7 @@ COPY mlb_api.py mlb_api.py
 COPY fatigue.py fatigue.py
 COPY processing.py processing.py
 COPY simulateLeagueWeek.py simulateLeagueWeek.py
+COPY notify_mail notify_mail.py
 COPY playersTeamsAndPositions.json playersTeamsAndPositions.json
 
 
