@@ -4,6 +4,8 @@ import os
 from pathlib import Path
 
 import anvil.server
+
+import mail
 import mlb_api
 import scheduling
 import simulationConfig
@@ -229,6 +231,7 @@ def get_results(league, teamAbbv, week, selector):
             results_file.close()
             return ret
     elif selector == "Standings":
+        mail.sendMail("markd315@gmail.com", "Standings were checked at " + str(datetime.datetime.now()))
         with open("leagues/" + league + "/Standings", "r") as results_file:
             ret = results_file.read()
             results_file.close()
