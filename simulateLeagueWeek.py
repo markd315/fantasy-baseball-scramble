@@ -12,7 +12,7 @@ import scheduling
 
 
 box_games = mlb_api.getWeeklyBox(
-    datetime.now()
+    datetime(year=2022, month=10, day=3, hour=23, minute=59, second=0)
 )
 
 
