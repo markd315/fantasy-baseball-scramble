@@ -1,7 +1,7 @@
 def sendMail(to, body, subject="it works", from_name="Fantasy Scramble"):
     # Replace YOUR_API_KEY with your actual API key
-    with open("sendinblue_API_KEY", 'r') as file:
-        API_KEY = file.readline()
+        import os
+        API_KEY = os.getenv('sendinblue_API_KEY')
         import json
         import requests
 
