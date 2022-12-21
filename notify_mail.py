@@ -1,15 +1,36 @@
-import smtplib
-from email.message import EmailMessage
+def sendMail(to, body, subject="it works", from_name="Fantasy Scramble"):
+    # Replace YOUR_API_KEY with your actual API key
+    with open("sendinblue_API_KEY", 'r') as file:
+        API_KEY = file.readline()
+        import json
+        import requests
 
-def sendMail(recipient, body_text, sender="draft"):
-    message = EmailMessage()
-    message.set_content(body_text)
-    message['Subject'] = 'MLB Fantasy'
-    message['From'] = sender + "@fantasy.zanzalaz.com"
-    message['To'] = recipient
+        # Set the API endpoint URL
+        url = 'https://api.sendinblue.com/v3/smtp/email'
 
-    smtp_server = smtplib.SMTP('smtp.gmail.com', 587)
-    smtp_server.ehlo()
-    smtp_server.starttls()
-    smtp_server.send_message(message)
-    smtp_server.quit()
+        # Set the email parameters
+        payload = {
+            "sender": {
+                "name": from_name,
+                "email": "fantasyscramble@sendinblue.com"
+            },
+            'to': [{'email': to}],
+            'subject': subject,
+            'htmlContent': '<p>' + body + '</p>'
+        }
+
+        # Set the headers
+        headers = {
+            'Content-Type': 'application/json',
+            'api-key': API_KEY
+        }
+
+        # Send the request
+        response = requests.post(url, json=payload, headers=headers)
+
+        # Print the response
+        print(response.text)
+
+
+if __name__ == "__main__":
+    sendMail("markd315@gmail.com", "mailstop")

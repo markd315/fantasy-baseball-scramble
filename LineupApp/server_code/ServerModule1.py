@@ -232,7 +232,7 @@ def get_results(league, teamAbbv, week, selector):
             return ret
     elif selector == "Standings":
         try:
-            notify_mail.sendMail("markd315@gmail.com", "Standings were checked at " + str(datetime.datetime.now()))
+            notify_mail.sendMail("markd315@gmail.com", "Standings were checked at " + str(datetime.datetime.now()), "Server Activity")
         except BaseException:
             pass
         with open("leagues/" + league + "/Standings", "r") as results_file:
