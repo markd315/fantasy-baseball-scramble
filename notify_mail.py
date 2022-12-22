@@ -1,3 +1,6 @@
+import requests
+
+
 def sendMail(to, body, subject="it works", from_name="Fantasy Scramble"):
     # Replace YOUR_API_KEY with your actual API key
         import os

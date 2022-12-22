@@ -6,3 +6,4 @@ anvil-uplink
 jsbeautifier
 numpy~=1.23.2
 pymongo
+selenium

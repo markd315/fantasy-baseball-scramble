@@ -45,6 +45,7 @@ COPY fatigue.py fatigue.py
 COPY processing.py processing.py
 COPY simulateLeagueWeek.py simulateLeagueWeek.py
 COPY notify_mail.py notify_mail.py
+COPY scrapeInjuries.py scrapeInjuries.py
 COPY playersTeamsAndPositions.json playersTeamsAndPositions.json
 
 
