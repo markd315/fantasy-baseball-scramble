@@ -13,19 +13,19 @@ anvil-app-server --app LineupApp
 ```
 
 
-![Example output](../blob/main/img/line_output.png?raw=true)
+![Example output](../main/img/line_output.png?raw=true)
 
-![Example output](../blob/main/img/debug_output.png?raw=true)
+![Example output](../main/img/debug_output.png?raw=true)
 
 There is even a cool webapp which can run in a docker container and allows you to set your lineups, obtain results etc during league operation. Be sure to change the origin setting in the Dockerfile if you host it somewhere else.
 
-![Example output](../blob/main/img/set_lineup.png?raw=true)
-![Example output](../blob/main/img/add_drop.png?raw=true)
-![Example output](../blob/main/img/standings.png?raw=true)
-![Example output](../blob/main/img/web_output.png?raw=true)
+![Example output](../main/img/set_lineup.png?raw=true)
+![Example output](../main/img/add_drop.png?raw=true)
+![Example output](../main/img/standings.png?raw=true)
+![Example output](../main/img/web_output.png?raw=true)
 
 It even works okay on mobile! Mostly.
-![Example output](../blob/main/img/mobile.png?raw=true)
+![Example output](../main/img/mobile.png?raw=true)
 
 
 Both your batters and pitchers play full simulated games against your opponent(s).
