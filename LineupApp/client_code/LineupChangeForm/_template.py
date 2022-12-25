@@ -81,6 +81,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.accept_panel.add_component(self.accept)
         self.accept_panel.add_component(self.reject)
         self.json_trades = {}
+        self.dd_items = []
 
         self.txt_label = [
             "^ That's your bench. Order of players will affect the simulation results. You must have exactly one player from each position in the lineup and only one DH/TWP. Errors with positions will display at the start of these instructions. Your team code is the credential for managing your roster and lineup and anyone who has it can submit changes on your behalf so keep it hidden. The closer can only enter the game in the 9th inning or later, and the fireman will be used in a 7th+ inning situations where there are runners on base in a close game.",
@@ -90,10 +91,9 @@ class LineupChangeTemplate(HtmlPanel):
             "Propose trades using the top part of the form. Put each player name on a separate line and ensure correct spelling/capitalization. Accept trades from other players using the bottom part of the form. Highlight a trade using the dropdown, then accept or reject it as desired."
         ]
         self.instr = Label(text=self.txt_label[0])
-        self.define_lineup()
         self.page_state = 'lineup'
         # Pages
-        self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.lineup, self.roster, self.instr}
+        self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.roster, self.instr}
         self.ctl_add_drop = {self.league_name, self.team_name, self.add_lineup, self.drop_lineup, self.roster, self.add_panel, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.team_abbv, self.results_sel, self.results_panel, self.instr}
@@ -165,43 +165,51 @@ class LineupChangeTemplate(HtmlPanel):
 
     def define_lineup(self):
         self.lineup = FlowPanel(align="center")
+        self.direct_players = []
         for i in range(1, 6):
             player = FlowPanel(align="center")
             player.add_component(Label(text="S" + str(i), width=20))
             color = self.hex_from_base('#b6efa3', i)
-            player.add_component(TextBox(placeholder="Starter " + str(i), width=240, background=color))
-            if i == 5:
-                player.get_components()[1].placeholder = "Backup/Gm5 Starter"
+            component_tmp = DropDown(placeholder="Starter " + str(i), width=240, background=color, items=['A', 'B'])
+            player.add_component(component_tmp)
             self.lineup.add_component(player)
+            self.direct_players.append(player)
         for i in range(1, 8):
             player = FlowPanel(align="center")
             player.add_component(Label(text="R" + str(i), width=20))
             color = self.hex_from_base('#a3c9ef', i)
-            player.add_component(TextBox(placeholder="Bullpen " + str(i), width=240, background=color))
+            player.add_component(DropDown(placeholder="Bullpen " + str(i), width=240, background=color))
             self.lineup.add_component(player)
+            self.direct_players.append(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="FI"), width=20)
-        player.add_component(TextBox(placeholder="Fireman", width=240, background='#64fff0'))
+        player.add_component(DropDown(placeholder="Fireman", width=240, background='#64fff0'))
         self.lineup.add_component(player)
+        self.direct_players.append(player)
         player = FlowPanel(align="center")
         player.add_component(Label(text="CL"), width=20)
-        player.add_component(TextBox(placeholder="Closer", width=240, background='#afafff'))
+        player.add_component(DropDown(placeholder="Closer", width=240, background='#afafff'))
         self.lineup.add_component(player)
+        self.direct_players.append(player)
         for i in range(1, 10):
             player = FlowPanel(align="center")
             player.add_component(Label(text="B" + str(i), width=20))
             color = self.hex_from_base('#bf9973', i)
-            player.add_component(TextBox(placeholder="Batting order " + str(i), width=240, background=color))
+            player.add_component(DropDown(placeholder="Batting order " + str(i), width=240, background=color))
             self.lineup.add_component(player)
+            self.direct_players.append(player)
 
         config = FlowPanel(align="center")
         config.add_component(Label(text="Reverse bullpen order (when losing by <=N runs in the indexed inning)", width=310))
         config.add_component(TextBox(placeholder="Save Bullpen Deficit", width=310))
         self.lineup.add_component(config)
+        self.direct_players.append(config)
         config = FlowPanel(align="center")
         config.add_component(Label(text="Closer enters game when lead is between (min):(max) runs", width=310))
         config.add_component(TextBox(placeholder="Closer Settings"))
         self.lineup.add_component(config)
+        self.direct_players.append(config)
+        self.lineup_defined = True
 
     def addHandlers(self):
         if hasattr(self, "team_name"):
