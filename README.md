@@ -13,19 +13,19 @@ anvil-app-server --app LineupApp
 ```
 
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/line_output.png)
+![Example output](../blob/main/img/line_output.png?raw=true)
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/debug_output.png)
+![Example output](../blob/main/img/debug_output.png?raw=true)
 
 There is even a cool webapp which can run in a docker container and allows you to set your lineups, obtain results etc during league operation. Be sure to change the origin setting in the Dockerfile if you host it somewhere else.
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/set_lineup.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/add_drop.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/standings.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/web_output.png)
+![Example output](../blob/main/img/set_lineup.png?raw=true)
+![Example output](../blob/main/img/add_drop.png?raw=true)
+![Example output](../blob/main/img/standings.png?raw=true)
+![Example output](../blob/main/img/web_output.png?raw=true)
 
 It even works okay on mobile! Mostly.
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/mobile.png)
+![Example output](../blob/main/img/mobile.png?raw=true)
 
 
 Both your batters and pitchers play full simulated games against your opponent(s).
@@ -105,11 +105,12 @@ Need a datasource if I were to do this.
 
 Setup server cron job
 
-Webapp ideas for quality of life:
-filter for players on mlb_data conditional on results dropdown set to this
-Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc
+
+### Webapp ideas for quality of life:
+
+Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc. This is the potential revenue adder
 Social login instead of team-code?
-Eventually... draft
+Eventually... live draft instead of email notifications? Requires page to live update so probably not.
 
 
 # SSL
