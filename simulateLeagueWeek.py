@@ -1,7 +1,10 @@
+import pandas as pd
 from tabulate import tabulate
 
 import game
+import rosters
 import simulationConfig as config
+from LineupApp.server_code import ServerModule1
 
 leagueWeek = config.leagueWeek
 maxRegularSeasonWeeks = config.maxRegularSeasonWeeks  # TODO this isn't a true cap yet, we will always play at least one full round robin.
@@ -59,13 +62,17 @@ for league in os.listdir("leagues"):
         line_scores += tabulate(line_score) + "\n\n"
         scheduling.writeLineScores(league, line_scores, gm[0], gm[1], leagueWeek)
 
-        scheduling.commitNewRosters(league)
+        rosters.commitNewRosters(league)
+
+
+        rosters.processWaivers(league)
     else:
         for gm in week:
             print(gm[1]['team-name'] + "@" + gm[0]['team-name'])
             if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
                 scheduling.multiGameSeries(gm[0], gm[1], 4, league, leagueWeek)
-        scheduling.commitNewRosters(league)
+        rosters.commitNewRosters(league)
+        rosters.processWaivers(league)
 
 # game.offenseCalibrationOutput(away)
 print("fin")

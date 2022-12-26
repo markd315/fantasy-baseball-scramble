@@ -8,7 +8,6 @@ import numpy as np
 
 import os
 import random
-from pathlib import Path
 
 from tabulate import tabulate
 
@@ -16,18 +15,6 @@ import game
 import mlb_api
 from itertools import permutations
 import pandas as pd
-
-def commitNewRosters(league):
-    pathpre = "leagues/" + league + "/team-lineups/"
-    for p in Path(pathpre).glob('next_*'):
-        lines = []
-        with open(pathpre + p.name, 'r') as file_read:
-            lines = file_read.readlines()
-            file_read.close()
-        committed_path = p.name.replace("next_", "")
-        with open(pathpre + committed_path, 'w') as file_write:
-            file_write.writelines(lines)
-            file_write.close()
 
 
 def add_line_score_to_standings(league, home, away, line_score):
