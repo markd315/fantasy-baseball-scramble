@@ -1,10 +1,8 @@
-import pandas as pd
 from tabulate import tabulate
 
 import game
 import rosters
 import simulationConfig as config
-from LineupApp.server_code import ServerModule1
 
 leagueWeek = config.leagueWeek
 maxRegularSeasonWeeks = config.maxRegularSeasonWeeks  # TODO this isn't a true cap yet, we will always play at least one full round robin.

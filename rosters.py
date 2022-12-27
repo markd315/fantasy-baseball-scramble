@@ -19,7 +19,7 @@ def commitNewRosters(league):
             file_write.writelines(lines)
             file_write.close()
 
-def getRosteredTeam(league, player_nm):
+def get_rostered_team(league, player_nm):
     for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
         with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
             lines = roster_file.readlines()
@@ -99,10 +99,10 @@ def processWaivers(league):
             for c in cl:
                 # Get the add and drop players from the claim
                 add, drop = c.split(":")
-                rostered_team = getRosteredTeam(league, add)
+                rostered_team = get_rostered_team(league, add)
                 if rostered_team != "":
                     continue
-                rostered_team = getRosteredTeam(league, drop)
+                rostered_team = get_rostered_team(league, drop)
                 if rostered_team != team:
                     continue
                 # Open the team's roster file for reading
@@ -139,6 +139,7 @@ def processWaivers(league):
 def addToWaiver(league, team, add, drop):
     waivers_file = "leagues/" + league + "/Waivers"
     # Open the waivers file for reading
+    abbv = authenticateAndGetAbbv(league, team)
     if os.path.isfile(waivers_file):
         with open(waivers_file, "r") as f:
             # Read the lines of the file into a list
@@ -147,7 +148,7 @@ def addToWaiver(league, team, add, drop):
         lines = []
     if len(lines) > 0:
         lines[-1] = lines[-1].strip() + "\n"
-    lines.append(team + ":" + add + ":" + drop)
+    lines.append(abbv + ":" + add + ":" + drop)
     with open(waivers_file, "w") as f:
         # Write the modified roster to the file
         for line in lines:
@@ -157,6 +158,7 @@ def addToWaiver(league, team, add, drop):
 
 def clearWaiverClaims(league, team):
     waivers_file = "leagues/" + league + "/Waivers"
+    abbv = authenticateAndGetAbbv(league, team)
     if not os.path.isfile(waivers_file):
         return
     # Open the waivers file for reading
@@ -166,7 +168,7 @@ def clearWaiverClaims(league, team):
     final = []
     for line in lines:
         chk = line.split(":")[0]
-        if chk != team:
+        if chk != abbv:
             final.append(line)
     final[-1] = final[-1].strip()
     with open(waivers_file, "w") as f:
@@ -174,6 +176,23 @@ def clearWaiverClaims(league, team):
         for line in final:
             f.write(line)
         f.close()
+
+
+def getWaiverClaims(league, team):
+    waivers_file = "leagues/" + league + "/Waivers"
+    abbv = authenticateAndGetAbbv(league, team)
+    if not os.path.isfile(waivers_file):
+        return []
+    # Open the waivers file for reading
+    with open(waivers_file, "r") as f:
+        # Read the lines of the file into a list
+        lines = f.readlines()
+    final = []
+    for line in lines:
+        chk = line.split(":")[0]
+        if chk == abbv:
+            final.append(line)
+    return final
 
 
 def getLineup(league, teamNm):
@@ -258,3 +277,11 @@ def add_chat(league, sender, msg):
         toAdd = ">" + sender + " " + date_time_str + ": " + msg + "\n\n"
         chat_file.write(toAdd)
         chat_file.close()
+
+
+def authenticateAndGetAbbv(league, teamNm):
+    with open("leagues/" + league + "/team-lineups/" + teamNm + ".json", "r") as lineup_file:
+        lineup = json.load(lineup_file)
+        abbv = lineup['abbv']
+        lineup_file.close()
+        return abbv

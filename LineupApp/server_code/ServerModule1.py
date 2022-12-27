@@ -9,15 +9,7 @@ import mlb_api
 import notify_mail
 import rosters
 import scheduling
-from rosters import getLineup, addPlayerValidated, checkDraftState, add_chat
-
-
-def authenticateAndGetAbbv(league, teamNm):
-    with open("leagues/" + league + "/team-lineups/" + teamNm + ".json", "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
-        return abbv
+from rosters import getLineup, addPlayerValidated, checkDraftState, add_chat, authenticateAndGetAbbv
 
 
 @anvil.server.callable
@@ -324,10 +316,29 @@ def approve_trade(league, teamNm, trade_code):
 
 
 @anvil.server.callable
-def clearWaiverClaims(league, team):
+def clear_waiver_claims(league, team):
     rosters.clearWaiverClaims(league, team)
 
 
+def isWaiverPeriod():
+    return True
+    # TODO
+
+
 @anvil.server.callable
-def addToWaiverClaims(league, team, add, drop):
-    rosters.addToWaiver(league, team, add, drop)
+def add_to_waiver_claims(league, team, add, drop):
+    if isWaiverPeriod():
+        rosters.addToWaiver(league, team, add, drop)
+    else:
+        rostered_team = rosters.get_rostered_team(league, add)
+        if rostered_team != "":  # Not processing if adding a rostered player
+            return
+        if drop != "":
+            rosters.removeFromLineup(league, team, drop)
+            drop_player(league, team, drop)
+        add_player(league, team, add)
+
+
+@anvil.server.callable
+def get_waiver_claims(league, team):
+    return rosters.getWaiverClaims(league, team)

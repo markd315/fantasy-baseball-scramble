@@ -121,7 +121,6 @@ class LineupChangeForm(LineupChangeTemplate):
         self.get_bench()
         bench_raw = self.roster.text
 
-        # TODO double aroldis bug at end
         bench_list = bench_raw.split('    ')
         dd_items_p = []
         dd_items_b = []
@@ -229,13 +228,13 @@ class LineupChangeForm(LineupChangeTemplate):
                               self.team_name.text, payload)
             self.load_positions()
 
-    def drop_player_click(self, **event_args):
-        anvil.server.call('drop_player', self.league_name.text, self.team_name.text, self.player_name.text)
-        self.get_bench()
+    def clear_waiver_click(self, **event_args):
+        anvil.server.call('clear_waiver_claims', self.league_name.text, self.team_name.text)
+        self.show_add_drop_page()  # to refresh
 
-    def add_player_click(self, **event_args):
-        anvil.server.call('add_player', self.league_name.text, self.team_name.text, self.player_name.text)
-        self.get_bench()
+    def add_waiver_click(self, **event_args):
+        anvil.server.call('add_to_waiver_claims', self.league_name.text, self.team_name.text, self.player_name.text, self.player_name_dr.text)
+        self.show_add_drop_page()  # to refresh
 
     def get_bench(self, **event_args):
         list, roster_size = anvil.server.call('get_bench', self.league_name.text, self.team_name.text)
@@ -244,13 +243,13 @@ class LineupChangeForm(LineupChangeTemplate):
             return
         txt = ""
         if roster_size < 0:
-            self.drop_lineup.visible = False
+            self.clear_claims.visible = False
         else:
             if self.page_state == 'add-drop':
-                self.drop_lineup.visible = True
-                self.add_lineup.visible = True
+                self.clear_claims.visible = True
+                self.add_claim.visible = True
             if roster_size >= 25:  # TODO find a way to import simulationConfig for this later lol
-                self.add_lineup.visible = False
+                self.add_claim.visible = False
         for elem in list:
             txt += self.get_position(elem.strip())
             txt += ": " + elem + "     "
@@ -328,8 +327,8 @@ class LineupChangeForm(LineupChangeTemplate):
             if player['fullName'].lower() == check_for.lower():
                 if player['fullName'] == check_for:
                     rostered_team = anvil.server.call('get_rostered_team', self.league_name.text, check_for)
-                    print(rostered_team)
-                    if rostered_team != "":
+                    #print(rostered_team)
+                    if rostered_team is not None and rostered_team != "":
                         self.add_drop_position.text = "Currently on team " + rostered_team
                     else:
                         self.add_drop_position.text = "Player Position: " + player['primaryPosition']['abbreviation']
@@ -366,7 +365,7 @@ class LineupChangeForm(LineupChangeTemplate):
         ret = []
         for pl in arr:
             pos = self.get_position(pl)
-            print(pos)
+            #print(pos)
             if pos == "TWP" and pl not in self.base_json['batting-order']:
                 ret.append(pl)
         return ret
