@@ -74,11 +74,54 @@ judge = mlb_api.playerQuery('Aaron Judge')[0]
 metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
+# 2023 scheduling notes
+Opening Day March 30
+
+First rosters lock:
+Saturday midnight April 1-2
+
+First waiver period:
+Monday - Thursday midnight April 3-7
+
+First open add/drop period:
+Thursday midnight - rosters lock midnight april 8-9
+
+First rosters lock midnight april 8-9
+is also the
+First simulation (5 games worth):
+midnight April 8-9
+
+Every date thereafter is just +N weeks until you get to the allstar break
+
+Sunday April 2 - Saturday July 8 (start of all star break)
+14 weeks
+Sunday July 16 - Saturday Sept 30 (few days before end of season)
+11 more weeks
+
+gives us 25 total weeks of play.
+For 16 teams:
+7*2 in-division games + 8 OOD games = 22, 2 playoff weeks of 4 teams
+
+For 14 teams:
+6*2 in-division games + 7 OOD games = 19, 2 playoff weeks of 4 teams
+
+For 12 teams:
+22 regular season x2RR, 2 weeks playoff of 4 teams
+
+For 10 teams:
+18 regular season x2RR, 3 weeks playoff of 6 teams.
+
+For 8 teams:
+21 regular season x3RR, 2 week playoff of 4 teams (or 3 weeks of 6 with a play-in)
+
+For 6 teams:
+20 regular season x4RR, 2 week playoff of 4 teams
+
+For 4 teams:
+24 regular season x7RR, 1 week finals + consolation
+
+
 # Features to come:
-7 day weeks to prevent excessive lineup micromanagement.
-
-Troubleshoot any issues with substitutions using the live league backups.
-
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 
 Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thing OP. If it's just a second chance to steal/bat when the hitter does not succeed with no consequence, maybe that's too strong?
