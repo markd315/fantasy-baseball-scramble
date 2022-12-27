@@ -1,3 +1,5 @@
+import datetime
+
 import simulationConfig
 import simulationConfig as config
 
@@ -191,3 +193,17 @@ def getWeeklySchedule(league, box_games):
             seedFile.close()
     weeks = weeks[0:simulationConfig.maxRegularSeasonWeeks]
     return weeks
+
+
+def isWaiverPeriod():  # Has antipattern dupe in _template.py for client access
+    now = datetime.datetime.now()
+    if now.weekday() == 6:  # Sunday
+        return True
+    elif now.weekday() == 0:  # Monday
+        return True
+    elif now.weekday() == 1:  # Tuesday
+        return True
+    elif now.weekday() == 2:  # Wednesday
+        return True
+    else:
+        return False  # Thursday Friday or Saturday

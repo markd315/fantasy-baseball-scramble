@@ -320,14 +320,9 @@ def clear_waiver_claims(league, team):
     rosters.clearWaiverClaims(league, team)
 
 
-def isWaiverPeriod():
-    return True
-    # TODO
-
-
 @anvil.server.callable
 def add_to_waiver_claims(league, team, add, drop):
-    if isWaiverPeriod():
+    if scheduling.isWaiverPeriod():
         rosters.addToWaiver(league, team, add, drop)
     else:
         rostered_team = rosters.get_rostered_team(league, add)

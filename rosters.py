@@ -33,7 +33,7 @@ def get_rostered_team(league, player_nm):
 
 def removeFromLineup(league, teamName, player):
     # Iterate through all files in the current directory
-    for p in Path("leagues/" + league + "/team-lineups/").glob('*.json'):
+    for p in Path("leagues/" + league + "/team-lineups/").glob('next_*.json'):
         with open("leagues/" + league + "/team-lineups/" + p.name, "r") as file:
             data = json.load(file)
 
@@ -277,7 +277,6 @@ def add_chat(league, sender, msg):
         toAdd = ">" + sender + " " + date_time_str + ": " + msg + "\n\n"
         chat_file.write(toAdd)
         chat_file.close()
-
 
 def authenticateAndGetAbbv(league, teamNm):
     with open("leagues/" + league + "/team-lineups/" + teamNm + ".json", "r") as lineup_file:

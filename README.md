@@ -78,7 +78,7 @@ metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 Opening Day March 30
 
 First rosters lock:
-Saturday midnight April 1-2
+Saturday midnight April 1-2 (technically Sunday)
 
 First waiver period:
 Monday - Thursday midnight April 3-7

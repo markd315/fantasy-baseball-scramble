@@ -1,3 +1,5 @@
+import datetime
+
 import anvil
 from anvil import *
 
@@ -93,7 +95,7 @@ class LineupChangeTemplate(HtmlPanel):
             "All times in the chat are UTC. Chat subject to moderation, keep it safe for work.",
             "Propose trades using the top part of the form. Put each player name on a separate line and ensure correct spelling/capitalization. Accept trades from other players using the bottom part of the form. Highlight a trade using the dropdown, then accept or reject it as desired."
         ]
-        self.instr = Label(text=self.txt_label[0])
+        self.instr = Label(text=self.txt_label[0], font_size=18)
         self.page_state = 'lineup'
         # Pages
         self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.roster, self.instr}
@@ -138,6 +140,13 @@ class LineupChangeTemplate(HtmlPanel):
         claims = anvil.server.call('get_waiver_claims', self.league_name.text, self.team_name.text)
         self.roster.placeholder = "Existing claims show here"
         self.roster.text = ""
+        waiver_period = isWaiverPeriod()
+        if waiver_period:
+            self.add_claim.text = "Submit Claim"
+            self.clear_claims.visible = True
+        else:
+            self.add_claim.text = "Add/Drop (immediate)"
+            self.clear_claims.visible = False
         if claims is not None and len(claims) > 0:
             for claim in claims:
                 self.roster.text += claim + "\n"
@@ -261,3 +270,17 @@ class LineupChangeTemplate(HtmlPanel):
             self.link_chat.set_event_handler('click', self.show_chat_page)
         if hasattr(self, "link_trade"):
             self.link_trade.set_event_handler('click', self.show_trade_page)
+
+
+def isWaiverPeriod():  # Has antipattern dupe in scheduling.py for server access
+    now = datetime.datetime.now()
+    if now.weekday() == 6:  # Sunday
+        return True
+    elif now.weekday() == 0:  # Monday
+        return True
+    elif now.weekday() == 1:  # Tuesday
+        return True
+    elif now.weekday() == 2:  # Wednesday
+        return True
+    else:
+        return False  # Thursday Friday or Saturday
