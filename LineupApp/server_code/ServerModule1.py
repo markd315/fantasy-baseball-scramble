@@ -27,6 +27,25 @@ def post_lineup(league, teamNm, **q):
     set_lineup(league, teamNm, json.dumps(anvil.server.request.body_json))
 
 
+@anvil.server.http_endpoint('/league/:league', methods=["POST"], authenticate_users=False)
+def create_league(league, **q):
+    folder = "leagues/" + league + "/team-lineups"
+    if not os.path.exists(folder):
+        # If the folder does not exist, create it
+        os.makedirs(folder)
+
+
+@anvil.server.http_endpoint('/league/:league/:teamNm', methods=["POST"], authenticate_users=False)
+def create_team(league, teamNm, **q):
+    print(anvil.server.request.body_json)
+    folder = "leagues/" + league + "/team-lineups"
+    if not os.path.exists(folder):
+        # If the folder does not exist, create it
+        os.makedirs(folder)
+    with open(os.path.join(folder, teamNm + ".json"), "w") as f:
+        f.write(str(anvil.server.request.body_json))
+        f.close()
+
 @anvil.server.callable
 def get_bench(league, teamNm):
     league = league.lower()
