@@ -165,6 +165,10 @@ class LineupChangeForm(LineupChangeTemplate):
                     self.exec_add_player_slot(payload, player, labels, dds, idx, dd_items_p, 'closer', list=False)
                 if "Fireman" in dropdown.placeholder:
                     self.exec_add_player_slot(payload, player, labels, dds, idx, dd_items_p, 'fireman', list=False)
+                if "Pinch Hitter" in dropdown.placeholder:
+                    self.exec_add_player_slot(payload, player, labels, dds, idx, dd_items_b, 'pinch-hitter', list=False)
+                if "Pinch Runner" in dropdown.placeholder:
+                    self.exec_add_player_slot(payload, player, labels, dds, idx, dd_items_b, 'pinch-runner', list=False)
                 if "Save Bullpen Deficit" in dropdown.placeholder:
                     self.exec_add_txt_slot(payload, player, labels, dds, idx, 'blowout-deficit-by-inning')
                     dropdown.text = payload['blowout-deficit-by-inning']
@@ -210,6 +214,12 @@ class LineupChangeForm(LineupChangeTemplate):
                         self.base_json['closer'] = dropdown.selected_value
                     if "Fireman" == dropdown.placeholder and len(dropdown.selected_value) > 0:
                         self.base_json['fireman'] = dropdown.selected_value
+                    if "Fireman" == dropdown.placeholder and len(dropdown.selected_value) > 0:
+                        self.base_json['fireman'] = dropdown.selected_value
+                    if "Pinch Hitter" == dropdown.placeholder and len(dropdown.selected_value) > 0:
+                        self.base_json['pinch-hitter'] = dropdown.selected_value
+                    if "Pinch Runner" == dropdown.placeholder and len(dropdown.selected_value) > 0:
+                        self.base_json['pinch-runner'] = dropdown.selected_value
                 else:
                     textbox = dropdown
                     if "Save Bullpen Deficit" in textbox.placeholder and len(textbox.text) > 0:
@@ -346,7 +356,11 @@ class LineupChangeForm(LineupChangeTemplate):
             arr.append(pitcher)
         arr.append(self.base_json['fireman'])
         arr.append(self.base_json['closer'])
-        for batter in self.base_json['batting-order']:
+        batters = []
+        batters.extend(self.base_json['batting-order'])
+        batters.append(self.base_json['pinch-hitter'])
+        batters.append(self.base_json['pinch-runner'])
+        for batter in batters:
             pos = self.get_position(batter)
             if pos == "TWP":
                 arr.append(batter)
@@ -365,7 +379,6 @@ class LineupChangeForm(LineupChangeTemplate):
         ret = []
         for pl in arr:
             pos = self.get_position(pl)
-            #print(pos)
             if pos == "TWP" and pl not in self.base_json['batting-order']:
                 ret.append(pl)
         return ret

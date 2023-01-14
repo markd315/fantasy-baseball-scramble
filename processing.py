@@ -90,6 +90,44 @@ def filterPlayerPas(box_games, player):
     return weekly_totals
 
 
+def filterPinchRunnerTotals(box_games, player):  #TODO reimplement this for PR
+    box_nm = player['boxscoreName']
+    game_lines = []
+    for box in box_games:
+        if box['away']['team']['id'] == player['currentTeam']:
+            for batter in box['awayBatters']:
+                if box_nm in batter['namefield']:
+                    game_lines.append(batter)
+        if box['home']['team']['id'] == player['currentTeam']:
+            for batter in box['homeBatters']:
+                if box_nm in batter['namefield']:
+                    game_lines.append(batter)
+    weekly_totals = {
+        'ab': 0, 'h': 0, 'doubles': 0, 'triples': 0, 'hr': 0,
+        'sb': 0, 'cs': 0, 'bb': 0, 'k': 0, 'e': 0, 'hbp': 0
+    }
+    for game in game_lines:
+        for attribute in game:
+            if attribute in config.trackedBattingStats:
+                weekly_totals[attribute] += int(game[attribute])
+    weekly_totals['double'] = weekly_totals['doubles']
+    weekly_totals['triple'] = weekly_totals['triples']
+    weekly_totals['home run'] = weekly_totals['hr']
+    weekly_totals['single'] = weekly_totals['h'] - weekly_totals['double'] - weekly_totals['triple'] - weekly_totals['home run']
+    weekly_totals['out'] = weekly_totals['ab'] - weekly_totals['h']
+    weekly_totals['pa'] = weekly_totals['ab'] + weekly_totals['bb']
+    weekly_totals['in_play_out'] = weekly_totals['out'] - weekly_totals['k']
+    weekly_totals['walk'] = weekly_totals['bb']
+    weekly_totals['e'] = 0
+    for box in box_games:
+        for blame in box['errors-blame']:
+            if blame in player['fullName']:
+                weekly_totals['e'] += 1
+        for hit in box['hbp']:
+            if hit in player['fullName']:
+                weekly_totals['hbp'] += 1
+    return weekly_totals
+
 def filterPlayerPasDefensive(box_games, player):
     box_nm = player['boxscoreName']
     game_lines = []

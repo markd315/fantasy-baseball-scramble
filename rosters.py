@@ -39,24 +39,16 @@ def removeFromLineup(league, teamName, player):
 
             # Check if the "team-name" property matches the team name parameter
             if data.get("team-name") == teamName:
-                # Check if the "closer" property matches the player parameter
                 if data.get("closer") == player:
-                    # Set the "closer" property to an empty string
                     data["closer"] = ""
 
-                # Check if the "pinch-hitter" property matches the player parameter
-                if data.get("pinch-hitter") == player:
-                    # Set the "pinch-hitter" property to an empty string
+                if data.get("pinch-hitter") == player:  # Also could have been added this commit
                     data["pinch-hitter"] = ""
 
-                # Check if the "pinch-runner" property matches the player parameter
-                if data.get("pinch-runner") == player:
-                    # Set the "pinch-runner" property to an empty string
+                if data.get("pinch-runner") == player:  # Also could have been added this commit
                     data["pinch-runner"] = ""
 
-                # Check if the "fireman" property matches the player parameter
                 if data.get("fireman") == player:
-                    # Set the "fireman" property to an empty string
                     data["fireman"] = ""
                 lst = data.get('batting-order')
                 data['batting-order'] = [line.strip() for line in lst if player != line]

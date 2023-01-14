@@ -71,6 +71,16 @@ def score(runs, logs, scored):
     return runs+scored, logs
 
 
+def substitutePrPhLogic(battingTeam, orderSlot, inning):
+    # batting results idx 9 == ph, idx 10 == pr
+    if battingTeam['pinch-runner'] != None and battingTeam['pinch-hitter'] != None:
+        pr = battingTeam['pinch-runner']
+        ph = battingTeam['pinch-hitter']
+        if pr != "" and ph != "":
+            pass
+
+
+
 def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                      pitcherScore, batterScore, pitcherHome, gameNumber):
     if inning > 9:
@@ -125,6 +135,8 @@ def simBlendedInning(battingTeam, pitchingTeam, orderSlot, currPitcher, inning,
                 out_stealing = True
                 pitcherOutcome = pitcherOutcome[0:-3]
                 logs += "Runner picked off by " + currPitcher + "\n"
+            else:
+                substitutePrPhLogic(battingTeam, orderSlot, inning)
             if (pitcherOutcome == 'home run'):
                 hits+=1
                 runs, logs = score(runs, logs, 1 + baseState[0] + baseState[1] + baseState[2])

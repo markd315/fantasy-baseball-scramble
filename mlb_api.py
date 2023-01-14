@@ -40,7 +40,7 @@ def fillErrors(player, box_games):
 def getOffense(team):
     offense = []
     offense.extend(team['batting-order'])
-    if team['pinch-hitter'] != '':
+    if team['pinch-hitter'] != '': # should already be 10-11 length due to these
         offense.append(team['pinch-hitter'])
     if team['pinch-runner'] != '':
         offense.append(team['pinch-runner'])
@@ -108,6 +108,8 @@ def loadLineup(league, team_name, box_games, weekNumber):
             totals = processing.filterPlayerPas(box_games, player)
             batterTotals[player['fullName'] + '_b'] = totals
             pas = processing.randomWalkOfWeeklyTotals(totals)
+            if idx == 10: # Pinch runner detected
+                pas = processing.filterPinchRunnerPas(box_games, player)
             if len(pas) < 5:
                 print("Small sample for starter " + player['fullName'])
                 for pl in roster:
