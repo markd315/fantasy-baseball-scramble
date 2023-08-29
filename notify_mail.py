@@ -1,6 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 
+
 def sendMail(recipient, body_text, sender="draft"):
     message = EmailMessage()
     message.set_content(body_text)

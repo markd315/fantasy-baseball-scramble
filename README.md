@@ -75,27 +75,26 @@ metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
 # Features to come:
+add email to the team files and be capable of sending notifications, especially "your turn in the async draft!" type ones.
+
 7 day weeks to prevent excessive lineup micromanagement.
 
-Troubleshoot any issues with substitutions using the live league backups.
+Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc
 
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 
 Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thing OP. If it's just a second chance to steal/bat when the hitter does not succeed with no consequence, maybe that's too strong?
-
 Ok so maybe implement PR straight up since they are specialists. For PH, look at the hitter being replaced. Add 3 past PA and 3 future PA to "see if they are hot" by taking the OPS. If the PH dataset has a higher OPS, make the substitution.
 
+Troubleshoot any issues with substitutions using the live league backups.
+
+Expanded roster option? 30 may make more sense than 25. Make it a config option.
+
+Per league simulation variables instead of globally configured ones. Make config.py invoke functions that get the league specific ones.
+
+Walkoff wins check this part to see if it works
+
 Injured list manage from Bench page, will also require change to data model to allow restrictions on readding player so that you cannot recall them for 10-15 days (or certain number of weeks) after adding.
-
-Expanded roster option? 30 may make more sense than 25.
-
-Per league simulation variables instead of globally configured ones.
-
-Walkoff wins
-
-Manager position as an optional fun thing, they can challenge wrong calls (put "it was a close play" sometimes in the output and have the wrong value) and get ejected for arguing balls and strikes.
-Need a datasource if I were to do this.
-
 "injuredList" [
     {
         "fullName": "[fn]"
@@ -103,23 +102,21 @@ Need a datasource if I were to do this.
     }
 ]
 
-Setup server cron job
+Setup server cron job for weekly runs.
+
+Manager position as an optional fun thing, they can challenge wrong calls (put "it was a close play" sometimes in the output and have the wrong value) and get ejected for arguing balls and strikes.
+Need a datasource if I were to do this. https://www.baseball-reference.com/managers/showabu99.shtml has it but season-level only so weekly comparisons to a baseline would be needed as well as the scraper. lots of work tbh for little benefit.
 
 Webapp ideas for quality of life:
-filter for players on mlb_data conditional on results dropdown set to this
-Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc
 Social login instead of team-code?
-Eventually... draft
+Eventually... more info provided on draft page, injury designations for players in lineup page, etc.
 
 
 # SSL
 You must reconfigure the SSL Dockerfile command if you are deploying this somewhere else
 
-# Local docker commands to build image
+# Local docker commands to build image (pipeline in git actions should do this now)
 ```commandline
-docker build -f Dockerfile.dev -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest .
-docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-dev:latest
-
 docker build -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
 docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
 ```

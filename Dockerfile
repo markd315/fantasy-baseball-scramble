@@ -1,15 +1,17 @@
-FROM python:3
+FROM ubuntu:20.04
 
-RUN apt-get -yyy update && apt-get -yyy install software-properties-common && \
-    wget -O- https://apt.corretto.aws/corretto.key | apt-key add - && \
-    add-apt-repository 'deb https://apt.corretto.aws stable main'
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    (dpkg -i google-chrome-stable_current_amd64.deb || apt install -y --fix-broken) && \
-    rm google-chrome-stable_current_amd64.deb
+RUN apt-get update -y \
+&& apt-get install -y software-properties-common \
+&& add-apt-repository ppa:deadsnakes/ppa \
+&& apt-get install openjdk-8-jdk -y \
+&& apt-get install python3-pip -y \
+&& export JAVA_HOME \
+&& apt-get clean \
+&& rm -rf /var/lib/apt/lists/*
 
-
-RUN apt-get -yyy update && apt-get -yyy install java-1.8.0-amazon-corretto-jdk ghostscript
+RUN apt-get -yyy update && apt-get -yyy install software-properties-common
 
 
 COPY requirements.txt requirements.txt
