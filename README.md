@@ -13,19 +13,19 @@ anvil-app-server --app LineupApp
 ```
 
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/line_output.png)
+![Example output](../main/img/line_output.png?raw=true)
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/debug_output.png)
+![Example output](../main/img/debug_output.png?raw=true)
 
 There is even a cool webapp which can run in a docker container and allows you to set your lineups, obtain results etc during league operation. Be sure to change the origin setting in the Dockerfile if you host it somewhere else.
 
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/set_lineup.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/add_drop.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/standings.png)
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/web_output.png)
+![Example output](../main/img/set_lineup.png?raw=true)
+![Example output](../main/img/add_drop.png?raw=true)
+![Example output](../main/img/standings.png?raw=true)
+![Example output](../main/img/web_output.png?raw=true)
 
 It even works okay on mobile! Mostly.
-![Example output](https://raw.githubusercontent.com/markd315/fantasy-baseball-scramble/master/img/mobile.png)
+![Example output](../main/img/mobile.png?raw=true)
 
 
 Both your batters and pitchers play full simulated games against your opponent(s).
@@ -74,13 +74,54 @@ judge = mlb_api.playerQuery('Aaron Judge')[0]
 metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
+# 2023 scheduling notes
+Opening Day March 30
+
+First rosters lock:
+Saturday midnight April 1-2 (technically Sunday)
+
+First waiver period:
+Monday - Thursday midnight April 3-7
+
+First open add/drop period:
+Thursday midnight - rosters lock midnight april 8-9
+
+First rosters lock midnight april 8-9
+is also the
+First simulation (5 games worth):
+midnight April 8-9
+
+Every date thereafter is just +N weeks until you get to the allstar break
+
+Sunday April 2 - Saturday July 8 (start of all star break)
+14 weeks
+Sunday July 16 - Saturday Sept 30 (few days before end of season)
+11 more weeks
+
+gives us 25 total weeks of play.
+For 16 teams:
+7*2 in-division games + 8 OOD games = 22, 2 playoff weeks of 4 teams
+
+For 14 teams:
+6*2 in-division games + 7 OOD games = 19, 2 playoff weeks of 4 teams
+
+For 12 teams:
+22 regular season x2RR, 2 weeks playoff of 4 teams
+
+For 10 teams:
+18 regular season x2RR, 3 weeks playoff of 6 teams.
+
+For 8 teams:
+21 regular season x3RR, 2 week playoff of 4 teams (or 3 weeks of 6 with a play-in)
+
+For 6 teams:
+20 regular season x4RR, 2 week playoff of 4 teams
+
+For 4 teams:
+24 regular season x7RR, 1 week finals + consolation
+
+
 # Features to come:
-add email to the team files and be capable of sending notifications, especially "your turn in the async draft!" type ones.
-
-7 day weeks to prevent excessive lineup micromanagement.
-
-Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc
-
 If your hitter gets on base in the seventh inning or later and your pinch runner has any CS or SB from the week, the hitter will be replaced by the pinch-runner and the CS or SB modifier will take place.
 
 Same for pinch hitter maybe. But it seems hard to not make this pinch hitter thing OP. If it's just a second chance to steal/bat when the hitter does not succeed with no consequence, maybe that's too strong?
@@ -107,9 +148,12 @@ Setup server cron job for weekly runs.
 Manager position as an optional fun thing, they can challenge wrong calls (put "it was a close play" sometimes in the output and have the wrong value) and get ejected for arguing balls and strikes.
 Need a datasource if I were to do this. https://www.baseball-reference.com/managers/showabu99.shtml has it but season-level only so weekly comparisons to a baseline would be needed as well as the scraper. lots of work tbh for little benefit.
 
-Webapp ideas for quality of life:
+
+### Webapp ideas for quality of life:
+
+Initialize new leagues with HTTP endpoint and a secret key with the team names, codes, etc. This is the potential revenue adder
 Social login instead of team-code?
-Eventually... more info provided on draft page, injury designations for players in lineup page, etc.
+Eventually... live draft instead of email notifications? Requires page to live update so probably not.
 
 
 # SSL

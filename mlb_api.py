@@ -226,7 +226,7 @@ def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bi
         return playerQuery(name, teamId, pos)
 
 
-def getWeeklyBox(endtime=datetime.now(), duration_days=5):  # subtract timedelta to rule out games in progress
+def getWeeklyBox(endtime=datetime.now(), duration_days=7):  # subtract timedelta to rule out games in progress
     end_date = endtime.strftime("%Y-%m-%d")
     begin = endtime - timedelta(days=duration_days)  #5 day lookback instead of 7 to prevent double starts?
     st_date = begin.strftime("%Y-%m-%d")

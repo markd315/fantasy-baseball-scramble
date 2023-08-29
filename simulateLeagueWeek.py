@@ -1,6 +1,7 @@
 from tabulate import tabulate
 
 import game
+import rosters
 import simulationConfig as config
 
 leagueWeek = config.leagueWeek
@@ -59,13 +60,17 @@ for league in os.listdir("leagues"):
         line_scores += tabulate(line_score) + "\n\n"
         scheduling.writeLineScores(league, line_scores, gm[0], gm[1], leagueWeek)
 
-        scheduling.commitNewRosters(league)
+        rosters.commitNewRosters(league)
+
+
+        rosters.processWaivers(league)
     else:
         for gm in week:
             print(gm[1]['team-name'] + "@" + gm[0]['team-name'])
             if gm[0]['team-name'] != 'Bye' and gm[1]['team-name'] != 'Bye':
                 scheduling.multiGameSeries(gm[0], gm[1], 4, league, leagueWeek)
-        scheduling.commitNewRosters(league)
+        rosters.commitNewRosters(league)
+        rosters.processWaivers(league)
 
 # game.offenseCalibrationOutput(away)
 print("fin")

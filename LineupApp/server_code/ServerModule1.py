@@ -7,41 +7,9 @@ import anvil.server
 
 import mlb_api
 import notify_mail
+import rosters
 import scheduling
-import simulationConfig
-
-
-def add_chat(league, sender, msg):
-    msg = msg.replace(">", "\\>")  # to avoid fake messages
-    date_time_str = datetime.datetime.now().strftime("%m-%d %H:%M")
-    with open("leagues/" + league + "/Chat", "a") as chat_file:
-        toAdd = ">" + sender + " " + date_time_str + ": " + msg + "\n\n"
-        chat_file.write(toAdd)
-        chat_file.close()
-
-
-def authenticateAndGetAbbv(league, teamNm):
-    with open("leagues/" + league + "/team-lineups/" + teamNm + ".json", "r") as lineup_file:
-        lineup = json.load(lineup_file)
-        abbv = lineup['abbv']
-        lineup_file.close()
-        return abbv
-
-
-def getLineup(league, teamNm):
-    try:
-        with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json", "r") as lineup_file:
-            lineup = json.load(lineup_file)
-            lineup_file.close()
-            return lineup
-    except BaseException:  # the league is initializing
-        print("init")
-        with open("leagues/" + league + "/team-lineups/" + teamNm + ".json", "r") as preset_lineup_file:
-            lineup = json.load(preset_lineup_file)
-            with open("leagues/" + league + "/team-lineups/next_" + teamNm + ".json", "w") as lineup_file:
-                lineup_file.write(json.dumps(lineup, indent=2, separators=(',', ': ')))
-                lineup_file.close()
-            preset_lineup_file.close()
+from rosters import getLineup, addPlayerValidated, checkDraftState, add_chat, authenticateAndGetAbbv
 
 
 @anvil.server.callable
@@ -58,6 +26,25 @@ def post_lineup(league, teamNm, **q):
     league = league.lower()
     set_lineup(league, teamNm, json.dumps(anvil.server.request.body_json))
 
+
+@anvil.server.http_endpoint('/league/:league', methods=["POST"], authenticate_users=False)
+def create_league(league, **q):
+    folder = "leagues/" + league + "/team-lineups"
+    if not os.path.exists(folder):
+        # If the folder does not exist, create it
+        os.makedirs(folder)
+
+
+@anvil.server.http_endpoint('/league/:league/:teamNm', methods=["POST"], authenticate_users=False)
+def create_team(league, teamNm, **q):
+    print(anvil.server.request.body_json)
+    folder = "leagues/" + league + "/team-lineups"
+    if not os.path.exists(folder):
+        # If the folder does not exist, create it
+        os.makedirs(folder)
+    with open(os.path.join(folder, teamNm + ".json"), "w") as f:
+        f.write(str(anvil.server.request.body_json))
+        f.close()
 
 @anvil.server.callable
 def get_bench(league, teamNm):
@@ -107,6 +94,7 @@ def set_lineup(league, teamNm, lineup):
         lineup_file.close()
     return {}
 
+
 @anvil.server.callable
 def drop_player(league, teamNm, player_drop):
     league = league.lower()
@@ -127,77 +115,9 @@ def drop_player(league, teamNm, player_drop):
     return {}
 
 
-def checkDraftOver(league):
-    for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
-        with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
-            roster = roster_file.readlines()
-            roster_file.close()
-            if len(roster) < simulationConfig.maxRosterSize:
-                return False
-    with open("leagues/" + league + "/League_note", "w") as note_file:
-        note_file.write("Draft complete! Time to set your lineups!")
-        note_file.close()
-    add_chat(league, "Draft Helper", "Draft Finalized!")
-    return True
-
-
-def checkDraftState(league, abbv, player_add):  # Returns if we are in a draft at all.
-    with open("leagues/" + league + "/League_note", "r+") as note_file:
-        note = note_file.readlines()
-        if note[0].startswith("Drafting! Current pick order: "):
-            pick_state_str = note[0].replace("Drafting! Current pick order: ", "")
-            arr = json.loads(pick_state_str)
-            if arr[0] == abbv:  # We have made our selection!
-                addPlayerValidated(league, abbv, player_add)
-                add_chat(league, "Draft Helper", str(abbv) + " drafted " + player_add)
-                arr.append(arr.pop(0))
-            if arr[0] == "snake":  # no additional logic for a non snake draft, just put the teams in the desired order and it will cycle.
-                teams = arr[1:]
-                arr = teams[::-1]  # Reverse order so same team picks again
-                arr.append("snake")
-            output = "Drafting! Current pick order: " + json.dumps(arr)
-            note_file.close()
-        else:
-            return False
-    if not checkDraftOver(league):
-        with open("leagues/" + league + "/League_note", "r+") as note_file:
-            note_file.write(output)
-            note_file.close()
-    return True
-
-
-def addPlayerValidated(league, abbv, player_add):
-    any_roster = []
-    for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
-        with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
-            roster = roster_file.readlines()
-            for line in roster:
-                any_roster.append(line.strip())
-            roster_file.close()
-            if abbv in p.name:
-                our_roster = roster
-    with open("leagues/" + league + "/team-lineups/" + abbv + ".roster", "w") as roster_file:
-        if player_add not in any_roster and len(our_roster) < simulationConfig.maxRosterSize and len(our_roster) > 0:
-            our_roster[len(our_roster) - 1] += "\n"
-            our_roster.append(player_add)
-        elif len(our_roster) == 0:
-            our_roster = [player_add]
-        roster_file.writelines(our_roster)
-        roster_file.close()
-
-
 @anvil.server.callable
 def get_rostered_team(league, player_nm, **q):
-    for p in Path("leagues/" + league + "/team-lineups/").glob('*.roster'):
-        with open("leagues/" + league + "/team-lineups/" + p.name, "r") as roster_file:
-            lines = roster_file.readlines()
-            for idx, line in enumerate(lines):
-                lines[idx] = line.strip()
-            if player_nm in lines:
-                roster_file.close()
-                return p.name.replace(".roster", "")
-            roster_file.close()
-    return ""
+    rosters.get_rostered_team(league, player_nm)
 
 
 
@@ -232,8 +152,9 @@ def get_results(league, teamAbbv, week, selector):
             return ret
     elif selector == "Standings":
         try:
-            notify_mail.sendMail("markd315@gmail.com", "Standings were checked at " + str(datetime.datetime.now()))
-        except BaseException:
+            notify_mail.sendMail("markd315@gmail.com", "Standings were checked at " + str(datetime.datetime.now()), "Server Activity")
+        except BaseException as exc1:
+            print(exc1)
             pass
         with open("leagues/" + league + "/Standings", "r") as results_file:
             ret = results_file.read()
@@ -411,3 +332,27 @@ def approve_trade(league, teamNm, trade_code):
         roster_file.close()
     delete_trade(league, teamNm, trade_code)
     add_chat(league, "Trade Executed", msg)
+
+
+@anvil.server.callable
+def clear_waiver_claims(league, team):
+    rosters.clearWaiverClaims(league, team)
+
+
+@anvil.server.callable
+def add_to_waiver_claims(league, team, add, drop):
+    if scheduling.isWaiverPeriod():
+        rosters.addToWaiver(league, team, add, drop)
+    else:
+        rostered_team = rosters.get_rostered_team(league, add)
+        if rostered_team != "":  # Not processing if adding a rostered player
+            return
+        if drop != "":
+            rosters.removeFromLineup(league, team, drop)
+            drop_player(league, team, drop)
+        add_player(league, team, add)
+
+
+@anvil.server.callable
+def get_waiver_claims(league, team):
+    return rosters.getWaiverClaims(league, team)
