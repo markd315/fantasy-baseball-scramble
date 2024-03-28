@@ -49,6 +49,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.league_week = TextBox(placeholder="Week", width=45)
         self.get_results = Button(text="Get Results",
                                   role="primary-color")
+        self.get_lineup = Button(text="Load Team", role="primary-color")
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
         self.clear_claims = Button(text="Clear Weekly Claims", role="secondary-color", background='#ff0000')
         self.add_claim = Button(text="Submit Claim", role="secondary-color", background='#40ff00')
@@ -98,7 +99,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.instr = Label(text=self.txt_label[0], font_size=18)
         self.page_state = 'lineup'
         # Pages
-        self.ctl_lineup = {self.league_name, self.team_name, self.set_lineup, self.roster, self.instr}
+        self.ctl_lineup = {self.league_name, self.team_name, self.get_lineup, self.set_lineup, self.roster, self.instr}
         self.ctl_add_drop = {self.league_name, self.team_name, self.add_claim, self.clear_claims, self.roster, self.add_panel, self.instr}
         self.ctl_results = {self.league_name, self.league_week,
                             self.get_results, self.team_abbv, self.results_sel, self.results_panel, self.instr}
@@ -229,10 +230,8 @@ class LineupChangeTemplate(HtmlPanel):
         self.lineup_defined = True
 
     def addHandlers(self):
-        if hasattr(self, "team_name"):
-            self.team_name.set_event_handler('change', self.load_positions)
-        if hasattr(self, "league_name"):
-            self.league_name.set_event_handler('change', self.load_positions)
+        if hasattr(self, "get_lineup"):
+            self.get_lineup.set_event_handler('click', self.load_positions)
         if hasattr(self, "player_name"):
             self.player_name.set_event_handler('change', self.check_pos_add_rm)
         if hasattr(self, "trade_selector"):

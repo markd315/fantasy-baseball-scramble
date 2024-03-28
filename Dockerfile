@@ -52,7 +52,7 @@ COPY scrapeInjuries.py scrapeInjuries.py
 COPY playersTeamsAndPositions.json playersTeamsAndPositions.json
 
 
-EXPOSE 443
+EXPOSE 3030
 
-ENTRYPOINT ["anvil-app-server", "--data-dir", "/anvil-data", "--port", "443", "--origin", "https://fantasy.zanzalaz.com"]
+ENTRYPOINT ["anvil-app-server", "--data-dir", "/anvil-data", "--port", "3030"]
 CMD ["--app", "LineupApp"]

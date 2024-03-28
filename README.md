@@ -74,8 +74,8 @@ judge = mlb_api.playerQuery('Aaron Judge')[0]
 metspitchers = mlb_api.playerQuery(teamId=121, pos='P')
 ```
 
-# 2023 scheduling notes
-Opening Day March 30
+# 2024 scheduling notes
+Opening Day March 28
 
 First rosters lock:
 Saturday midnight April 1-2 (technically Sunday)
@@ -161,8 +161,8 @@ You must reconfigure the SSL Dockerfile command if you are deploying this somewh
 
 # Local docker commands to build image (pipeline in git actions should do this now)
 ```commandline
-docker build -t 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest .
-docker push 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
+docker build -t gcr.io/precise-machine-249019/fantasy-baseball .
+docker push gcr.io/precise-machine-249019/fantasy-baseball:latest
 ```
 
 # Docker commands for admin
