@@ -38,7 +38,7 @@ class LineupChangeTemplate(HtmlPanel):
 
         # Parts
         self.league_name = TextBox(placeholder="League Name",
-                                   text="c1league")
+                                   text="2024league")
         self.team_name = TextBox(placeholder="Team Code")
         self.results_sel = DropDown(
             items=["Standings", "Line scores", "Schedule", "Team totals", "League note", "Roster", "Game 1", "Game 2", "Game 3",
