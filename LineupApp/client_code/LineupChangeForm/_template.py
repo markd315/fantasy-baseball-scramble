@@ -49,7 +49,7 @@ class LineupChangeTemplate(HtmlPanel):
         self.league_week = TextBox(placeholder="Week", width=45)
         self.get_results = Button(text="Get Results",
                                   role="primary-color")
-        self.get_lineup = Button(text="Load Team", role="primary-color")
+        self.get_lineup = Button(text="Login To Team", role="primary-color")
         self.set_lineup = Button(text="Set Lineup", role="secondary-color")
         self.clear_claims = Button(text="Clear Weekly Claims", role="secondary-color", background='#ff0000')
         self.add_claim = Button(text="Submit Claim", role="secondary-color", background='#40ff00')
@@ -218,12 +218,12 @@ class LineupChangeTemplate(HtmlPanel):
             self.direct_players.append(player)
 
         config = FlowPanel(align="center")
-        config.add_component(Label(text="Reverse bullpen order (when losing by <=N runs in the indexed inning)", width=310))
+        config.add_component(Label(text="Save Bullpen Arms (Reverses bullpen order when losing by list[i] or more runs in the inning i)", width=310))
         config.add_component(TextBox(placeholder="Save Bullpen Deficit", width=310))
         self.lineup.add_component(config)
         self.direct_players.append(config)
         config = FlowPanel(align="center")
-        config.add_component(Label(text="Closer enters game when lead is between (min):(max) runs", width=310))
+        config.add_component(Label(text="Closer enters game in 9th when lead is between (min):(max) runs", width=310))
         config.add_component(TextBox(placeholder="Closer Settings"))
         self.lineup.add_component(config)
         self.direct_players.append(config)
