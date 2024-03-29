@@ -5,6 +5,7 @@ import statsapi
 import json
 import processing
 import simulationConfig
+import unicodedata as ud
 
 
 def validateOnRoster(player, roster):
@@ -195,6 +196,24 @@ def loadLineup(league, team_name, box_games, weekNumber):
             json_file.write(json.dumps(playerTotals, indent=2, separators=(',', ': ')))
         return team
 
+def rmdiacritics(s):
+    '''
+    Return the base character of char, by "removing" any
+    diacritics like accents or curls and strokes and the like.
+    '''
+    ret = ""
+    for idx, char in enumerate(s):
+        desc = ud.name(char)
+        cutoff = desc.find(' WITH ')
+        if cutoff != -1:
+            desc = desc[:cutoff]
+            try:
+                char = ud.lookup(desc)
+            except KeyError:
+                pass  # removing "WITH ..." produced an invalid name
+        ret += char
+    return ret
+
 
 def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bit to complete.
     try:
@@ -214,7 +233,7 @@ def playerQuery(name=None, teamId=None, pos=None):  #  note: this will take a bi
             write_players = []
             for pl_full in players:
                 pl = {
-                    "fullName": pl_full["fullName"],
+                    "fullName": rmdiacritics(pl_full["fullName"]),
                     "boxscoreName": pl_full['boxscoreName'],
                     "currentTeam": pl_full["currentTeam"]["id"],
                     "primaryPosition": pl_full['primaryPosition'],
