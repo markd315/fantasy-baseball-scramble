@@ -1,5 +1,5 @@
-leagueWeek = 5
-maxRegularSeasonWeeks = 6
+leagueWeek = 0
+maxRegularSeasonWeeks = 15
 innings = 9
 trackedBattingStats = ['ab', 'h', 'doubles', 'triples', 'hr', 'sb', 'bb', 'k']
 trackedPitchingStats = ['ip', 'h', 'bb', 'k', 'hr']
@@ -12,7 +12,7 @@ sacrificeBuntRatio = .07
 productiveOutToThirdRatio = .10
 sacrificeFlyToHomeRatio = .25
 firstToThirdSingleRatio = .45
-teamsInLeague = 4
+teamsInLeague = 6
 secondToHomeOnErrorChance = 0.15
 secondToHomeOnErrorChanceTwoOuts = 0.50
 firstToThirdOnErrorChanceTwoOuts = 0.25  # subset of previous setting
