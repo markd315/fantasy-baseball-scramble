@@ -1334,8 +1334,8 @@
     "boxscoreName": "Butler, L",
     "currentTeam": 133,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -1492,8 +1492,8 @@
     "boxscoreName": "Canzone",
     "currentTeam": 136,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -2978,8 +2978,8 @@
     "boxscoreName": "Frelick",
     "currentTeam": 158,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -4321,8 +4321,8 @@
     "boxscoreName": "Jiménez, E",
     "currentTeam": 145,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -4945,8 +4945,8 @@
     "boxscoreName": "Lee, J.H.",
     "currentTeam": 137,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -5806,8 +5806,8 @@
     "boxscoreName": "Merrill",
     "currentTeam": 135,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -6680,8 +6680,8 @@
     "boxscoreName": "Palacios, R",
     "currentTeam": 139,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "LHB",
@@ -7113,8 +7113,8 @@
     "boxscoreName": "Rafaela",
     "currentTeam": 111,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -7192,8 +7192,8 @@
     "boxscoreName": "Ramírez, H",
     "currentTeam": 139,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -7651,8 +7651,8 @@
     "boxscoreName": "Rosario, A",
     "currentTeam": 139,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",
@@ -8302,7 +8302,7 @@
     ]
   },
   {
-    "fullName": "Will Smith",
+    "fullName": "Will Smith (b)",
     "boxscoreName": "Smith, W.D.",
     "currentTeam": 119,
     "primaryPosition": {
@@ -8315,7 +8315,7 @@
     ]
   },
   {
-    "fullName": "Will Smith",
+    "fullName": "Will Smith (p)",
     "boxscoreName": "Smith, W",
     "currentTeam": 118,
     "primaryPosition": {
@@ -8371,8 +8371,8 @@
     "boxscoreName": "Soler",
     "currentTeam": 137,
     "primaryPosition": {
-      "code": "O",
-      "abbreviation": "OF"
+      "code": "10",
+      "abbreviation": "DH"
     },
     "handedness": [
       "RHB",

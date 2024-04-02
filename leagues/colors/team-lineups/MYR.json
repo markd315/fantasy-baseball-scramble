@@ -1,0 +1,50 @@
+{
+  "team-name": "Medellin Yellow Rangers",
+  "abbv": "MYR",
+  "batting-order": [
+    "Jose Altuve",
+    "Vladimir Guerrero Jr.",
+    "CJ Abrams",
+    "Adolis Garcia",
+    "Jazz Chisholm Jr.",
+    "Lane Thomas",
+    "Josh Naylor",
+    "Giancarlo Stanton",
+    "Logan O'Hoppe"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Spencer Strider",
+    "Corbin Burnes",
+    "Blake Snell",
+    "Kodai Senga",
+    "Kevin Gausman"
+  ],
+  "bullpen": [
+    "Aaron Nola",
+    "Trevor Rogers",
+    "Jose Berrios",
+    "A.J. Puk",
+    "Will Smith (p)",
+    "Jonathan Loaisiga",
+    "Yennier Cano"
+  ],
+  "closer": "Edwin Diaz",
+  "fireman": "Evan Phillips",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}

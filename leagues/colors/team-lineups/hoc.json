@@ -1,0 +1,50 @@
+  {
+  "team-name": "Hanoi Orange Crush",
+  "abbv": "HOC",
+  "batting-order": [
+    "Mookie Betts",
+    "Matt Olson",
+    "Shohei Ohtani",
+    "Marcus Semien",
+    "Luis Robert Jr.",
+    "Manny Machado",
+    "Randy Arozarena",
+    "Adley Rutschman",
+    "Bryson Stott"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Luis Castillo",
+    "Framber Valdez",
+    "Bryce Miller",
+    "Joe Ryan",
+    "Chris Bassitt"
+  ],
+  "bullpen": [
+    "Andres Munoz",
+    "Aaron Civale",
+    "Luis Severino",
+    "Paul Sewald",
+    "Robert Stephenson",
+    "Mason Miller",
+    "Alex Lange"
+  ],
+  "closer": "Emmanuel Clase",
+  "fireman": "Raisel Iglesias",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}

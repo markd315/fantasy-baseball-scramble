@@ -1,0 +1,50 @@
+{
+  "team-name": "Toronto Green Thicket",
+  "abbv": "TGT",
+  "batting-order": [
+    "Bobby Witt Jr.",
+    "Fernando Tatis Jr.",
+    "Pete Alonso",
+    "Ozzie Albies",
+    "Mike Trout",
+    "Christian Yelich",
+    "Will Smith (b)",
+    "Jake Burger",
+    "Jorge Soler"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Zach Wheeler",
+    "Logan Webb",
+    "George Kirby",
+    "Tarik Skubal",
+    "Max Fried"
+  ],
+  "bullpen": [
+    "Brayan Bello",
+    "Shane Bieber",
+    "MacKenzie Gore",
+    "Pete Fairbanks",
+    "Evan Phillips",
+    "Kevin Ginkel",
+    "Jason Adam"
+  ],
+  "closer": "Pete Fairbanks",
+  "fireman": "Craig Kimbrel",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}
