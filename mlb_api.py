@@ -74,7 +74,10 @@ def getAndValidateLineup(team, roster):
 
 def positionCompatible(toReplace, player):
     positionToFill = toReplace['primaryPosition']['code']
-    player = playerQuery(player)[0]
+    try:
+        player = playerQuery(player)[0]
+    except Exception:
+        return False
     if positionToFill == player['primaryPosition']['code']:
         return True
     if positionToFill in ["7", "8", "9"] and player['primaryPosition']['code'] in ["7", "8", "9"]:
@@ -102,7 +105,10 @@ def loadLineup(league, team_name, box_games, weekNumber):
         offense = getOffense(team)
         batterTotals = {}
         for idx, player in enumerate(offense):
-            player = playerQuery(player)[0]
+            try:
+                player = playerQuery(player)[0]
+            except Exception:
+                print(player + " missing")
             team['handedness'][player['fullName']] = player['handedness']
             validateOnRoster(player, roster)
             code = player['primaryPosition']['code']
@@ -151,7 +157,11 @@ def loadLineup(league, team_name, box_games, weekNumber):
         for player in pitchers:
             if player == '':
                 continue
-            player = playerQuery(player)[0]
+            try:
+                player = playerQuery(player)[0]
+            except Exception:
+                print("Couldn't find pitcher")
+                print(player)
             team['handedness'][player['fullName']] = player['handedness']
             # Commenting this out because there could be trades drops etc, validate elsewhere.
             # validateOnRoster(player, roster)

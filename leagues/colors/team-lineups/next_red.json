@@ -2,7 +2,7 @@
   "team-name": "Mexico City Red Storm",
   "abbv": "MXRS",
   "batting-order": [
-    "Ronald Acuna",
+    "Ronald Acuna Jr.",
     "Gunnar Henderson",
     "Trea Turner",
     "Michael Harris II",
@@ -10,23 +10,21 @@
     "Triston Casas",
     "J.T. Realmuto",
     "Andres Gimenez",
-    "Byron Buxton"
+    "Ian Happ"
   ],
   "pinch-hitter": "",
   "pinch-runner": "",
   "starters": [
-    "Sonny Gray",
+    "Hunter Brown",
     "Zach Eflin",
-    "Clayton Kershaw",
+    "Yu Darvish",
     "Zac Gallen",
     "Logan Gilbert"
   ],
   "bullpen": [
-    "Hunter Brown",
     "Michael King",
     "Charlie Morton",
     "Alexis Diaz",
-    "Matt Brash",
     "Hector Neris",
     "Chris Martin"
   ],
