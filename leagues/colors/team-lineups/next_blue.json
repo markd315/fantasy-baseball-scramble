@@ -1,0 +1,50 @@
+{
+  "team-name": "Porto Blue Bombers",
+  "abbv": "PBB",
+  "batting-order": [
+    "Freddie Freeman",
+    "Marcus Semien",
+    "Corbin Carroll",
+    "Yordan Alvarez",
+    "Francisco Lindor",
+    "Rafael Devers",
+    "Cody Bellinger",
+    "Willson Contreras",
+    "Seiya Suzuki"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Yoshinobu Yamamoto",
+    "Nathan Eovaldi",
+    "George Kirby",
+    "Chris Sale",
+    "Bailey Ober"
+  ],
+  "bullpen": [
+    "Triston McKenzie",
+    "Kenley Jansen",
+    "Hunter Harvey",
+    "Kyle Finnegan",
+    "Carlos Estevez",
+    "Robert Suarez",
+    "Brock Stewart"
+  ],
+  "closer": "Josh Hader",
+  "fireman": "Cole Ragans",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}

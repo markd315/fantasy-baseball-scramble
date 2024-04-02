@@ -1,0 +1,50 @@
+{
+  "team-name": "Mexico City Red Storm",
+  "abbv": "MXRS",
+  "batting-order": [
+    "Ronald Acuna",
+    "Gunnar Henderson",
+    "Trea Turner",
+    "Michael Harris II",
+    "Kyle Schwarber",
+    "Triston Casas",
+    "J.T. Realmuto",
+    "Andres Gimenez",
+    "Byron Buxton"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Sonny Gray",
+    "Zach Eflin",
+    "Clayton Kershaw",
+    "Zac Gallen",
+    "Logan Gilbert"
+  ],
+  "bullpen": [
+    "Hunter Brown",
+    "Michael King",
+    "Charlie Morton",
+    "Alexis Diaz",
+    "Matt Brash",
+    "Hector Neris",
+    "Chris Martin"
+  ],
+  "closer": "Ryan Helsley",
+  "fireman": "Camilo Doval",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}

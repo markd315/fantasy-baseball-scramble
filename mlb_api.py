@@ -1,4 +1,5 @@
 import random
+import sys
 from datetime import datetime
 from datetime import timedelta
 import statsapi
@@ -63,8 +64,11 @@ def getAndValidateLineup(team, roster):
     for pl in ret:
         #print(pl)
         if pl != "":
-            player = playerQuery(pl)[0]
-            validateOnRoster(player, roster)
+            try:
+                player = playerQuery(pl)[0]
+                validateOnRoster(player, roster)
+            except Exception:
+                print(pl, file=sys.stderr)
     return ret
 
 

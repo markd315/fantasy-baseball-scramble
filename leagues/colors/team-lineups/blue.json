@@ -3,13 +3,13 @@
   "abbv": "PBB",
   "batting-order": [
     "Freddie Freeman",
-    "Trevor Semien",
+    "Marcus Semien",
     "Corbin Carroll",
     "Yordan Alvarez",
     "Francisco Lindor",
     "Rafael Devers",
     "Cody Bellinger",
-    "Wilson Contreras",
+    "Willson Contreras",
     "Seiya Suzuki"
   ],
   "pinch-hitter": "",
@@ -22,16 +22,16 @@
     "Bailey Ober"
   ],
   "bullpen": [
-    "Cole Ragans",
     "Triston McKenzie",
     "Kenley Jansen",
     "Hunter Harvey",
     "Kyle Finnegan",
     "Carlos Estevez",
     "Robert Suarez",
+    "Brock Stewart"
   ],
   "closer": "Josh Hader",
-  "fireman": "Jordan Romano",
+  "fireman": "Cole Ragans",
   "closer-min-lead-away": 0,
   "closer-max-lead-away": 3,
   "closer-min-lead-home": 0,

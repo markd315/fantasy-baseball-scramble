@@ -1,0 +1,50 @@
+{
+  "team-name": "Istanbul Purple Frogs",
+  "abbv": "IPF",
+  "batting-order": [
+    "Julio Rodriguez",
+    "Corey Seager",
+    "Bryce Harper",
+    "Austin Riley",
+    "Nico Hoerner",
+    "Wyatt Langford",
+    "Spencer Steer",
+    "Zack Gelof",
+    "Marcell Ozuna"
+  ],
+  "pinch-hitter": "",
+  "pinch-runner": "",
+  "starters": [
+    "Kyle Bradish",
+    "Merrill Kelly",
+    "Pablo Lopez",
+    "Tyler Glasnow",
+    "Jesus Luzardo"
+  ],
+  "bullpen": [
+    "Jose Alvarado",
+    "Kutter Crawford",
+    "Marcus Stroman",
+    "David Bednar",
+    "Jose Leclerc",
+    "Bryan Abreu",
+    "Brusdar Graterol"
+  ],
+  "closer": "Tanner Scott",
+  "fireman": "Clay Holmes",
+  "closer-min-lead-away": 0,
+  "closer-max-lead-away": 3,
+  "closer-min-lead-home": 0,
+  "closer-max-lead-home": 2,
+  "blowout-deficit-by-inning": [
+    8,
+    7,
+    6,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4
+  ]
+}

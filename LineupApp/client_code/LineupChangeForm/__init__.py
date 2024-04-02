@@ -115,6 +115,7 @@ class LineupChangeForm(LineupChangeTemplate):
         if json_str == "":  # user still typing name, maybe this makes it easy to bruteforce though
             return
         payload = json.loads(json_str)
+        print(payload)
         if self.team_abbv.text == "":  # May as well add this so the user doesn't need to type it.
             self.team_abbv.text = payload['abbv']
         self.base_json = payload
