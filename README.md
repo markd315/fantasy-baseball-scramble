@@ -164,7 +164,6 @@ You must reconfigure the SSL Dockerfile command if you are deploying this somewh
 docker build -t gcr.io/precise-machine-249019/fantasy-baseball .
 docker push gcr.io/precise-machine-249019/fantasy-baseball:latest
 ```
-
 # Docker commands for admin
 Saves containerid for anything below.
 ```commandline
