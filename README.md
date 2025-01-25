@@ -36,8 +36,7 @@ eid=$(sudo docker ps | tail -n 1 | awk '{print $1;}')
 2025 issue: leagues didnt load from the docker image. workaround to get them from source control directly:
 ```commandline
 c37 = the container image
-sudo docker cp /home/ec2-user/backups/leagues/ $eid:/apps
-
+sudo docker cp leagues $eid:/apps
 ```
 
 ![Example output](../main/img/line_output.png?raw=true)
