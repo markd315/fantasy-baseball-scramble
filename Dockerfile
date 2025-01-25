@@ -1,5 +1,9 @@
 FROM ubuntu:20.04
 
+# If you don't update the dockerfile at all, I don't think the github action will update the repos files either.1
+# So change this if you want to deploy again
+ENV VERSION 2025.1
+
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
 
 RUN apt-get update -y \
