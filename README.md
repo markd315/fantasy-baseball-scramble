@@ -12,6 +12,33 @@ python simulateLeagueWeek.py
 anvil-app-server --app LineupApp
 ```
 
+aws
+```commandline
+sudo aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 720291373173.dkr.ecr.us-east-1.amazonaws.com
+sudo docker pull 720291373173.dkr.ecr.us-east-1.amazonaws.com/fantasy-baseball-prod:latest
+
+sudo docker kill xxx
+sudo docker run -d -p 3030:3030 mlb:latest
+sudo docker ps
+```
+
+# Docker commands for admin
+Saves containerid for anything below.
+```commandline
+
+Note: may not work when multiple images running
+sudo su -
+cd /home/ec2-user
+
+eid=$(sudo docker ps | tail -n 1 | awk '{print $1;}')
+```
+
+2025 issue: leagues didnt load from the docker image. workaround to get them from source control directly:
+```commandline
+c37 = the container image
+sudo docker cp /home/ec2-user/backups/leagues/ $eid:/apps
+
+```
 
 ![Example output](../main/img/line_output.png?raw=true)
 
@@ -163,18 +190,6 @@ You must reconfigure the SSL Dockerfile command if you are deploying this somewh
 ```commandline
 docker build -t gcr.io/precise-machine-249019/fantasy-baseball .
 docker push gcr.io/precise-machine-249019/fantasy-baseball:latest
-```
-
-# Docker commands for admin
-Saves containerid for anything below.
-```commandline
-
-Note: not working yet in set-eid.sh
-sudo su -
-cd /home/ec2-user
-
-eid=$(docker ps --filter name=fantasy-mlb-dev | tail -n 1 | awk '{print $1;}')
-eid=$(docker ps --filter name=fantasy-mlb-prod | tail -n 1 | awk '{print $1;}')
 ```
 
 Takes a league backup to the vm
